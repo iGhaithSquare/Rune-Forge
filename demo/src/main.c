@@ -9,9 +9,15 @@ void main_layer_ondetach(layer* self){
     destroy_runewall(data->RuneWall);
 }
 void main_layer_polling_callback(layer* self,void* ctx){
+    /* each poll should only happen once per frame. So do not repoll in another layer */
     input_polling();
+    poll_delta_time();
     /* the polling stuff */
     return;
+}
+void main_update_layer(layer* self, void* ctx){
+    update_context* dt = (update_context*)ctx;
+    double deltaTime = *dt;
 }
 /* only do this once in your application*/
 void main_layer_rendering_start_callback(layer* self,void *ctx){
@@ -34,10 +40,11 @@ void main_layer_rendering_end_callback(layer* self,void *ctx){
 layer* create_main_layer(const char *name){
     layer* main_layer = calloc(1,sizeof(layer));
     main_layer->Name=name;
-    bind_layer_phase(main_layer,layer_phase_polling,main_layer_polling_callback,NULL);
-    bind_layer_phase(main_layer,layer_phase_render_begin,main_layer_rendering_start_callback,NULL);
-    bind_layer_phase(main_layer,layer_phase_render,main_layer_rendering_callback,NULL);
-    bind_layer_phase(main_layer,layer_phase_render_end,main_layer_rendering_end_callback,NULL);
+    bind_layer_phase(main_layer,layer_phase_polling,main_layer_polling_callback);
+    bind_layer_phase(main_layer,layer_phase_render_begin,main_layer_rendering_start_callback);
+    bind_layer_phase(main_layer,layer_phase_render,main_layer_rendering_callback);
+    bind_layer_phase(main_layer,layer_phase_render_end,main_layer_rendering_end_callback);
+    bind_layer_phase(main_layer,layer_phase_Update,main_update_layer);
     main_layer_data* Data = (main_layer_data*)calloc(1,sizeof(main_layer_data));
     Data->RuneWall = create_runewall(80,24);
     main_layer->LayerData=Data;
@@ -47,8 +54,11 @@ layer* create_main_layer(const char *name){
 application* gaven_main(int argc, char** argv){
     /* We create the application*/
     application* app = create_gaven_application();
-    /* Create main layer */
+    /* Start Updates*/
+    init_updates(app);
+    /*Start Input*/
     init_input();
+    /* Create main layer */
     layer* main_layer = create_main_layer("Main Layer");
     add_layer(app->Layer_Registry,main_layer);
     /* We return the application*/
