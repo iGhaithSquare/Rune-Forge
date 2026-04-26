@@ -3,6 +3,8 @@
 
 typedef struct main_layer_data{
     renderer* RuneWall;
+    asset_manager* Asset_Manager;
+    size_t Test_Sprite;
 }main_layer_data;
 void main_layer_ondetach(layer* self){
     main_layer_data* data = (main_layer_data*)self->LayerData;
@@ -26,11 +28,12 @@ void main_layer_rendering_start_callback(layer* self,void *ctx){
 }
 void main_layer_rendering_callback(layer* self,void *ctx){
     main_layer_data* data = (main_layer_data*)self->LayerData;
+    sprite S = get_sprite(data->Asset_Manager,data->Test_Sprite);
     if(is_key_pressed(RUNEFORGE_MOUSE_BUTTON_LEFT)){
-        draw_sprite(data->RuneWall,create_sprite("ABCDEFGHIJKLMNOP",4,4),get_mouse_X(),get_mouse_Y(),2);
+        draw_sprite(data->RuneWall,S,get_mouse_X(),get_mouse_Y(),2);
     }
-    draw_sprite(data->RuneWall,create_sprite("ABCDEFGHIJKLMNOP",4,4),4,4,1);
-    draw_sprite(data->RuneWall,create_sprite("ABCDEFGHIJKLMNOP",4,4),1,1,-1);
+    draw_sprite(data->RuneWall,S,4,4,1);
+    draw_sprite(data->RuneWall,S,1,1,-1);
 }
 /* only do this once in your application*/
 void main_layer_rendering_end_callback(layer* self,void *ctx){
@@ -47,6 +50,8 @@ layer* create_main_layer(const char *name){
     bind_layer_phase(main_layer,layer_phase_Update,main_update_layer);
     main_layer_data* Data = (main_layer_data*)calloc(1,sizeof(main_layer_data));
     Data->RuneWall = create_runewall(80,24);
+    Data->Asset_Manager= create_asset_manager();
+    Data->Test_Sprite = add_asset_from_file(Data->Asset_Manager,ASSET_TYPE_SPRITE,"assets/test.txt");
     main_layer->LayerData=Data;
     return main_layer;
 }
