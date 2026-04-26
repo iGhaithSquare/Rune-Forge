@@ -1,15 +1,55 @@
 #include "runeforge.h"
 #include <stdlib.h>
-
+/*creating a player*/
+/*player struct (data of the player)*/
+typedef struct player{
+    entity Base;
+    sprite Sprite;
+    double X,Y,Z;
+}player;
+/* player update function */
+void player_update(entity* self,double deltaTime){
+    player* P=(player*)self;
+    if(is_key_pressed(RUNEFORGE_KEY_W))
+        P->Y-=10.0*deltaTime;// moves up 10 per second
+    if(is_key_pressed(RUNEFORGE_KEY_A))
+        P->X-=10.0*deltaTime;// moves left 10 per second
+    if(is_key_pressed(RUNEFORGE_KEY_S))
+        P->Y+=10.0*deltaTime;// moves down 10 per second
+    if(is_key_pressed(RUNEFORGE_KEY_D))
+        P->X+=10.0*deltaTime;// moves right 10 per second
+}
+/* player render function */
+void player_render(entity* self,renderer* Renderer){
+    player* P=(player*)self;
+    draw_sprite(Renderer,P->Sprite,(short)P->X,(short)P->Y,(short)P->Z);
+}
+/* create player function */
+player* create_player(short X, short Y, short Z,sprite Sprite){
+    static entity_vtable player_vtable= {
+        .onDestroy=NULL,
+        .onRender=player_render,
+        .onUpdate=player_update
+    };
+    player* P=malloc(sizeof(player));
+    P->Base.Vtable=&player_vtable;
+    P->Sprite=Sprite;
+    P->X= X;
+    P->Y= Y;
+    P->Z= Z;
+    return P;
+}
 typedef struct main_layer_data{
     renderer* RuneWall;
     asset_manager* Asset_Manager;
     size_t Test_Sprite;
+    entity_registry* Entity_Registry;
 }main_layer_data;
 void main_layer_ondetach(layer* self){
     main_layer_data* data = (main_layer_data*)self->LayerData;
-    destroy_runewall(data->RuneWall);
     destroy_asset_manager(data->Asset_Manager);
+    destroy_entity_registry(data->Entity_Registry);
+    destroy_runewall(data->RuneWall);
 }
 void main_layer_polling_callback(layer* self,void* ctx){
     /* each poll should only happen once per frame. So do not repoll in another layer */
@@ -19,8 +59,10 @@ void main_layer_polling_callback(layer* self,void* ctx){
     return;
 }
 void main_update_layer(layer* self, void* ctx){
+    main_layer_data* data = (main_layer_data*)self->LayerData;
     update_context* dt = (update_context*)ctx;
     double deltaTime = *dt;
+    update_entities(data->Entity_Registry,deltaTime);
 }
 /* only do this once in your application*/
 void main_layer_rendering_start_callback(layer* self,void *ctx){
@@ -31,10 +73,11 @@ void main_layer_rendering_callback(layer* self,void *ctx){
     main_layer_data* data = (main_layer_data*)self->LayerData;
     sprite S = get_sprite(data->Asset_Manager,data->Test_Sprite);
     if(is_key_pressed(RUNEFORGE_MOUSE_BUTTON_LEFT)){
-        draw_sprite(data->RuneWall,S,get_mouse_X(),get_mouse_Y(),2);
+        draw_sprite(data->RuneWall,S,get_mouse_X(),get_mouse_Y(),3);
     }
     draw_sprite(data->RuneWall,S,4,4,1);
     draw_sprite(data->RuneWall,S,1,1,-1);
+    render_entities(data->Entity_Registry,data->RuneWall);
 }
 /* only do this once in your application*/
 void main_layer_rendering_end_callback(layer* self,void *ctx){
@@ -53,12 +96,18 @@ layer* create_main_layer(const char *name){
     main_layer_data* Data = (main_layer_data*)calloc(1,sizeof(main_layer_data));
     Data->RuneWall = create_runewall(80,24);
     Data->Asset_Manager= create_asset_manager();
+    Data->Entity_Registry=create_entity_registry();
+    /* loading assets */
     Data->Test_Sprite = add_asset_from_file(Data->Asset_Manager,ASSET_TYPE_SPRITE,"assets/test.txt");
+    sprite S = get_sprite(Data->Asset_Manager,add_asset_from_file(Data->Asset_Manager,ASSET_TYPE_SPRITE,"assets/player.txt"));
+    /* creating a player entity */
+    player *P=create_player(0,0,2,S);
+    add_entity_to_registry(Data->Entity_Registry,&P->Base);
     main_layer->LayerData=Data;
     return main_layer;
 }
 /* Using the prebuilt Gaven Main workflow */
-application* gaven_main(int argc, char** argv){
+application* gaven_main(int argc, char** argv){//ko
     /* We create the application*/
     application* app = create_gaven_application();
     /* Start Updates*/
