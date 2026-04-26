@@ -94,3 +94,8 @@ size_t add_asset_from_file(asset_manager* Manager,asset_type Type,const char* Pa
         default: GAVEN_ASSERT(0,"UNSUPPORTED ASSET TYPE %d",Type); return 0;
     }
 }
+void destroy_asset_manager(asset_manager* Self){
+    if(!Self) return;
+    free(Self->Assets);
+    free(Self);
+}

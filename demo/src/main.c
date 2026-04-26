@@ -9,6 +9,7 @@ typedef struct main_layer_data{
 void main_layer_ondetach(layer* self){
     main_layer_data* data = (main_layer_data*)self->LayerData;
     destroy_runewall(data->RuneWall);
+    destroy_asset_manager(data->Asset_Manager);
 }
 void main_layer_polling_callback(layer* self,void* ctx){
     /* each poll should only happen once per frame. So do not repoll in another layer */
@@ -48,6 +49,7 @@ layer* create_main_layer(const char *name){
     bind_layer_phase(main_layer,layer_phase_render,main_layer_rendering_callback);
     bind_layer_phase(main_layer,layer_phase_render_end,main_layer_rendering_end_callback);
     bind_layer_phase(main_layer,layer_phase_Update,main_update_layer);
+    main_layer->OnDettach=main_layer_ondetach;
     main_layer_data* Data = (main_layer_data*)calloc(1,sizeof(main_layer_data));
     Data->RuneWall = create_runewall(80,24);
     Data->Asset_Manager= create_asset_manager();
