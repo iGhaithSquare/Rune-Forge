@@ -1,6 +1,7 @@
 #ifndef INPUT_H
 #define INPUT_H
 #include <gaven.h>
+#include "key_codes.h"
 create_event_category(Input,2);
 
 uint8_t is_key_pressed(int Keycode);

@@ -61,12 +61,12 @@ void update_entities(entity_registry* Self,double deltaTime){
             E->Type->Update(E,deltaTime);
     }
 }
-void render_entities(entity_registry* Self,renderer* Renderer){
+void render_entities(entity_registry* Self){
     size_t i;
     for(i=0;i<Self->Count;i++){
         entity* E = Self->Entities[i];
         if(E->Type->Render)
-            E->Type->Render(E,Renderer);
+            E->Type->Render(E);
     }
 }
 
