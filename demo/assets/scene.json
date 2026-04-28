@@ -1,0 +1,16 @@
+{
+	"Scene":	"Untitled",
+	"Entities":	[{
+			"Type":	"Player",
+			"x":	10,
+			"y":	10,
+			"z":	2,
+			"spriteID":	1
+		}, {
+			"Type":	"Player",
+			"x":	20,
+			"y":	10,
+			"z":	2,
+			"spriteID":	1
+		}]
+}

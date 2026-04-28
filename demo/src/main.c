@@ -5,32 +5,31 @@
 
 typedef struct player{
     entity Base;
-    sprite Sprite;
+    size_t Sprite_ID;
     double X,Y,Z;
 }player;
 /* player update function */
 void player_update(entity* self,double deltaTime){
     player* P=(player*)self;
     if(is_key_pressed(RUNEFORGE_KEY_W))
-        P->Y-=10.0*deltaTime;// moves up 10 per second
+        P->Y-=10.0*deltaTime; //moves up 10 per second
     if(is_key_pressed(RUNEFORGE_KEY_A))
-        P->X-=10.0*deltaTime;// moves left 10 per second
+        P->X-=10.0*deltaTime; //moves left 10 per second
     if(is_key_pressed(RUNEFORGE_KEY_S))
-        P->Y+=10.0*deltaTime;// moves down 10 per second
+        P->Y+=10.0*deltaTime; //moves down 10 per second
     if(is_key_pressed(RUNEFORGE_KEY_D))
-        P->X+=10.0*deltaTime;// moves right 10 per second
+        P->X+=10.0*deltaTime; //moves right 10 per second
 }
 /* player render function */
-void player_render(entity* self,renderer* Renderer){
+void player_render(entity* self,renderer* Renderer){    
     player* P=(player*)self;
-    draw_sprite(Renderer,P->Sprite,(short)P->X,(short)P->Y,(short)P->Z);
+    draw_sprite(Renderer,get_sprite(P->Sprite_ID),(short)P->X,(short)P->Y,(short)P->Z);
 }
-
 static property_info Player_Props[] = {
     {"x",PROPERTY_TYPE_DOUBLE,offsetof(player,X),NULL,NULL,NULL},
     {"y",PROPERTY_TYPE_DOUBLE,offsetof(player,Y),NULL,NULL,NULL},
     {"z",PROPERTY_TYPE_DOUBLE,offsetof(player,Z),NULL,NULL,NULL},
-    {"sprite",PROPERTY_TYPE_SIZET,offsetof(player,Sprite),NULL,NULL,NULL},
+    {"spriteID",PROPERTY_TYPE_SIZET,offsetof(player,Sprite_ID),NULL,NULL,NULL},
 };
 static type_info Player_Type = {
     .Name= "Player",
@@ -77,7 +76,7 @@ void main_layer_rendering_start_callback(layer* self,void *ctx){
 }
 void main_layer_rendering_callback(layer* self,void *ctx){
     main_layer_data* data = (main_layer_data*)self->LayerData;
-    sprite S = get_sprite(data->Asset_Manager,data->Test_Sprite);
+    sprite S = get_sprite(data->Test_Sprite);
     if(is_key_pressed(RUNEFORGE_MOUSE_BUTTON_LEFT)){
         draw_sprite(data->RuneWall,S,get_mouse_X(),get_mouse_Y(),3);
     }
@@ -104,20 +103,35 @@ layer* create_main_layer(const char *name){
     Data->Asset_Manager= create_asset_manager();
     Data->Entity_Registry=create_entity_registry();
     /* loading assets */
-    Data->Test_Sprite = add_asset_from_file(Data->Asset_Manager,ASSET_TYPE_SPRITE,"assets/test.txt");
+    Data->Test_Sprite = add_asset_from_file(ASSET_TYPE_SPRITE,"assets/test.txt");
     TypeDB_Register(&Player_Type);
-    /* creating a player entity */
-    player *P =(player*)create_entity("Player");
-    P->X=10;
-    P->Y=10;
-    P->Z=2;
-    P->Sprite=get_sprite(Data->Asset_Manager,add_asset_from_file(Data->Asset_Manager,ASSET_TYPE_SPRITE,"assets/player.txt"));
-    add_entity_to_registry(Data->Entity_Registry,&P->Base);
+    size_t sprite_id = add_asset_from_file(ASSET_TYPE_SPRITE,"assets/player.txt");
+
+
+    /*code to serialize objects into scene*/
+
+    ///* creating a player entity */
+    //player *P =(player*)create_entity("Player");
+    //P->X=10;
+    //P->Y=10;
+    //P->Z=2;
+    //P->Sprite_ID=sprite_id;
+    //add_entity_to_registry(Data->Entity_Registry,&P->Base);
+    //player *P2 =(player*)create_entity("Player");
+    //P2->X=20;
+    //P2->Y=10;
+    //P2->Z=2;
+    //P2->Sprite_ID=sprite_id;
+    //add_entity_to_registry(Data->Entity_Registry,&P2->Base);
+    //serialize_entity_registry("assets/scene.json",Data->Entity_Registry);
+    
+    /* deserialize scene into objects */
+    deserialize_entity_registry("assets/scene.json",Data->Entity_Registry);
     main_layer->LayerData=Data;
     return main_layer;
 }
 /* Using the prebuilt Gaven Main workflow */
-application* gaven_main(int argc, char** argv){//ko
+application* gaven_main(int argc, char** argv){
     /* We create the application*/
     application* app = create_gaven_application();
     /* Start Updates*/

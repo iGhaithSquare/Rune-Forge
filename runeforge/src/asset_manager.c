@@ -14,43 +14,43 @@ struct asset_manager{
     size_t Count;
     size_t Cap;
 };
-
-asset* get_asset(asset_manager* Manager,size_t id){
-    GAVEN_ASSERT(id<Manager->Count,"Couldnt find asset of id %d",id);
-    return &Manager->Assets[id];
+static asset_manager* Asset_Manager=NULL;
+asset* get_asset(size_t id){
+    GAVEN_ASSERT(id<Asset_Manager->Count,"Couldnt find asset of id %d",id);
+    return &Asset_Manager->Assets[id];
 }
-sprite get_sprite(asset_manager* Manager,size_t id){
-    return get_asset(Manager,id)->data.Sprite;
+sprite get_sprite(size_t id){
+    return get_asset(id)->data.Sprite;
 }
 asset_manager* create_asset_manager(void){
-    asset_manager* Manager = (asset_manager*)malloc(sizeof(asset_manager));
-    Manager->Cap=512;
-    Manager->Count=0;
-    Manager->Assets=(asset*)(malloc(sizeof(asset)*Manager->Cap));
-    return Manager;
+    Asset_Manager = (asset_manager*)malloc(sizeof(asset_manager));
+    Asset_Manager->Cap=512;
+    Asset_Manager->Count=0;
+    Asset_Manager->Assets=(asset*)(malloc(sizeof(asset)*Asset_Manager->Cap));
+    return Asset_Manager;
 }
-size_t add_sprite(asset_manager* Manager,sprite Sprite){
-    if (Manager->Count>=Manager->Cap){
-        Manager->Cap*=2;
-        asset* temp = (asset*)realloc(Manager->Assets,sizeof(asset)*Manager->Cap);
+size_t add_sprite(sprite Sprite){
+    if (Asset_Manager->Count>=Asset_Manager->Cap){
+        Asset_Manager->Cap*=2;
+        asset* temp = (asset*)realloc(Asset_Manager->Assets,sizeof(asset)*Asset_Manager->Cap);
         GAVEN_ASSERT(temp,"Couldnt allocate memory to Asset manager");
-        Manager->Assets=temp;
+        Asset_Manager->Assets=temp;
     }
     asset Asset = {
         .data = Sprite,
         .type= ASSET_TYPE_SPRITE
     };
-    Manager->Assets[Manager->Count]=Asset;
-    return Manager->Count++;
+    Asset_Manager->Assets[Asset_Manager->Count]=Asset;
+    return Asset_Manager->Count++;
 }
 
-size_t add_asset(asset_manager* Manager,void* Asset,asset_type Type){
+size_t add_asset(void* Asset,asset_type Type){
     switch(Type){
-        case ASSET_TYPE_SPRITE: return add_sprite(Manager,*(sprite*)Asset);
+        case ASSET_TYPE_SPRITE: return add_sprite(*(sprite*)Asset);
         default: GAVEN_ASSERT(0,"UNSUPPORTED ASSET TYPE %d",Type); return 0;
     }
 }
-size_t add_sprite_from_file(asset_manager* Manager,const char* Path){
+size_t add_sprite_from_file(const char* Path){
     short width,y;
     char* data;
     char buffer[1024];
@@ -80,17 +80,17 @@ size_t add_sprite_from_file(asset_manager* Manager,const char* Path){
         .Width=width
     };
     fclose(f);
-    return add_sprite(Manager,Sprite);
+    return add_sprite(Sprite);
 }
-size_t add_asset_from_file(asset_manager* Manager,asset_type Type,const char* Path){
-    if (Manager->Count>=Manager->Cap){
-        Manager->Cap*=2;
-        asset* temp = (asset*)realloc(Manager->Assets,sizeof(asset)*Manager->Cap);
+size_t add_asset_from_file(asset_type Type,const char* Path){
+    if (Asset_Manager->Count>=Asset_Manager->Cap){
+        Asset_Manager->Cap*=2;
+        asset* temp = (asset*)realloc(Asset_Manager->Assets,sizeof(asset)*Asset_Manager->Cap);
         GAVEN_ASSERT(temp,"Couldnt allocate memory to Asset manager");
-        Manager->Assets=temp;
+        Asset_Manager->Assets=temp;
     }
     switch(Type){
-        case ASSET_TYPE_SPRITE: return add_sprite_from_file(Manager,Path);
+        case ASSET_TYPE_SPRITE: return add_sprite_from_file(Path);
         default: GAVEN_ASSERT(0,"UNSUPPORTED ASSET TYPE %d",Type); return 0;
     }
 }

@@ -7,3 +7,6 @@ void update_entities(entity_registry* Self,double deltaTime);
 void render_entities(entity_registry* Self,renderer* Renderer);
 void free_entity(entity_registry *Registry,entity *Entity);
 void destroy_entity_registry(entity_registry* Self);
+
+void serialize_entity_registry(const char* path,entity_registry* Entity_Registry);
+void deserialize_entity_registry(const char* path,entity_registry* Entity_Registry);

@@ -5,11 +5,9 @@ typedef struct entity entity;
 typedef enum {
     PROPERTY_TYPE_INT,
     PROPERTY_TYPE_FLOAT,
-    PROPERTY_TYPE_BOOL,
     PROPERTY_TYPE_STRING,
     PROPERTY_TYPE_DOUBLE,
-    PROPERTY_TYPE_SIZET,
-    PROPERTY_TYPE_SPRITE
+    PROPERTY_TYPE_SIZET
 }property_types;
 typedef  struct property_info{
     const char* Name;
