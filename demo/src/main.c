@@ -2,6 +2,7 @@
 #include <stdlib.h>
 /*creating a player*/
 /*player struct (data of the player)*/
+
 typedef struct player{
     entity Base;
     sprite Sprite;
@@ -24,21 +25,25 @@ void player_render(entity* self,renderer* Renderer){
     player* P=(player*)self;
     draw_sprite(Renderer,P->Sprite,(short)P->X,(short)P->Y,(short)P->Z);
 }
-/* create player function */
-player* create_player(short X, short Y, short Z,sprite Sprite){
-    static entity_vtable player_vtable= {
-        .onDestroy=NULL,
-        .onRender=player_render,
-        .onUpdate=player_update
-    };
-    player* P=malloc(sizeof(player));
-    P->Base.Vtable=&player_vtable;
-    P->Sprite=Sprite;
-    P->X= X;
-    P->Y= Y;
-    P->Z= Z;
-    return P;
-}
+
+static property_info Player_Props[] = {
+    {"x",PROPERTY_TYPE_DOUBLE,offsetof(player,X),NULL,NULL,NULL},
+    {"y",PROPERTY_TYPE_DOUBLE,offsetof(player,Y),NULL,NULL,NULL},
+    {"z",PROPERTY_TYPE_DOUBLE,offsetof(player,Z),NULL,NULL,NULL},
+    {"sprite",PROPERTY_TYPE_SIZET,offsetof(player,Sprite),NULL,NULL,NULL},
+};
+static type_info Player_Type = {
+    .Name= "Player",
+    .Parent= "entity",
+    .Size=sizeof(player),
+    .Create= NULL,
+    .Destroy=NULL,
+    .Update= player_update,
+    .Render=player_render,
+    .Properties=Player_Props,
+    .Property_Count=4,
+    .Flags=0
+};
 typedef struct main_layer_data{
     renderer* RuneWall;
     asset_manager* Asset_Manager;
@@ -49,6 +54,7 @@ void main_layer_ondetach(layer* self){
     main_layer_data* data = (main_layer_data*)self->LayerData;
     destroy_asset_manager(data->Asset_Manager);
     destroy_entity_registry(data->Entity_Registry);
+    Destroy_TypeDB();
     destroy_runewall(data->RuneWall);
 }
 void main_layer_polling_callback(layer* self,void* ctx){
@@ -99,9 +105,13 @@ layer* create_main_layer(const char *name){
     Data->Entity_Registry=create_entity_registry();
     /* loading assets */
     Data->Test_Sprite = add_asset_from_file(Data->Asset_Manager,ASSET_TYPE_SPRITE,"assets/test.txt");
-    sprite S = get_sprite(Data->Asset_Manager,add_asset_from_file(Data->Asset_Manager,ASSET_TYPE_SPRITE,"assets/player.txt"));
+    TypeDB_Register(&Player_Type);
     /* creating a player entity */
-    player *P=create_player(0,0,2,S);
+    player *P =(player*)create_entity("Player");
+    P->X=10;
+    P->Y=10;
+    P->Z=2;
+    P->Sprite=get_sprite(Data->Asset_Manager,add_asset_from_file(Data->Asset_Manager,ASSET_TYPE_SPRITE,"assets/player.txt"));
     add_entity_to_registry(Data->Entity_Registry,&P->Base);
     main_layer->LayerData=Data;
     return main_layer;

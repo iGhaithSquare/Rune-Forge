@@ -1,5 +1,6 @@
 #include "entity_registry.h"
 #include <stdlib.h>
+#include <stdio.h>
 struct entity_registry{
     entity **Entities;
     size_t Count;
@@ -20,6 +21,8 @@ void add_entity_to_registry(entity_registry *Registry,entity *Entity){
         GAVEN_ASSERT(temp,"Failed to allocate memory to entities registry");
         Registry->Entities=temp;
     }
+    if(Entity->Type->Create)
+        Entity->Type->Create(Entity);
     Entity->ID=Registry->Count;
     Registry->Entities[Registry->Count++]=Entity;
 }
@@ -32,16 +35,16 @@ void free_entity(entity_registry *Registry,entity *Entity){
     Registry->Entities[Entity->ID]=Registry->Entities[Registry->Count];
     Registry->Entities[Entity->ID]->ID=Entity->ID;
     Registry->Entities[Registry->Count]=NULL;
-    if(Entity->Vtable&&Entity->Vtable->onDestroy)
-        Entity->Vtable->onDestroy(Entity);
+    if(Entity->Type->Destroy)
+        Entity->Type->Destroy(Entity);
     else
         free(Entity);
 }
 void destroy_entity_registry(entity_registry* Self){
     for(size_t i=0;i<Self->Count;i++){
         entity *Entity = Self->Entities[i];
-        if(Entity->Vtable&&Entity->Vtable->onDestroy)
-            Entity->Vtable->onDestroy(Entity);
+        if(Entity->Type->Destroy)
+            Entity->Type->Destroy(Entity);
         else
             free(Entity);
     }
@@ -53,15 +56,15 @@ void update_entities(entity_registry* Self,double deltaTime){
     size_t i;
     for(i=0;i<Self->Count;i++){
         entity* E = Self->Entities[i];
-        if(E->Vtable->onUpdate)
-            E->Vtable->onUpdate(E,deltaTime);
+        if(E->Type->Update)
+            E->Type->Update(E,deltaTime);
     }
 }
 void render_entities(entity_registry* Self,renderer* Renderer){
     size_t i;
     for(i=0;i<Self->Count;i++){
         entity* E = Self->Entities[i];
-        if(E->Vtable->onRender)
-            E->Vtable->onRender(E,Renderer);
+        if(E->Type->Render)
+            E->Type->Render(E,Renderer);
     }
 }
