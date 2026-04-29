@@ -1,5 +1,6 @@
 #include "runeforge.h"
 #include <stdlib.h>
+#include "editor_layer.h"
 /*creating a player*/
 /*player struct (data of the player)*/
 
@@ -43,9 +44,14 @@ static type_info Player_Type = {
     .Property_Count=4,
     .Flags=0
 };
-void game_main(int argc, char** argv){
+
+void game_main(application* app,int argc, char** argv){
     set_main_scene("assets/scene.json");
     set_scene_mode(SCENE_LOAD);
     TypeDB_Register(&Player_Type);
     size_t id=load_game_asset("assets/player.txt",ASSET_TYPE_SPRITE);
+    short game_width = 80;
+    short game_height = 24;
+    set_window_size(game_width,game_height);
+    add_layer(app->Layer_Registry,create_editor_layer());
 }
