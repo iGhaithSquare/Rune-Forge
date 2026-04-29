@@ -2,15 +2,12 @@
 #define RUNEFORGE_H
 #include <stddef.h>
 #include <stdint.h>
-#include "../src/key_codes.h"
 #include "../src/runeforge_layer.h"
+#include "../src/input.h"
 typedef enum asset_type {
     ASSET_TYPE_SPRITE
 }asset_type;
-
-uint8_t is_key_pressed(int Keycode);
-short get_mouse_X(void);
-short get_mouse_Y(void);
+create_layer_phase(Update,2);
 
 typedef struct entity entity;
 typedef enum {

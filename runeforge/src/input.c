@@ -10,6 +10,7 @@
 #define INPUT_KEYS 512
 typedef struct input_system{
     uint8_t keys[INPUT_KEYS];
+    uint8_t last_frame_keys[INPUT_KEYS];
     short mouse_X;
     short mouse_Y;
 }input_system;
@@ -223,6 +224,7 @@ void init_input(void){
 }
 
 void input_polling(void){
+    memcpy(Input_System.last_frame_keys,Input_System.keys,INPUT_KEYS);
     #ifdef _WIN32
     HANDLE hIN = GetStdHandle(STD_INPUT_HANDLE);
     DWORD events = 0;
@@ -247,9 +249,6 @@ void input_polling(void){
         }
         GetNumberOfConsoleInputEvents(hIN,&events);
     }
-    for(int i =0;i<256;i++)
-        if(GetAsyncKeyState(i)&0x8000)
-            Input_System.keys[translate_vk(i)]=1;
     
     #else
     //todo implement mouse
@@ -263,6 +262,12 @@ void input_polling(void){
 
 uint8_t is_key_pressed(int Keycode){
     return Input_System.keys[Keycode];
+}
+uint8_t is_key_just_released(int Keycode){
+    return (!Input_System.keys[Keycode]&&Input_System.last_frame_keys[Keycode]);
+}
+uint8_t is_key_just_pressed(int Keycode){
+    return (Input_System.keys[Keycode]&&!Input_System.last_frame_keys[Keycode]);
 }
 short get_mouse_X(void){
     return Input_System.mouse_X;
