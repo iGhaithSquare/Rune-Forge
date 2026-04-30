@@ -1,6 +1,7 @@
 #include <runeforge.h>
 #include <stdlib.h>
-#include "panel.h"
+#include "panels/panel.h"
+#include "panels/panel_button.h"
 typedef struct editor_layer_data{
     panel_registry* Panel_Registry;
 }editor_layer_data;
@@ -15,6 +16,9 @@ void render_editor_layer(layer* self,void* ctx){
 void detach_editor_layer(layer* self){
     editor_layer_data *Data=(editor_layer_data*)self->LayerData;
     destroy_panel_registry(Data->Panel_Registry);
+}
+void example_button_update(panel_button* Self){
+    GAVEN_ASSERT(0,"Button Pressed");
 }
 layer* create_editor_layer(void){
     layer* Editor =calloc(1,sizeof(layer));
@@ -39,6 +43,8 @@ layer* create_editor_layer(void){
         .Y=0
     };
     panel *Pan = create_panel(P);
+    panel_button *Button =create_panel_button(1,1,"BRRR",8,example_button_update);
+    add_element_to_panel(Pan,&Button->Base);
     add_panel_to_registry(Pan,Data->Panel_Registry);
     return Editor;
 }

@@ -1,6 +1,7 @@
 #include "panel.h"
 #include <stdlib.h>
 #include <string.h>
+#include "panel_elements.h"
 panel_registry* create_panel_registry(){
     panel_registry* Registry = (panel_registry*)malloc(sizeof(panel_registry));
     GAVEN_ASSERT(Registry,"Couldnt allocate memory to panel registry");
@@ -31,6 +32,10 @@ panel* create_panel(panel_data Data){
     Panel->Data=Data;
     Panel->Is_Dirty=1;
     Panel->Is_Dragging=Panel->Is_Focused=Panel->Is_Hovered=Panel->Is_Resizing=0;
+    Panel->Cap=16;
+    Panel->Count=0;
+    Panel->Elements= (panel_element**)malloc(sizeof(panel_element*)*Panel->Cap);
+    GAVEN_ASSERT(Panel->Elements,"Couldnt allocate memory to panel");
     return Panel;
 }
 void add_panel_to_registry(panel* Panel,panel_registry* Registry){
@@ -108,6 +113,10 @@ void update_panel(panel* Self){
             Self->Is_Focused=0;
         }
     }
+    
+    for(size_t i=0;i<Self->Count;i++){
+        Self->Elements[i]->On_Update(Self->Elements[i]);
+    }
 }
 void update_panels(panel_registry* Registry){
     for(size_t i =0;i<Registry->Count;i++)
@@ -127,9 +136,30 @@ void render_panel(panel* Self){
         Self->Background_Sprite=create_sprite(Self->Background_String,Self->Data.Width,Self->Data.Height);
         Self->Is_Dirty=0;
     }
-    draw_game_overlay_sprite(Self->Background_Sprite,Self->Data.X,Self->Data.Y,0);
+    set_panel_offset(Self->Data.X,Self->Data.Y);
+    draw_game_overlay_sprite(Self->Background_Sprite,0,0,0);
+    for(size_t i=0;i<Self->Count;i++){
+        render_panel_element(Self->Elements[i]);
+    }
 }
 void render_panels(panel_registry* Registry){
     for(size_t i =0;i<Registry->Count;i++)
         render_panel(Registry->Panels[i]);
+}
+
+void add_element_to_panel(panel* Panel,panel_element* Element){
+    if(Panel->Count>=Panel->Cap){
+        Panel->Cap=(Panel->Cap?Panel->Cap*2:4);
+        panel_element** temp = (panel_element**)realloc(Panel->Elements,sizeof(panel_element*)*Panel->Cap);
+        GAVEN_ASSERT(temp,"Couldnt allocate memory to panel registry");
+        Panel->Elements=temp;
+    }
+    Element->Parent=Panel;
+    Panel->Elements[Panel->Count]=Element;
+    Element->ID=Panel->Count++;
+}
+void remove_element_from_panel(panel* Panel,panel_element* Element){
+    Panel->Elements[Element->ID]=Panel->Elements[Panel->Count-1];
+    Panel->Elements[Element->ID]->ID=Element->ID;
+    Panel->Count--;
 }
