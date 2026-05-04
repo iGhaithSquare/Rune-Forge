@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "panel_elements.h"
+
+
 panel_registry* create_panel_registry(){
     panel_registry* Registry = (panel_registry*)malloc(sizeof(panel_registry));
     GAVEN_ASSERT(Registry,"Couldnt allocate memory to panel registry");
@@ -31,7 +33,6 @@ panel* create_panel(panel_data Data){
     GAVEN_ASSERT(Panel,"Couldnt allocate memory to panel");
     Panel->Data=Data;
     Panel->Is_Dirty=1;
-    Panel->Is_Dragging=Panel->Is_Focused=Panel->Is_Hovered=Panel->Is_Resizing=0;
     Panel->Cap=16;
     Panel->Count=0;
     Panel->Elements= (panel_element**)malloc(sizeof(panel_element*)*Panel->Cap);
@@ -71,51 +72,59 @@ void update_panel(panel* Self){
     short mouse_Y = get_mouse_Y();
     short end_X = Data->X+Data->Width;
     short end_Y = Data->Y+Data->Height;
-    if(Self->Is_Dragging){
-        if(is_key_just_released(RUNEFORGE_MOUSE_BUTTON_LEFT)){
-            Self->Is_Dragging=0;
-        }
-        else{
-            if(mouse_X!=Data->X){
-                Data->X=mouse_X;
-                Self->Is_Dirty=1;
-            }if(mouse_Y!=Data->Y){
-                Data->Y=mouse_Y;
-                Self->Is_Dirty=1;
-            }
-
-        }
-    }
-    else if(Self->Is_Resizing){
+    if(Self->Is_Resizing){
         if(is_key_just_released(RUNEFORGE_MOUSE_BUTTON_LEFT)){
             Self->Is_Resizing=0;
         }
         else{
-            if(Self->Is_Resizing&1&&mouse_X!=Data->Width+Data->X&&mouse_X>=Data->Min_Width+Data->X){
-                Data->Width=mouse_X-Data->X;
-                Self->Is_Dirty=1;
+            if(Self->Is_Resizing&1){
+                short new_Width=mouse_X-Data->X;
+                if(new_Width!=Data->Width&&new_Width>=Data->Min_Width){
+                    Data->Width=new_Width;
+                    Self->Is_Dirty=1;
+                }
             }
-            if(Self->Is_Resizing&2&&mouse_Y!=Data->Height+Data->Y&&mouse_Y>=Data->Min_Height+Data->Y){
-                Data->Height=mouse_Y-Data->Y;
-                Self->Is_Dirty=1;
+            if(Self->Is_Resizing&2){
+                short new_Height=mouse_Y-Data->Y;
+                if(new_Height!=Data->Height&&new_Height>=Data->Min_Height){
+                    Data->Height=new_Height;
+                    Self->Is_Dirty=1;
+                }
             }
-
+            if(Self->Is_Resizing&4){
+                short new_X=mouse_X;
+                short new_Width=(Data->X+Data->Width)-mouse_X;
+                if(new_Width!=Data->Width&&new_Width>=Data->Min_Width){
+                    Data->X=new_X;
+                    Data->Width=new_Width;
+                    Self->Is_Dirty=1;
+                }
+            }
+            if(Self->Is_Resizing&8){
+                short new_Y=mouse_Y;
+                short new_Height=(Data->Y+Data->Height)-mouse_Y;
+                if(new_Height!=Data->Height&&new_Height>=Data->Min_Height){
+                    Data->Y=new_Y;
+                    Data->Height=new_Height;
+                    Self->Is_Dirty=1;
+                }
+            }
         }
-        
     }
     if(mouse_X>=Data->X&&mouse_Y>=Data->Y&&mouse_X<=end_X&&mouse_Y<=end_Y){
         Self->Is_Hovered=1;
         if(is_key_just_pressed(RUNEFORGE_MOUSE_BUTTON_LEFT)){
             
             Self->Is_Focused=1;
-            if(Data->Is_Draggable&&mouse_X<Data->X+2&&mouse_Y<Data->Y+2){
-                Self->Is_Dragging=1;
-            }else if(Data->Is_Resizable==1&&!Self->Is_Resizing){
-                if(mouse_X>end_X-2)
+            if(Data->Is_Resizable==1&&!Self->Is_Resizing){
+                if(!(Data->Anchor&1)&&mouse_X>end_X-2)
                     Self->Is_Resizing|=1;
-                if(mouse_Y>end_Y-2)
+                if(!(Data->Anchor&2)&&mouse_Y>end_Y-2)
                     Self->Is_Resizing|=2;
-
+                if(!(Data->Anchor&4)&&mouse_X<Data->X+2)
+                    Self->Is_Resizing|=4;
+                if(!(Data->Anchor&8)&&mouse_Y<Data->Y+2)
+                    Self->Is_Resizing|=8;
             }
         }
     }

@@ -7,6 +7,7 @@ typedef struct panel panel;
 typedef struct panel_element panel_element;
 typedef struct panel_data {
     const char* Name;
+
     short X;
     short Y;
     short Min_Width;
@@ -14,8 +15,8 @@ typedef struct panel_data {
     short Width;
     short Height;
     char Background_Char;
-    uint8_t Is_Resizable;
-    uint8_t Is_Draggable;
+    uint8_t Is_Resizable; 
+    uint8_t Anchor; // bit 0 for right bit 1 for down bit 2 for left bit 3 for top bit
     uint8_t Is_Viewport; //only one viewport till I update the renderer for multiple viewports
 }panel_data;
 struct panel{
@@ -24,7 +25,6 @@ struct panel{
     uint8_t Is_Hovered;
     uint8_t Is_Focused;
     uint8_t Is_Resizing;
-    uint8_t Is_Dragging;
     uint8_t Is_Dirty;
     char *Background_String;
     sprite Background_Sprite;

@@ -38,7 +38,7 @@ layer* create_editor_layer(void){
         .Width=20,
         .Min_Height=4,
         .Min_Width=5,
-        .Is_Draggable=1,
+        .Anchor=14, //anchored top left bottom
         .Is_Resizable=1,
         .X=0,
         .Y=0,
@@ -51,7 +51,7 @@ layer* create_editor_layer(void){
         .Width=80,
         .Min_Height=4,
         .Min_Width=5,
-        .Is_Draggable=1,
+        .Anchor=1,
         .Is_Resizable=0,
         .X=24,
         .Y=0,
