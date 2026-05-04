@@ -45,11 +45,23 @@ void add_panel_to_registry(panel* Panel,panel_registry* Registry){
         GAVEN_ASSERT(temp,"Couldnt allocate memory to panel registry");
         Registry->Panels=temp;
     }
-    Registry->Panels[Registry->Count]=Panel;
-    Panel->ID=Registry->Count++;
+    if(Registry->Count&&Registry->Panels[Registry->Count-1]->Data.Is_Viewport){
+        panel* viewport =Registry->Panels[Registry->Count-1];
+        Registry->Panels[Registry->Count]=viewport;
+        Registry->Panels[Registry->Count-1]=Panel;
+        viewport->ID=Registry->Count;
+    }
+    else
+        Registry->Panels[Registry->Count]=Panel;
+    Panel->ID=Registry->Count-1;
+    Registry->Count++;
 }
 void remove_panel_from_registry(panel* Panel,panel_registry* Registry){
-    Registry->Panels[Panel->ID]=Registry->Panels[Registry->Count-1];
+    if(Panel->ID<Registry->Count-1&&Registry->Panels[Registry->Count-1]->Data.Is_Viewport){
+        Registry->Panels[Panel->ID]=Registry->Panels[Registry->Count-2];
+    }
+    else
+        Registry->Panels[Panel->ID]=Registry->Panels[Registry->Count-1];
     Registry->Panels[Panel->ID]->ID=Panel->ID;
     Registry->Count--;
 }

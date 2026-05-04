@@ -16,6 +16,7 @@ typedef struct panel_data {
     char Background_Char;
     uint8_t Is_Resizable;
     uint8_t Is_Draggable;
+    uint8_t Is_Viewport; //only one viewport till I update the renderer for multiple viewports
 }panel_data;
 struct panel{
     panel_data Data;
