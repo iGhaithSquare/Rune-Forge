@@ -2,11 +2,20 @@
 #include "panel_button.h"
 #include <string.h>
 #include <stdlib.h>
+
+void button_destroy(panel_element* Self){
+    panel_button* Button =(panel_button*)Self;
+    destroy_sprite(&Button->Sprite);
+}
+void button_render(panel_element* Self){
+    panel_button* Button =(panel_button*)Self;
+    draw_game_overlay_sprite(Button->Sprite,Self->X,Self->Y,1);
+}
 void button_update(panel_element *Self){    
     panel_button* Button =(panel_button*)Self;
     short MX= get_mouse_X() - Self->Parent->X;
     short MY= get_mouse_Y() - Self->Parent->Y;
-    if(MX<Self->X||MY<Self->Y||MX>=Self->X+Self->Width||MY>=Self->Y+2){
+    if(MX<Self->X||MY<Self->Y||MX>=Self->X+Button->Width||MY>=Self->Y+1){
         Button->Is_Held=0;
         return;
     }
@@ -39,22 +48,23 @@ char *create_text_buffer(const char* Text,short *length){
 panel_button* create_panel_button(short X, short Y,const char* Text,short Width,void (*On_Click)(struct panel_button* Self)){
     GAVEN_ASSERT(Width>7,"Button Width Should be atleast 8");
     short len = Width-4;
-    char* buffer= malloc(Width*2+1);
-    memset(buffer+Width,' ',(size_t)Width);
-    memset(buffer,'_',Width);
-    buffer[Width]=buffer[2*Width-1]='|';
+    char* buffer= malloc(Width+1);
+    memset(buffer,' ',(size_t)Width);
+    buffer[0]=buffer[Width-1]='|';
     char* temp =create_text_buffer(Text,&len);
     if(temp){
-        memcpy(buffer+Width+2,temp,len);
+        memcpy(buffer+2,temp,len);
         free(temp);
     }
     else
-        memcpy(buffer+Width+2,Text,len);
+        memcpy(buffer+2,Text,len);
     panel_button* Button =(panel_button*)malloc(sizeof(panel_button));
-    sprite S=create_sprite(buffer,Width,2);
+    Button->Sprite=create_sprite(buffer,Width,1);
     Button->Text = strdup(Text);
     Button->Is_Held=0;
     Button->On_Click=On_Click;
-    init_panel_element_base(&Button->Base,X,Y,S,button_update);
+    Button->Width=Width;
+    Button->Height=1;
+    init_panel_element_base(&Button->Base,X,Y,button_update,button_render,button_destroy);
     return Button;
 }

@@ -1,7 +1,8 @@
 #include <runeforge.h>
 #include <stdlib.h>
-#include "panels/panel.h"
 #include "panels/panel_button.h"
+#include "panels/file_explorer.h"
+#include "panels/scene_explorer.h"
 typedef struct editor_layer_data{
     panel_registry* Panel_Registry;
 }editor_layer_data;
@@ -21,7 +22,7 @@ void detach_editor_layer(layer* self){
 void example_button_update(panel_button* Self){
     GAVEN_ASSERT(0,"Button Pressed");
 }
-layer* create_editor_layer(void){
+layer* create_editor_layer(entity_registry* Entity_Registry){
     layer* Editor =calloc(1,sizeof(layer));
     Editor->Name="Editor Layer";
     editor_layer_data *Data=(editor_layer_data*)malloc(sizeof(editor_layer_data));
@@ -31,17 +32,6 @@ layer* create_editor_layer(void){
     bind_layer_phase(Editor,layer_phase_Update,update_editor_layer);
     Editor->OnDettach=detach_editor_layer;
     
-    panel_data Scene_Expo={
-        .Name="Scene explorer",
-        .Background_Char='#',
-        .Height=10,
-        .Width=20,
-        .Min_Height=4,
-        .Min_Width=10,
-        .Anchor=2|4|8, //anchored top left 
-        .Is_Resizable=1,
-        .Is_Viewport=0
-    };
     panel_data Inspect={
         .Name="Inspector",
         .Background_Char='#',
@@ -64,17 +54,6 @@ layer* create_editor_layer(void){
         .Is_Resizable=0,
         .Is_Viewport=1
     };
-    panel_data File_expo={
-        .Name="File Explorer",
-        .Background_Char=',',
-        .Height=9,
-        .Width=80,
-        .Min_Height=9,
-        .Min_Width=80,
-        .Anchor=15, //anchored all
-        .Is_Resizable=0,
-        .Is_Viewport=0
-    };
     panel_data Top={
         .Name="Navbar",
         .Background_Char=',',
@@ -88,16 +67,14 @@ layer* create_editor_layer(void){
     };
     panel* Navbar=create_panel(Top);
     add_panel_to_registry(Navbar,Data->Panel_Registry);
-    panel *Pan = create_panel(Scene_Expo);
+    panel* Pan = create_scene_explorer();
     add_panel_neighbor(Navbar,Pan,1);
-    panel_button *Button =create_panel_button(1,1,"BRRR",8,example_button_update);
-    add_element_to_panel(Pan,&Button->Base);
     add_panel_to_registry(Pan,Data->Panel_Registry);
     panel *Inspector = create_panel(Inspect);
     panel *Viewport = create_panel(View);
-    panel *File_Explorer = create_panel(File_expo);
     add_panel_neighbor(Navbar,Viewport,1);
     add_panel_neighbor(Pan,Viewport,0);
+    panel* File_Explorer = create_file_explorer();
     add_panel_neighbor(Pan,File_Explorer,0);
     add_panel_neighbor(Navbar,Inspector,1);
     add_panel_neighbor(Viewport,Inspector,0);
@@ -106,5 +83,8 @@ layer* create_editor_layer(void){
     add_panel_to_registry(Viewport,Data->Panel_Registry);
     add_panel_to_registry(Inspector,Data->Panel_Registry);
     add_panel_to_registry(File_Explorer,Data->Panel_Registry);
+
+    for(size_t i =0;i<Entity_Registry->Count;i++)
+        add_entity_to_scene_explorer(Entity_Registry->Entities[i],Pan);
     return Editor;
 }

@@ -308,8 +308,8 @@ void render_panel(panel* Self){
     int Size=(int)Self->Data.Width*Self->Data.Height;
     if(Self->Is_Dirty){
         if(Self->Background_String){
-            free(Self->Background_String);
             destroy_sprite(&Self->Background_Sprite);
+            free(Self->Background_String);
         }
         Self->Background_String=(char*)malloc(Size+1);
         memset(Self->Background_String,Self->Data.Background_Char,Size);
@@ -320,7 +320,8 @@ void render_panel(panel* Self){
     set_panel_offset(Self->X,Self->Y);
     draw_game_overlay_sprite(Self->Background_Sprite,0,0,0);
     for(size_t i=0;i<Self->Count;i++){
-        render_panel_element(Self->Elements[i]);
+        panel_element* Element = Self->Elements[i];
+        if(Element->On_Render) Element->On_Render(Element);
     }
 }
 void render_panels(panel_registry* Registry){
@@ -343,6 +344,7 @@ void remove_element_from_panel(panel* Panel,panel_element* Element){
     Panel->Elements[Element->ID]=Panel->Elements[Panel->Count-1];
     Panel->Elements[Element->ID]->ID=Element->ID;
     Panel->Count--;
+    if(Element->On_Destroy) Element->On_Destroy(Element);
 }
 uint8_t add_panel_neighbor(panel* Panel,panel* Neighbor,uint8_t direction){
     panel_neighbors* Neighbors_P = &Panel->Panel_Neighbors;

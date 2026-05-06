@@ -47,11 +47,11 @@ static type_info Player_Type = {
 
 void game_main(application* app,int argc, char** argv){
     set_main_scene("assets/scene.json");
-    set_scene_mode(SCENE_LOAD);
     TypeDB_Register(&Player_Type);
     size_t id=load_game_asset("assets/player.txt",ASSET_TYPE_SPRITE);
     short game_width = 120;
     short game_height = 34;
     set_window_size(game_width,game_height);
-    add_layer(app->Layer_Registry,create_editor_layer());
+    entity_registry* Reg =load_scene("assets/scene.json");
+    add_layer(app->Layer_Registry,create_editor_layer(Reg));
 }

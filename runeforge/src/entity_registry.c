@@ -2,11 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-struct entity_registry{
-    entity **Entities;
-    size_t Count;
-    size_t Cap;
-};
+
 entity_registry* create_entity_registry(void){
     entity_registry *Registry = (entity_registry *)malloc(sizeof(entity_registry));
     GAVEN_ASSERT(Registry,"Failed to allocate memory to entities registry");
@@ -73,6 +69,7 @@ void render_entities(entity_registry* Self){
 void serialize_entity(cJSON* root, entity* Entity){
     type_info *t =Entity->Type;
     cJSON_AddStringToObject(root,"Type",Entity->Type->Name);
+    cJSON_AddStringToObject(root,"Name",Entity->Name);
     for(size_t i=0;i<t->Property_Count;i++){
         property_info* p =&t->Properties[i];
         void *field=(char*)Entity+p->Usage;
@@ -152,7 +149,8 @@ void deserialize_entity_registry(const char* path,entity_registry* Entity_Regist
     for(size_t i=0;i<count;i++){
         cJSON* obj=cJSON_GetArrayItem(arr,i);
         const char* Type_Name=cJSON_GetObjectItem(obj,"Type")->valuestring;
-        entity *e=create_entity(Type_Name);
+        const char* Entity_Name=cJSON_GetObjectItem(obj,"Name")->valuestring;
+        entity *e=create_entity(Type_Name,Entity_Name);
         deserialize_entity(obj,e);
         add_entity_to_registry(Entity_Registry,e);
     }

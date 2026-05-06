@@ -6,12 +6,9 @@ struct panel_element{
     panel* Parent;
     short X;
     short Y;
-    short Width;
-    short Height;
-    sprite Sprite;
     void (*On_Update)(panel_element *Self);
+    void (*On_Render)(panel_element *Self);
+    void (*On_Destroy)(panel_element *Self);
 };
-void init_panel_element_base(panel_element* Element,short X,short Y,sprite Sprite,void (*On_Update)(panel_element *Self));
-void destroy_panel_element(panel_element* Self);
-void render_panel_element(panel_element* Self);
+void init_panel_element_base(panel_element* Element,short X,short Y,void (*On_Update)(panel_element *Self),void (*On_Render)(panel_element *Self),void (*On_Destroy)(panel_element *Self));
 #endif

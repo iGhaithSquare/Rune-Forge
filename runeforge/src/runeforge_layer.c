@@ -1,10 +1,9 @@
 #include "runeforge_layer.h"
-#include <asset_manager.h>
-#include <entity_registry.h>
+#include "asset_manager.h"
+#include "entity_registry.h"
 #include "update.h"
 #include "input.h"
 #include <stdlib.h>
-static SCENE_MODE scene_mod = SCENE_LOAD;
 static const char* main_scene=NULL;
 static renderer* Renderer=NULL;
 static asset_manager* Asset_Manager=NULL;
@@ -79,10 +78,6 @@ sprite get_game_sprite(size_t id){
     return get_sprite(Asset_Manager,id);
 }
 /* Using the prebuilt Gaven Main workflow */
-
-void set_scene_mode(SCENE_MODE mod){
-    scene_mod=mod;
-}
 void add_entity(entity* e){
     add_entity_to_registry(Entity_Registry,e);
 }
@@ -101,10 +96,11 @@ application* gaven_main(int argc, char** argv){
     game_main(app,argc,argv);
     Renderer = create_runewall(width,height);
     GAVEN_ASSERT(main_scene,"No main scene detected");
-    if(scene_mod==SCENE_LOAD)
-        deserialize_entity_registry(main_scene,Entity_Registry);
-    else
-        serialize_entity_registry(main_scene,Entity_Registry);
     add_layer(app->Layer_Registry,main_layer);
     return app;
+}
+entity_registry* load_scene(const char* path){
+    GAVEN_ASSERT(Entity_Registry->Count<=0,"Entity registry already contains a scene, unload it before loading");
+    deserialize_entity_registry(path,Entity_Registry);
+    return Entity_Registry;
 }

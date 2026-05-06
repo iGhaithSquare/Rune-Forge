@@ -32,8 +32,9 @@ typedef struct type_info{
 struct entity{
     size_t ID;
     type_info *Type;
+    char *Name;
 };
-entity* create_entity(const char* Type_Name);
+entity* create_entity(const char* Type_Name,const char* Entity_Name);
 void TypeDB_Register(type_info* Type);
 void Destroy_TypeDB(void);
 #endif

@@ -30,9 +30,10 @@ void Destroy_TypeDB(void){
         g_types=Next;
     }
 }
-entity* create_entity(const char* Type_Name){
+entity* create_entity(const char* Type_Name,const char* Entity_Name){
     type_info *type=TypeDB_Get(Type_Name);
     entity *e = (entity*)malloc(type->Size);
     GAVEN_ASSERT(e,"Couldnt create entity of type %s",Type_Name);
     e->Type = type;
+    e->Name = Entity_Name?strdup(Entity_Name):strdup(Type_Name);
 }
