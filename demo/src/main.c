@@ -50,8 +50,8 @@ void game_main(application* app,int argc, char** argv){
     set_scene_mode(SCENE_LOAD);
     TypeDB_Register(&Player_Type);
     size_t id=load_game_asset("assets/player.txt",ASSET_TYPE_SPRITE);
-    short game_width = 80;
-    short game_height = 24;
+    short game_width = 120;
+    short game_height = 34;
     set_window_size(game_width,game_height);
     add_layer(app->Layer_Registry,create_editor_layer());
 }

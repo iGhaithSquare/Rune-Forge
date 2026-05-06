@@ -4,8 +4,8 @@
 #include <stdlib.h>
 void button_update(panel_element *Self){    
     panel_button* Button =(panel_button*)Self;
-    short MX= get_mouse_X() - Self->Parent->Data.X;
-    short MY= get_mouse_Y() - Self->Parent->Data.Y;
+    short MX= get_mouse_X() - Self->Parent->X;
+    short MY= get_mouse_Y() - Self->Parent->Y;
     if(MX<Self->X||MY<Self->Y||MX>=Self->X+Self->Width||MY>=Self->Y+2){
         Button->Is_Held=0;
         return;

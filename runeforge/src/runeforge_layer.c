@@ -18,6 +18,13 @@ void set_window_size(short Width,short Height){
     width=Width;
     height=Height;
 }
+
+short get_window_width(void){
+    return width;
+}
+short get_window_height(void){
+    return height;
+}
 void main_layer_ondetach(layer* self){
     destroy_asset_manager(Asset_Manager);
     destroy_entity_registry(Entity_Registry);

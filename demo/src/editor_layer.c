@@ -31,17 +31,26 @@ layer* create_editor_layer(void){
     bind_layer_phase(Editor,layer_phase_Update,update_editor_layer);
     Editor->OnDettach=detach_editor_layer;
     
-    panel_data P={
-        .Name="Panel",
-        .Background_Char=',',
-        .Height=24,
+    panel_data Scene_Expo={
+        .Name="Scene explorer",
+        .Background_Char='#',
+        .Height=10,
         .Width=20,
         .Min_Height=4,
-        .Min_Width=5,
-        .Anchor=14, //anchored top left bottom
+        .Min_Width=10,
+        .Anchor=2|4|8, //anchored top left 
         .Is_Resizable=1,
-        .X=0,
-        .Y=0,
+        .Is_Viewport=0
+    };
+    panel_data Inspect={
+        .Name="Inspector",
+        .Background_Char='#',
+        .Height=5,
+        .Width=20,
+        .Min_Height=4,
+        .Min_Width=10,
+        .Anchor=1|2|4|8, //anchored all sides
+        .Is_Resizable=1,
         .Is_Viewport=0
     };
     panel_data View={
@@ -49,20 +58,53 @@ layer* create_editor_layer(void){
         .Background_Char=' ',
         .Height=24,
         .Width=80,
-        .Min_Height=4,
-        .Min_Width=5,
-        .Anchor=1,
+        .Min_Height=24,
+        .Min_Width=80,
+        .Anchor=15, //anchored all
         .Is_Resizable=0,
-        .X=24,
-        .Y=0,
         .Is_Viewport=1
     };
-    panel *Viewport = create_panel(View);
-    add_panel_to_registry(Viewport,Data->Panel_Registry);
-    panel *Pan = create_panel(P);
+    panel_data File_expo={
+        .Name="File Explorer",
+        .Background_Char=',',
+        .Height=9,
+        .Width=80,
+        .Min_Height=9,
+        .Min_Width=80,
+        .Anchor=15, //anchored all
+        .Is_Resizable=0,
+        .Is_Viewport=0
+    };
+    panel_data Top={
+        .Name="Navbar",
+        .Background_Char=',',
+        .Height=1,
+        .Width=120,
+        .Min_Height=1,
+        .Min_Width=119,
+        .Anchor=1|4|8, //anchored all
+        .Is_Resizable=0,
+        .Is_Viewport=0
+    };
+    panel* Navbar=create_panel(Top);
+    add_panel_to_registry(Navbar,Data->Panel_Registry);
+    panel *Pan = create_panel(Scene_Expo);
+    add_panel_neighbor(Navbar,Pan,1);
     panel_button *Button =create_panel_button(1,1,"BRRR",8,example_button_update);
     add_element_to_panel(Pan,&Button->Base);
     add_panel_to_registry(Pan,Data->Panel_Registry);
+    panel *Inspector = create_panel(Inspect);
+    panel *Viewport = create_panel(View);
+    panel *File_Explorer = create_panel(File_expo);
+    add_panel_neighbor(Navbar,Viewport,1);
+    add_panel_neighbor(Pan,Viewport,0);
+    add_panel_neighbor(Pan,File_Explorer,0);
+    add_panel_neighbor(Navbar,Inspector,1);
+    add_panel_neighbor(Viewport,Inspector,0);
+    add_panel_neighbor(File_Explorer,Inspector,0);
+    add_panel_neighbor(Viewport,File_Explorer,1);
+    add_panel_to_registry(Viewport,Data->Panel_Registry);
+    add_panel_to_registry(Inspector,Data->Panel_Registry);
+    add_panel_to_registry(File_Explorer,Data->Panel_Registry);
     return Editor;
-    
 }

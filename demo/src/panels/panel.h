@@ -7,9 +7,6 @@ typedef struct panel panel;
 typedef struct panel_element panel_element;
 typedef struct panel_data {
     const char* Name;
-
-    short X;
-    short Y;
     short Min_Width;
     short Min_Height;
     short Width;
@@ -19,6 +16,17 @@ typedef struct panel_data {
     uint8_t Anchor; // bit 0 for right bit 1 for down bit 2 for left bit 3 for top bit
     uint8_t Is_Viewport; //only one viewport till I update the renderer for multiple viewports
 }panel_data;
+typedef struct panel_neighbors panel_neighbors;
+struct panel_neighbors{
+    panel *Left[4];
+    uint8_t Left_Count;
+    panel *Right[4];
+    uint8_t Right_Count;
+    panel *Top[4];
+    uint8_t Top_Count;
+    panel *Bottom[4];
+    uint8_t Bottom_Count;
+};
 struct panel{
     panel_data Data;
     size_t ID;
@@ -28,19 +36,23 @@ struct panel{
     uint8_t Is_Dirty;
     char *Background_String;
     sprite Background_Sprite;
-    panel_element** Elements;
+    panel_neighbors Panel_Neighbors;
+    panel_element **Elements;
     size_t Count;
     size_t Cap;
+    short X;
+    short Y;
 };
 typedef struct panel_registry{
     panel** Panels;
     size_t Count;
     size_t Cap;
 }panel_registry;
-
 panel_registry* create_panel_registry();
 void destroy_panel_registry(panel_registry* Self);
 panel* create_panel(panel_data Data);
+/* Direction: 0 for right,1 for bottom 2 for left, 3 for top*/
+uint8_t add_panel_neighbor(panel* Panel,panel* Neighbor,uint8_t direction);
 void add_panel_to_registry(panel* Panel,panel_registry* Registry);
 void remove_panel_from_registry(panel* Panel,panel_registry* Registry);
 void update_panels(panel_registry* Registry);
