@@ -193,7 +193,6 @@ file_explorer_element* create_file_explorer_element(const char* Path, short Leng
     Element->Back_Sprite=create_text("|->Return",9);
     Element->Root=build_filenode_tree(Path,NULL,Length);
     Element->Selected=NULL;
-    Element->Back_Sprite.Data=NULL;
     init_panel_element_base(&Element->Base,0,0,update_file_explorer_element,render_file_explorer_element,destroy_file_explorer_element);
     return Element;
 }

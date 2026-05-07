@@ -8,11 +8,15 @@
 #include <fcntl.h>
 #endif
 #define INPUT_KEYS 512
+#define INPUT_TEXT_COUNT 128
 typedef struct input_system{
     uint8_t keys[INPUT_KEYS];
     uint8_t last_frame_keys[INPUT_KEYS];
     short mouse_X;
     short mouse_Y;
+
+    char text_buffer[INPUT_TEXT_COUNT];
+    int text_count;
 }input_system;
 static input_system Input_System;
 #ifdef _WIN32
@@ -225,6 +229,7 @@ void init_input(void){
 
 void input_polling(void){
     memcpy(Input_System.last_frame_keys,Input_System.keys,INPUT_KEYS);
+    Input_System.text_count=0;
     #ifdef _WIN32
     HANDLE hIN = GetStdHandle(STD_INPUT_HANDLE);
     DWORD events = 0;
@@ -246,12 +251,15 @@ void input_polling(void){
             KEY_EVENT_RECORD k = record.Event.KeyEvent;
             int key = k.wVirtualKeyCode;
             Input_System.keys[translate_vk(key)]=k.bKeyDown;
+            if(k.bKeyDown&&k.uChar.AsciiChar!=0&&Input_System.text_count+1<INPUT_TEXT_COUNT)
+                Input_System.text_buffer[Input_System.text_count++]=(char)k.uChar.AsciiChar;
         }
         GetNumberOfConsoleInputEvents(hIN,&events);
     }
     
     #else
     //todo implement mouse
+    //todo also implement getting text
     int key;
     while ((key=read_key_linux())!=0){
         if (key>=0 && key<INPUT_KEYS)
@@ -269,7 +277,10 @@ uint8_t is_key_just_released(int Keycode){
 uint8_t is_key_just_pressed(int Keycode){
     return (Input_System.keys[Keycode]&&!Input_System.last_frame_keys[Keycode]);
 }
-char get_inputed_text(void);
+const char* get_text_input(size_t* len){
+    *len=(size_t)Input_System.text_count;
+    return Input_System.text_buffer;
+}
 short get_mouse_X(void){
     return Input_System.mouse_X;
 }
