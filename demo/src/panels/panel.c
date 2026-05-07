@@ -63,7 +63,6 @@ void add_panel_to_registry(panel* Panel,panel_registry* Registry){
     Registry->Count++;
     short width = get_window_width();
     short height = get_window_height();
-    panel_neighbors *Neighbors = &Panel->Panel_Neighbors;
     if(Panel->Data.Anchor&4&&Panel->Panel_Neighbors.Left_Count==0)
         Panel->X=0;
     if(Panel->Data.Anchor&8&&Panel->Panel_Neighbors.Top_Count==0)
@@ -226,6 +225,7 @@ uint8_t propagate_neighbors(panel* Panel,short new_size,short new_pos,uint8_t di
     }
     
     GAVEN_WARN("Unsupported direction %d",direction);
+    return 0;
 }
 void update_panel(panel* Self){
     panel_data *Data =&Self->Data;
@@ -296,7 +296,10 @@ void update_panel(panel* Self){
     }
     
     for(size_t i=0;i<Self->Count;i++){
-        Self->Elements[i]->On_Update(Self->Elements[i]);
+        panel_element* Element = Self->Elements[i];
+        GAVEN_ASSERT(Element,"Element not found");
+        if(Element->On_Update)
+            Element->On_Update(Element);
     }
 }
 void update_panels(panel_registry* Registry){

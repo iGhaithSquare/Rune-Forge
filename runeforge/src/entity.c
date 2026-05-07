@@ -36,4 +36,5 @@ entity* create_entity(const char* Type_Name,const char* Entity_Name){
     GAVEN_ASSERT(e,"Couldnt create entity of type %s",Type_Name);
     e->Type = type;
     e->Name = Entity_Name?strdup(Entity_Name):strdup(Type_Name);
+    return e;
 }

@@ -269,6 +269,7 @@ uint8_t is_key_just_released(int Keycode){
 uint8_t is_key_just_pressed(int Keycode){
     return (Input_System.keys[Keycode]&&!Input_System.last_frame_keys[Keycode]);
 }
+char get_inputed_text(void);
 short get_mouse_X(void){
     return Input_System.mouse_X;
 }

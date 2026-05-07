@@ -3,6 +3,9 @@
 #include <string.h>
 #ifdef _WIN32
 #include <windows.h>
+#ifndef PATH_MAX
+#define PATH_MAX 260
+#endif
 #else
 #include <dirent.h>
 #include <sys/stat.h>
@@ -97,7 +100,7 @@ file_node* create_filenode(const char* Name,short length,uint8_t Is_directory){
     GAVEN_ASSERT(node,"Couldnt allocate memory to file node");
     node->Data=Is_directory;
     size_t Name_Len =strlen(Name);
-    if(Name_Len+2>(short)length)
+    if(Name_Len+2>(size_t)length)
         Name_Len=length-2;
     char* buffer = malloc(length+2);
     memset(buffer,' ',(size_t)length);
@@ -190,6 +193,7 @@ file_explorer_element* create_file_explorer_element(const char* Path, short Leng
     Element->Back_Sprite=create_text("|->Return",9);
     Element->Root=build_filenode_tree(Path,NULL,Length);
     Element->Selected=NULL;
+    Element->Back_Sprite.Data=NULL;
     init_panel_element_base(&Element->Base,0,0,update_file_explorer_element,render_file_explorer_element,destroy_file_explorer_element);
     return Element;
 }

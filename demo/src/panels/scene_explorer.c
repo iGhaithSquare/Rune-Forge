@@ -1,7 +1,7 @@
 #include "scene_explorer.h"
 #include <stdlib.h>
 #include <string.h>
-
+#include "inspector.h"
 typedef struct entity_node{
     sprite Text_Sprite;
     entity* Entity;
@@ -11,10 +11,16 @@ typedef struct scene_explorer_element{
     panel_element Base;
     entity_node* Selected;
     entity_node** Entities;
+    panel* Inspector;
     size_t Count;
     size_t Cap;
     uint8_t Is_Dirty;
 }scene_explorer_element;
+void scene_explorer_point_to_inspector(panel* Scene_Explorer,panel* Inspector){
+    if(!Scene_Explorer||Scene_Explorer->Cap<=0) return;
+    scene_explorer_element* se = (scene_explorer_element*)Scene_Explorer->Elements[0];
+    se->Inspector=Inspector;
+}
 void update_scene_explorer_element(panel_element* Self){
     scene_explorer_element* se = (scene_explorer_element*)Self;
     panel* Panel = Self->Parent;
@@ -27,8 +33,11 @@ void update_scene_explorer_element(panel_element* Self){
             if(MY-offset>=0&&MY-offset<(short)(se->Count)){
                 Node=se->Entities[MY-offset];
             }
-            if (Node&&MX>=3&&MX<Node->Text_Sprite.Width+3){
+            if (Node&&MX>=3&&MX<Node->Text_Sprite.Width+3&&se->Selected!=Node){
                 se->Selected = Node;
+                if(se->Inspector){
+                    inspect_entity(Node->Entity,se->Inspector);
+                }
             }
 
         }
@@ -44,11 +53,11 @@ void render_scene_explorer_element(panel_element* Self){
         if(Node->Is_Dirty||se->Is_Dirty){
             destroy_sprite(&Node->Text_Sprite);
             Node->Text_Sprite=create_text(Node->Entity->Name,se->Base.Parent->Data.Width-5);
-            se->Is_Dirty=0;
             Node->Is_Dirty=0;
         }   
         draw_game_overlay_sprite(Node->Text_Sprite,3,i+1,1);
     }
+    se->Is_Dirty=0;
 }
 void destroy_scene_explorer_element(panel_element* Self){
     scene_explorer_element* se = (scene_explorer_element*)Self;
@@ -68,11 +77,12 @@ scene_explorer_element* create_scene_explorer_element(void){
     Element->Is_Dirty=0;
     Element->Entities=NULL;
     Element->Selected=NULL;
+    Element->Inspector=NULL;
     init_panel_element_base(&Element->Base,0,0,update_scene_explorer_element,render_scene_explorer_element,destroy_scene_explorer_element);
     return Element;
 }
 void add_entity_to_scene_explorer(entity* Entity,panel* Scene_Explorer){
-    if(!Scene_Explorer||Scene_Explorer->Cap<=0) return;
+    if(!Scene_Explorer||Scene_Explorer->Count<=0) return;
     scene_explorer_element* se = (scene_explorer_element*)Scene_Explorer->Elements[0];
     if(se->Count>=se->Cap){
         se->Cap=se->Cap?se->Cap*2:16;
@@ -84,6 +94,7 @@ void add_entity_to_scene_explorer(entity* Entity,panel* Scene_Explorer){
     GAVEN_ASSERT(Entity_Node,"Couldnt assign memory to entity node");
     Entity_Node->Entity=Entity;
     Entity_Node->Is_Dirty=1;
+    Entity_Node->Text_Sprite.Data=NULL;
     se->Entities[se->Count++]=Entity_Node;
 }
 panel* create_scene_explorer(void){

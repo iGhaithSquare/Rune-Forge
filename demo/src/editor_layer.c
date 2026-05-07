@@ -3,6 +3,7 @@
 #include "panels/panel_button.h"
 #include "panels/file_explorer.h"
 #include "panels/scene_explorer.h"
+#include "panels/inspector.h"
 typedef struct editor_layer_data{
     panel_registry* Panel_Registry;
 }editor_layer_data;
@@ -32,17 +33,6 @@ layer* create_editor_layer(entity_registry* Entity_Registry){
     bind_layer_phase(Editor,layer_phase_Update,update_editor_layer);
     Editor->OnDettach=detach_editor_layer;
     
-    panel_data Inspect={
-        .Name="Inspector",
-        .Background_Char='#',
-        .Height=5,
-        .Width=20,
-        .Min_Height=4,
-        .Min_Width=10,
-        .Anchor=1|2|4|8, //anchored all sides
-        .Is_Resizable=1,
-        .Is_Viewport=0
-    };
     panel_data View={
         .Name="Viewport",
         .Background_Char=' ',
@@ -70,12 +60,13 @@ layer* create_editor_layer(entity_registry* Entity_Registry){
     panel* Pan = create_scene_explorer();
     add_panel_neighbor(Navbar,Pan,1);
     add_panel_to_registry(Pan,Data->Panel_Registry);
-    panel *Inspector = create_panel(Inspect);
     panel *Viewport = create_panel(View);
     add_panel_neighbor(Navbar,Viewport,1);
     add_panel_neighbor(Pan,Viewport,0);
     panel* File_Explorer = create_file_explorer();
     add_panel_neighbor(Pan,File_Explorer,0);
+    panel* Inspector = create_inspector();
+    scene_explorer_point_to_inspector(Pan,Inspector);
     add_panel_neighbor(Navbar,Inspector,1);
     add_panel_neighbor(Viewport,Inspector,0);
     add_panel_neighbor(File_Explorer,Inspector,0);
