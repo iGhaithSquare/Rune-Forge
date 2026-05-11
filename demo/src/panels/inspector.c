@@ -255,7 +255,7 @@ panel* create_inspector(void){
         .Min_Width=10,
         .Anchor=1|2|4|8, //anchored all sides
         .Is_Resizable=1,
-        .Is_Viewport=0
+        .Z_Index=0
     };
     panel *Inspector = create_panel(Inspect);
     inspector_element *E=create_inspector_element();

@@ -14,7 +14,7 @@ typedef struct panel_data {
     char Background_Char;
     uint8_t Is_Resizable; 
     uint8_t Anchor; // bit 0 for right bit 1 for down bit 2 for left bit 3 for top bit
-    uint8_t Is_Viewport; //only one viewport till I update the renderer for multiple viewports
+    short Z_Index;
 }panel_data;
 typedef struct panel_neighbors panel_neighbors;
 struct panel_neighbors{
@@ -27,6 +27,11 @@ struct panel_neighbors{
     panel *Bottom[4];
     uint8_t Bottom_Count;
 };
+typedef struct panel_registry{
+    panel** Panels;
+    size_t Count;
+    size_t Cap;
+}panel_registry;
 struct panel{
     panel_data Data;
     size_t ID;
@@ -42,12 +47,8 @@ struct panel{
     size_t Cap;
     short X;
     short Y;
+    panel_registry* Registry;
 };
-typedef struct panel_registry{
-    panel** Panels;
-    size_t Count;
-    size_t Cap;
-}panel_registry;
 panel_registry* create_panel_registry();
 void destroy_panel_registry(panel_registry* Self);
 panel* create_panel(panel_data Data);

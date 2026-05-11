@@ -8,7 +8,8 @@ struct panel_button{
     const char* Text;
     uint8_t Is_Held;
     short Width,Height;
+    void *Button_Data;
     sprite Sprite;
 };
-panel_button* create_panel_button(short X, short Y,const char* Text,short Width,void (*On_Click)(panel_button* Self));
+panel_button* create_panel_button(short X, short Y,const char* Text,short Width,void* Button_Data,void (*On_Click)(panel_button* Self));
 #endif

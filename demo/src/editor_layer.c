@@ -4,6 +4,7 @@
 #include "panels/file_explorer.h"
 #include "panels/scene_explorer.h"
 #include "panels/inspector.h"
+#include "panels/navbar.h"
 typedef struct editor_layer_data{
     panel_registry* Panel_Registry;
 }editor_layer_data;
@@ -42,22 +43,12 @@ layer* create_editor_layer(entity_registry* Entity_Registry){
         .Min_Width=80,
         .Anchor=15, //anchored all
         .Is_Resizable=0,
-        .Is_Viewport=1
+        .Z_Index=-1//viewport is -1
     };
-    panel_data Top={
-        .Name="Navbar",
-        .Background_Char=',',
-        .Height=1,
-        .Width=120,
-        .Min_Height=1,
-        .Min_Width=119,
-        .Anchor=1|4|8, //anchored all
-        .Is_Resizable=0,
-        .Is_Viewport=0
-    };
-    panel* Navbar=create_panel(Top);
+    panel* Navbar=create_navbar();
     add_panel_to_registry(Navbar,Data->Panel_Registry);
     panel* Pan = create_scene_explorer();
+    navbar_add_scene_explorer(Navbar,Pan);
     add_panel_neighbor(Navbar,Pan,1);
     add_panel_to_registry(Pan,Data->Panel_Registry);
     panel *Viewport = create_panel(View);
@@ -66,6 +57,7 @@ layer* create_editor_layer(entity_registry* Entity_Registry){
     panel* File_Explorer = create_file_explorer();
     add_panel_neighbor(Pan,File_Explorer,0);
     panel* Inspector = create_inspector();
+    navbar_add_inspector(Navbar,Inspector);
     scene_explorer_point_to_inspector(Pan,Inspector);
     add_panel_neighbor(Navbar,Inspector,1);
     add_panel_neighbor(Viewport,Inspector,0);

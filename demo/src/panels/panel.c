@@ -37,7 +37,7 @@ panel* create_panel(panel_data Data){
     Panel->Cap=16;
     Panel->Count=0;
     Panel->Panel_Neighbors.Top_Count=Panel->Panel_Neighbors.Bottom_Count=Panel->Panel_Neighbors.Right_Count=Panel->Panel_Neighbors.Left_Count=0;
-
+    Panel->Registry=NULL;
     Panel->Elements= (panel_element**)malloc(sizeof(panel_element*)*Panel->Cap);
     Panel->X=40;
     Panel->Y=0;
@@ -51,16 +51,25 @@ void add_panel_to_registry(panel* Panel,panel_registry* Registry){
         GAVEN_ASSERT(temp,"Couldnt allocate memory to panel registry");
         Registry->Panels=temp;
     }
-    if(Registry->Count&&Registry->Panels[Registry->Count-1]->Data.Is_Viewport){
-        panel* viewport =Registry->Panels[Registry->Count-1];
-        Registry->Panels[Registry->Count]=viewport;
-        Registry->Panels[Registry->Count-1]=Panel;
-        viewport->ID=Registry->Count;
+    int index=0;
+    if(Panel->Data.Z_Index==-1){
+        index=Registry->Count;
     }
-    else
-        Registry->Panels[Registry->Count]=Panel;
-    Panel->ID=Registry->Count-1;
+    else{
+        for(int i=0;i<Registry->Count;i++){
+            panel* Current_Pan= Registry->Panels[i];
+            if(Panel->Data.Z_Index>Current_Pan->Data.Z_Index&&Current_Pan->Data.Z_Index!=-1)
+                index++;
+            else{
+                Current_Pan->ID=i+1;
+            }
+        }
+    }
+    memmove(&Registry->Panels[index+1],&Registry->Panels[index],sizeof(panel*)*(Registry->Count-index));
+    Registry->Panels[index]=Panel;
+    Panel->ID=index;
     Registry->Count++;
+    Panel->Registry=Registry;
     short width = get_window_width();
     short height = get_window_height();
     if(Panel->Data.Anchor&4&&Panel->Panel_Neighbors.Left_Count==0)
@@ -73,13 +82,14 @@ void add_panel_to_registry(panel* Panel,panel_registry* Registry){
         Panel->Data.Height=height-Panel->Y;
 }
 void remove_panel_from_registry(panel* Panel,panel_registry* Registry){
-    if(Panel->ID<Registry->Count-1&&Registry->Panels[Registry->Count-1]->Data.Is_Viewport){
-        Registry->Panels[Panel->ID]=Registry->Panels[Registry->Count-2];
-    }
-    else
-        Registry->Panels[Panel->ID]=Registry->Panels[Registry->Count-1];
-    Registry->Panels[Panel->ID]->ID=Panel->ID;
+    if(!Panel) return;
+    size_t ID=Panel->ID;
+    destroy_sprite(&Panel->Background_Sprite);
+    free(Panel);
     Registry->Count--;
+    memmove(&Registry->Panels[ID],&Registry->Panels[ID+1],sizeof(panel*)*(Registry->Count-ID));
+    for(size_t i =ID;i<Registry->Count;i++)
+        Registry->Panels[i]->ID=i;
 }
 /* Direction: 0 for right,1 for bottom 2 for left, 3 for top*/
 uint8_t propagate_neighbors(panel* Panel,short new_size,short new_pos,uint8_t direction){

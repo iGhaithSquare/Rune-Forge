@@ -206,7 +206,7 @@ panel* create_file_explorer(void){
         .Min_Width=80,
         .Anchor=15, //anchored all
         .Is_Resizable=0,
-        .Is_Viewport=0
+        .Z_Index=0
     };
     panel *File_Explorer = create_panel(File_expo);
     file_explorer_element *E=create_file_explorer_element("assets/",74);

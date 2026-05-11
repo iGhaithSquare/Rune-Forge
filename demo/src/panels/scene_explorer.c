@@ -15,6 +15,7 @@ typedef struct scene_explorer_element{
     size_t Count;
     size_t Cap;
     uint8_t Is_Dirty;
+    //todo add this : entity_registry* Registry;
 }scene_explorer_element;
 void scene_explorer_point_to_inspector(panel* Scene_Explorer,panel* Inspector){
     if(!Scene_Explorer||Scene_Explorer->Cap<=0) return;
@@ -34,9 +35,14 @@ void update_scene_explorer_element(panel_element* Self){
                 Node=se->Entities[MY-offset];
             }
             if (Node&&MX>=3&&MX<Node->Text_Sprite.Width+3&&se->Selected!=Node){
-                se->Selected = Node;
-                if(se->Inspector){
-                    inspect_entity(Node->Entity,se->Inspector);
+                if(se->Selected==Node){
+                    //todo add editing name support
+                }
+                else{
+                    se->Selected = Node;
+                    if(se->Inspector){
+                        inspect_entity(Node->Entity,se->Inspector);
+                    }
                 }
             }
 
@@ -107,7 +113,7 @@ panel* create_scene_explorer(void){
         .Min_Width=10,
         .Anchor=2|4|8, //anchored top left 
         .Is_Resizable=1,
-        .Is_Viewport=0
+        .Z_Index=0
     };
     panel *Scene_Explorer = create_panel(Scene_Expo);
     scene_explorer_element *E=create_scene_explorer_element();

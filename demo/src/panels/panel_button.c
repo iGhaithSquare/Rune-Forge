@@ -45,7 +45,7 @@ char *create_text_buffer(const char* Text,short *length){
     *length=len;
     return NULL;
 }
-panel_button* create_panel_button(short X, short Y,const char* Text,short Width,void (*On_Click)(struct panel_button* Self)){
+panel_button* create_panel_button(short X, short Y,const char* Text,short Width,void* Button_Data,void (*On_Click)(struct panel_button* Self)){
     GAVEN_ASSERT(Width>7,"Button Width Should be atleast 8");
     short len = Width-4;
     char* buffer= malloc(Width+1);
@@ -65,6 +65,7 @@ panel_button* create_panel_button(short X, short Y,const char* Text,short Width,
     Button->On_Click=On_Click;
     Button->Width=Width;
     Button->Height=1;
+    Button->Button_Data=Button_Data;
     init_panel_element_base(&Button->Base,X,Y,button_update,button_render,button_destroy);
     return Button;
 }
