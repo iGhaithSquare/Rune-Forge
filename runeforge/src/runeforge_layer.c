@@ -101,6 +101,12 @@ application* gaven_main(int argc, char** argv){
 }
 entity_registry* load_scene(const char* path){
     GAVEN_ASSERT(Entity_Registry->Count<=0,"Entity registry already contains a scene, unload it before loading");
+    Entity_Registry->Path=path;
     deserialize_entity_registry(path,Entity_Registry);
     return Entity_Registry;
+}
+void save_scene(const char* Path,const char* Name){
+    if(Name!=NULL) Entity_Registry->Name=Name;
+    if(Path!=NULL) Entity_Registry->Path=Path;
+    serialize_entity_registry(Entity_Registry->Path,Entity_Registry);
 }

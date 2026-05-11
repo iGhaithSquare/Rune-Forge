@@ -7,6 +7,8 @@ struct entity_registry{
     entity **Entities;
     size_t Count;
     size_t Cap;
+    const char* Path;
+    const char* Name;
 };
 entity_registry* create_entity_registry(void);
 void add_entity_to_registry(entity_registry *Registry,entity *Entity);

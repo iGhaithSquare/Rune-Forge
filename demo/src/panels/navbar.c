@@ -17,6 +17,9 @@ typedef struct navbar_data{
     add_entity_button_data* Button_Data;
     size_t Cap;
 } navbar_data;
+void navbar_button_save_scene_imple(panel_button* Self){
+    save_scene(NULL,NULL);
+}
 void navbar_add_entity_impl(panel_button* Self){
     add_entity_button_data *Data=(add_entity_button_data*)Self->Button_Data;
     entity *e =create_entity(Data->Type->Name,NULL);
@@ -85,6 +88,8 @@ panel* create_navbar(void){
     Navbar_Data->Button_Data=NULL;
     GAVEN_ASSERT(Navbar_Data,"Couldnt create navbar");
     panel_button *P=create_panel_button(1,0,"Add Entity",14,Navbar_Data,navbar_show_add_entity_impl);
+    panel_button *Save=create_panel_button(105,0,"Save Scene",14,Navbar_Data,navbar_button_save_scene_imple);
     add_element_to_panel(Navbar,&P->Base);
+    add_element_to_panel(Navbar,&Save->Base);
     return Navbar;
 }

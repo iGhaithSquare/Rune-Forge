@@ -87,7 +87,7 @@ void serialize_entity_registry(const char* path,entity_registry* Entity_Registry
     FILE *f = fopen(path,"w");
     GAVEN_ASSERT(f,"Failed to open file %s",path);
     cJSON* root = cJSON_CreateObject();
-    cJSON_AddStringToObject(root,"Scene","Untitled");
+    cJSON_AddStringToObject(root,"Scene",Entity_Registry->Name);
     cJSON* arr= cJSON_CreateArray();
     for (size_t i=0;i< Entity_Registry->Count;i++){
         cJSON* obj=cJSON_CreateObject();
@@ -144,6 +144,9 @@ void deserialize_entity_registry(const char* path,entity_registry* Entity_Regist
     buffer[size]='\0';
     cJSON *root=cJSON_Parse(buffer);
     free(buffer);
+    cJSON* item = cJSON_GetObjectItem(root,"Scene");
+    if(Entity_Registry->Name) free(Entity_Registry->Name);
+    Entity_Registry->Name=strdup(item->valuestring);
     cJSON* arr=cJSON_GetObjectItem(root,"Entities");
     int count=cJSON_GetArraySize(arr);
     for(size_t i=0;i<count;i++){

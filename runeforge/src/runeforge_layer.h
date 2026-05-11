@@ -12,4 +12,5 @@ sprite get_game_sprite(size_t id);
 short get_window_width(void);
 short get_window_height(void);
 entity_registry* load_scene(const char* path);
+void save_scene(const char* Path,const char* Name);
 #endif
