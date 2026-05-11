@@ -37,4 +37,5 @@ struct entity{
 entity* create_entity(const char* Type_Name,const char* Entity_Name);
 void TypeDB_Register(type_info* Type);
 void Destroy_TypeDB(void);
+type_info** Get_Entity_Types(size_t* Count);
 #endif
