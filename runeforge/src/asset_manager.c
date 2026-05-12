@@ -7,6 +7,7 @@ typedef struct asset{
     asset_type type;
     union{
         sprite Sprite;
+        const char* Path;
     } data;
 }asset;
 struct asset_manager{
@@ -21,6 +22,9 @@ asset* get_asset(asset_manager *Asset_Manager,size_t id){
 sprite get_sprite(asset_manager *Asset_Manager,size_t id){
     return get_asset(Asset_Manager,id)->data.Sprite;
 }
+const char* get_scene_path(asset_manager *Asset_Manager,size_t id){
+    return get_asset(Asset_Manager,id)->data.Path;
+}
 asset_manager* create_asset_manager(void){
     asset_manager *Asset_Manager = (asset_manager*)malloc(sizeof(asset_manager));
     Asset_Manager->Cap=512;
@@ -29,12 +33,6 @@ asset_manager* create_asset_manager(void){
     return Asset_Manager;
 }
 size_t add_sprite(asset_manager *Asset_Manager,sprite Sprite){
-    if (Asset_Manager->Count>=Asset_Manager->Cap){
-        Asset_Manager->Cap*=2;
-        asset* temp = (asset*)realloc(Asset_Manager->Assets,sizeof(asset)*Asset_Manager->Cap);
-        GAVEN_ASSERT(temp,"Couldnt allocate memory to Asset manager");
-        Asset_Manager->Assets=temp;
-    }
     asset Asset = {
         .data = Sprite,
         .type= ASSET_TYPE_SPRITE
@@ -42,10 +40,24 @@ size_t add_sprite(asset_manager *Asset_Manager,sprite Sprite){
     Asset_Manager->Assets[Asset_Manager->Count]=Asset;
     return Asset_Manager->Count++;
 }
-
+size_t add_path(asset_manager *Asset_Manager,const char* Path){
+    asset Asset = {
+        .data = Path,
+        .type= ASSET_TYPE_SCENE
+    };
+    Asset_Manager->Assets[Asset_Manager->Count]=Asset;
+    return Asset_Manager->Count++;
+}
 size_t add_asset(asset_manager *Asset_Manager,void* Asset,asset_type Type){
+    if (Asset_Manager->Count>=Asset_Manager->Cap){
+        Asset_Manager->Cap*=2;
+        asset* temp = (asset*)realloc(Asset_Manager->Assets,sizeof(asset)*Asset_Manager->Cap);
+        GAVEN_ASSERT(temp,"Couldnt allocate memory to Asset manager");
+        Asset_Manager->Assets=temp;
+    }
     switch(Type){
         case ASSET_TYPE_SPRITE: return add_sprite(Asset_Manager,*(sprite*)Asset);
+        case ASSET_TYPE_SCENE: return add_path(Asset_Manager,*(char**)Asset);
         default: GAVEN_ASSERT(0,"UNSUPPORTED ASSET TYPE %d",Type); return 0;
     }
 }
@@ -90,6 +102,7 @@ size_t add_asset_from_file(asset_manager *Asset_Manager,asset_type Type,const ch
     }
     switch(Type){
         case ASSET_TYPE_SPRITE: return add_sprite_from_file(Asset_Manager,Path);
+        case ASSET_TYPE_SCENE: return add_path(Asset_Manager,Path);
         default: GAVEN_ASSERT(0,"UNSUPPORTED ASSET TYPE %d",Type); return 0;
     }
 }

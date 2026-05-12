@@ -15,8 +15,23 @@ typedef struct scene_explorer_element{
     size_t Count;
     size_t Cap;
     uint8_t Is_Dirty;
-    //todo add this : entity_registry* Registry;
+    size_t Version;
+    entity_registry* Registry;
 }scene_explorer_element;
+void add_entity_entity_to_scene_explorer(entity* Entity,scene_explorer_element* se){
+    if(se->Count>=se->Cap){
+        se->Cap=se->Cap?se->Cap*2:16;
+        entity_node** temp= (entity_node**)realloc(se->Entities,sizeof(entity_node*)*se->Cap);
+        GAVEN_ASSERT(temp,"Couldnt allocate memory to entity node");
+        se->Entities=temp;
+    }
+    entity_node* Entity_Node = (entity_node*)malloc(sizeof(entity_node));
+    GAVEN_ASSERT(Entity_Node,"Couldnt assign memory to entity node");
+    Entity_Node->Entity=Entity;
+    Entity_Node->Is_Dirty=1;
+    Entity_Node->Text_Sprite.Data=NULL;
+    se->Entities[se->Count++]=Entity_Node;
+}
 void scene_explorer_point_to_inspector(panel* Scene_Explorer,panel* Inspector){
     if(!Scene_Explorer||Scene_Explorer->Cap<=0) return;
     scene_explorer_element* se = (scene_explorer_element*)Scene_Explorer->Elements[0];
@@ -48,6 +63,19 @@ void update_scene_explorer_element(panel_element* Self){
 
         }
         
+    }
+    entity_registry* Registry = se->Registry;
+    if(se->Version!=Registry->Version){
+        for(size_t i=0;i<se->Count;i++){
+            destroy_sprite(&se->Entities[i]->Text_Sprite);
+            free(se->Entities[i]);
+            se->Entities[i]=NULL;
+        }
+        se->Count=0;
+        for(size_t i=0;i<Registry->Count;i++){
+            add_entity_entity_to_scene_explorer(Registry->Entities[i],se);
+        }
+        se->Version=Registry->Version;
     }
     if(Panel->Is_Dirty)
         se->Is_Dirty=1;
@@ -84,24 +112,15 @@ scene_explorer_element* create_scene_explorer_element(void){
     Element->Entities=NULL;
     Element->Selected=NULL;
     Element->Inspector=NULL;
+    Element->Version=(size_t)-1;//size_t max
     init_panel_element_base(&Element->Base,0,0,update_scene_explorer_element,render_scene_explorer_element,destroy_scene_explorer_element);
     return Element;
 }
-void add_entity_to_scene_explorer(entity* Entity,panel* Scene_Explorer){
+void add_entity_registry_to_scene_explorer(entity_registry* Registry,panel* Scene_Explorer){
     if(!Scene_Explorer||Scene_Explorer->Count<=0) return;
     scene_explorer_element* se = (scene_explorer_element*)Scene_Explorer->Elements[0];
-    if(se->Count>=se->Cap){
-        se->Cap=se->Cap?se->Cap*2:16;
-        entity_node** temp= (entity_node**)realloc(se->Entities,sizeof(entity_node*)*se->Cap);
-        GAVEN_ASSERT(temp,"Couldnt allocate memory to entity node");
-        se->Entities=temp;
-    }
-    entity_node* Entity_Node = (entity_node*)malloc(sizeof(entity_node));
-    GAVEN_ASSERT(Entity_Node,"Couldnt assign memory to entity node");
-    Entity_Node->Entity=Entity;
-    Entity_Node->Is_Dirty=1;
-    Entity_Node->Text_Sprite.Data=NULL;
-    se->Entities[se->Count++]=Entity_Node;
+    se->Registry=Registry;
+    return;
 }
 panel* create_scene_explorer(void){
     panel_data Scene_Expo={

@@ -10,6 +10,7 @@ struct panel_button{
     short Width,Height;
     void *Button_Data;
     sprite Sprite;
+    uint8_t Is_Dirty;
 };
 panel_button* create_panel_button(short X, short Y,const char* Text,short Width,void* Button_Data,void (*On_Click)(panel_button* Self));
 #endif

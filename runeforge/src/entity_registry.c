@@ -9,6 +9,8 @@ entity_registry* create_entity_registry(void){
     Registry->Cap=0;
     Registry->Count=0;
     Registry->Entities=NULL;
+    Registry->Version=0;
+    Registry->Name=NULL;
     return Registry;
 }
 void add_entity_to_registry(entity_registry *Registry,entity *Entity){
@@ -22,6 +24,7 @@ void add_entity_to_registry(entity_registry *Registry,entity *Entity){
         Entity->Type->Create(Entity);
     Entity->ID=Registry->Count;
     Registry->Entities[Registry->Count++]=Entity;
+    Registry->Version++;
 }
 void free_entity(entity_registry *Registry,entity *Entity){
     if(Entity->ID>=Registry->Count){
@@ -29,6 +32,7 @@ void free_entity(entity_registry *Registry,entity *Entity){
         return;
     }
     Registry->Count--;
+    Registry->Version++;
     Registry->Entities[Entity->ID]=Registry->Entities[Registry->Count];
     Registry->Entities[Entity->ID]->ID=Entity->ID;
     Registry->Entities[Registry->Count]=NULL;
@@ -47,8 +51,20 @@ void destroy_entity_registry(entity_registry* Self){
     }
     free(Self->Entities);
     free(Self);
+    Self=NULL;
 }
-
+void unload_entity_registry(entity_registry* Self){
+    for(size_t i=0;i<Self->Count;i++){
+        entity* Entity = Self->Entities[i];
+        if(Entity->Type->Destroy)
+            Entity->Type->Destroy(Entity);
+        else
+            free(Entity);
+        Entity=NULL;
+    }
+    Self->Count=0;
+    Self->Version++;
+}
 void update_entities(entity_registry* Self,double deltaTime){
     size_t i;
     for(i=0;i<Self->Count;i++){

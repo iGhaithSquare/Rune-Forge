@@ -3,6 +3,7 @@
 #include "entity_registry.h"
 #include "update.h"
 #include "input.h"
+#include <string.h>
 #include <stdlib.h>
 static const char* main_scene=NULL;
 static renderer* Renderer=NULL;
@@ -106,7 +107,11 @@ entity_registry* load_scene(const char* path){
     return Entity_Registry;
 }
 void save_scene(const char* Path,const char* Name){
-    if(Name!=NULL) Entity_Registry->Name=Name;
+    if(Name!=NULL) Entity_Registry->Name=strdup(Name);
     if(Path!=NULL) Entity_Registry->Path=Path;
     serialize_entity_registry(Entity_Registry->Path,Entity_Registry);
+}
+
+void unload_scene(void){
+    unload_entity_registry(Entity_Registry);
 }

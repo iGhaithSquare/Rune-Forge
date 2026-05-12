@@ -1,6 +1,7 @@
 #include "file_explorer.h"
 #include <stdlib.h>
 #include <string.h>
+#include "panel_button.h"
 #ifdef _WIN32
 #include <windows.h>
 #ifndef PATH_MAX
@@ -11,8 +12,8 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #endif
-
 typedef struct file_node{
+    char* File_Path;
     sprite Text_Sprite;
     struct file_node* Parent;
     struct file_node** Children;
@@ -20,15 +21,47 @@ typedef struct file_node{
     size_t Cap;
     uint8_t Data; //Bit 0 for is directory, Bit 1 for is expanded
 }file_node;
+typedef struct file_explorer_button_data{
+    file_node* Selected;
+    asset_type Type;
+}file_explorer_button_data;
 typedef struct file_explorer_element{
     panel_element Base;
     file_node* Root;
     file_node* Selected;
     sprite Back_Sprite;
+    file_explorer_button_data* Button1_Data;
 }file_explorer_element;
+const char* get_file_extension(const char* Path){
+    const char* dot =strrchr(Path,'.');
+    if(!dot||dot==Path) return NULL;
+    return dot+1;
+}
+asset_type get_asset_type(const char* Path){
+    const char* Extension = get_file_extension(Path);
+    if(!Extension) return -1;
+    if(!strcmp(Extension,"jsons")) return ASSET_TYPE_SPRITE;
+    if(!strcmp(Extension,"json")) return ASSET_TYPE_SCENE;
+    return -1;
+}
+void file_button_load_scene_impl(file_node* Node){
+    unload_scene();
+    load_scene(Node->File_Path);
+}
+void file_button_press_impl(panel_button* Self){
+    file_explorer_button_data* Data= (file_explorer_button_data*)Self->Button_Data;
+    switch (Data->Type){
+    case ASSET_TYPE_SCENE:
+        file_button_load_scene_impl(Data->Selected);
+        break;
+    default:
+        break;
+    }
+}
 void update_file_explorer_element(panel_element* Self){
     file_explorer_element* fe = (file_explorer_element*)Self;
     panel* Panel = Self->Parent;
+    panel_button* Button1 = (panel_button*)Panel->Elements[1];
     if(Panel->Is_Focused&&Panel->Is_Hovered){
         if(is_key_just_pressed(RUNEFORGE_MOUSE_BUTTON_LEFT)){
             short MX = get_mouse_X()-Panel->X;
@@ -50,6 +83,17 @@ void update_file_explorer_element(panel_element* Self){
                     fe->Root=Node;
                 }
                 fe->Selected = Node;
+                file_explorer_button_data* Data = (file_explorer_button_data*)Button1->Button_Data;
+                Data->Selected=Node;
+                Data->Type=get_asset_type(Node->File_Path);
+                switch(Data->Type){
+                    case ASSET_TYPE_SCENE:
+                        Button1->Text="Load Scene";
+                        break;
+                    default:
+                        Button1->Text="FILE EXPLORER";
+                }
+                Button1->Is_Dirty=1;
             }
 
         }
@@ -75,6 +119,7 @@ void destroy_file_node(file_node* Node){
     for(size_t i=0;i<Node->Count;i++){
         destroy_file_node(Node->Children[i]);
     }
+    free(Node->File_Path);
     free(Node->Children);
     destroy_sprite(&Node->Text_Sprite);
     free(Node);
@@ -83,6 +128,7 @@ void destroy_file_explorer_element(panel_element* Self){
     file_explorer_element* fe = (file_explorer_element*)Self;
     destroy_sprite(&fe->Back_Sprite);
     destroy_file_node(fe->Root);
+    free(fe->Button1_Data);
     return;
 }
 void add_child_file_node(file_node* Parent,file_node* Child){
@@ -95,7 +141,7 @@ void add_child_file_node(file_node* Parent,file_node* Child){
     Parent->Children[Parent->Count++]=Child;
     Child->Parent=Parent;
 }
-file_node* create_filenode(const char* Name,short length,uint8_t Is_directory){
+file_node* create_filenode(const char* Name,const char* File_Path,short length,uint8_t Is_directory){
     file_node* node = calloc(1,sizeof(file_node));
     GAVEN_ASSERT(node,"Couldnt allocate memory to file node");
     node->Data=Is_directory;
@@ -109,7 +155,9 @@ file_node* create_filenode(const char* Name,short length,uint8_t Is_directory){
     buffer[0]='|';
     if(Is_directory)buffer[Name_Len+1]='/';
     node->Text_Sprite=create_text(buffer,length);
+    free(buffer);
     node->Children=NULL;
+    node->File_Path=strdup(File_Path);
     node->Cap=0;
     node->Count=0;
     node->Parent=NULL;
@@ -121,7 +169,7 @@ file_node* build_filenode_tree(const char* Path,file_node* Parent,short Length){
     const char* b =strrchr(Path,'/');
     Name=a>b?a+1:b+1;
     file_node *Root=Parent;
-    if(!Root) Root=create_filenode(Name,Length,1);
+    if(!Root) Root=create_filenode(Name,Path,Length,1);
     size_t Len;
     size_t Search_Len= Len=strlen(Path);
     #ifdef _WIN32
@@ -148,7 +196,7 @@ file_node* build_filenode_tree(const char* Path,file_node* Parent,short Length){
         else
             memcpy(Full_Path+Len,entry,Entry_Len+1);
         uint8_t is_dir=(fd.dwFileAttributes&FILE_ATTRIBUTE_DIRECTORY)&&!(fd.dwFileAttributes&FILE_ATTRIBUTE_REPARSE_POINT);
-        file_node* Child = create_filenode(entry,Length,is_dir);
+        file_node* Child = create_filenode(entry,Full_Path,Length,is_dir);
         add_child_file_node(Root,Child);
         if(is_dir){
             build_filenode_tree(Full_Path,Child,Length);
@@ -193,6 +241,7 @@ file_explorer_element* create_file_explorer_element(const char* Path, short Leng
     Element->Back_Sprite=create_text("|->Return",9);
     Element->Root=build_filenode_tree(Path,NULL,Length);
     Element->Selected=NULL;
+    Element->Button1_Data=(file_explorer_button_data*)malloc(sizeof(file_explorer_button_data));
     init_panel_element_base(&Element->Base,0,0,update_file_explorer_element,render_file_explorer_element,destroy_file_explorer_element);
     return Element;
 }
@@ -210,6 +259,8 @@ panel* create_file_explorer(void){
     };
     panel *File_Explorer = create_panel(File_expo);
     file_explorer_element *E=create_file_explorer_element("assets/",74);
+    panel_button *Button= create_panel_button(60,0,"FILE EXPLORER",20,E->Button1_Data,file_button_press_impl);
     add_element_to_panel(File_Explorer,&E->Base);
+    add_element_to_panel(File_Explorer,&Button->Base);
     return File_Explorer;
 }

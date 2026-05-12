@@ -48,7 +48,6 @@ layer* create_editor_layer(entity_registry* Entity_Registry){
     panel* Navbar=create_navbar();
     add_panel_to_registry(Navbar,Data->Panel_Registry);
     panel* Pan = create_scene_explorer();
-    navbar_add_scene_explorer(Navbar,Pan);
     add_panel_neighbor(Navbar,Pan,1);
     add_panel_to_registry(Pan,Data->Panel_Registry);
     panel *Viewport = create_panel(View);
@@ -67,7 +66,6 @@ layer* create_editor_layer(entity_registry* Entity_Registry){
     add_panel_to_registry(Inspector,Data->Panel_Registry);
     add_panel_to_registry(File_Explorer,Data->Panel_Registry);
 
-    for(size_t i =0;i<Entity_Registry->Count;i++)
-        add_entity_to_scene_explorer(Entity_Registry->Entities[i],Pan);
+    add_entity_registry_to_scene_explorer(Entity_Registry,Pan);
     return Editor;
 }
