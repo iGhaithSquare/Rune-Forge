@@ -49,6 +49,7 @@ void file_button_load_scene_impl(file_node* Node){
     load_scene(Node->File_Path);
 }
 void file_button_press_impl(panel_button* Self){
+    if(get_state()&1) return;
     file_explorer_button_data* Data= (file_explorer_button_data*)Self->Button_Data;
     switch (Data->Type){
     case ASSET_TYPE_SCENE:

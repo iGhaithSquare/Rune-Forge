@@ -14,9 +14,23 @@ typedef struct navbar_data{
     panel* Inspector;
     add_entity_button_data* Button_Data;
     size_t Cap;
+    uint8_t State;
 } navbar_data;
 void navbar_button_save_scene_imple(panel_button* Self){
+    if(get_state()&1) return;
     save_scene(NULL,NULL);
+}
+void navbar_button_start_scene_imple(panel_button* Self){
+    uint8_t State = get_state();
+    Self->Is_Dirty=1;
+    if(State&1){
+        Self->Text="Start";
+        change_update_state(0);
+        return;
+    }
+    Self->Text="Pause";
+    change_update_state(1);
+    return;
 }
 void navbar_add_entity_impl(panel_button* Self){
     add_entity_button_data *Data=(add_entity_button_data*)Self->Button_Data;
@@ -72,12 +86,14 @@ panel* create_navbar(void){
     };
     panel *Navbar = create_panel(Top);
     navbar_data* Navbar_Data= (navbar_data*)malloc(sizeof(navbar_data));
+    GAVEN_ASSERT(Navbar_Data,"Couldnt create navbar");
     Navbar_Data->Cap=0;
     Navbar_Data->Button_Data=NULL;
-    GAVEN_ASSERT(Navbar_Data,"Couldnt create navbar");
     panel_button *P=create_panel_button(1,0,"Add Entity",14,Navbar_Data,navbar_show_add_entity_impl);
     panel_button *Save=create_panel_button(103,0,"Save Scene",14,Navbar_Data,navbar_button_save_scene_imple);
+    panel_button *Start=create_panel_button(55,0,"Start",9,NULL,navbar_button_start_scene_imple);
     add_element_to_panel(Navbar,&P->Base);
     add_element_to_panel(Navbar,&Save->Base);
+    add_element_to_panel(Navbar,&Start->Base);
     return Navbar;
 }

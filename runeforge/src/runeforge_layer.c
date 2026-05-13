@@ -11,6 +11,8 @@ static asset_manager* Asset_Manager=NULL;
 static entity_registry* Entity_Registry=NULL;
 static short width=80;
 static short height=24;
+static const char* Scene_Path;
+uint8_t State=0;
 void set_main_scene(const char *path){
     main_scene=path;
 }
@@ -40,7 +42,8 @@ void main_layer_polling_callback(layer* self,void* ctx){
 void main_update_layer(layer* self, void* ctx){
     update_context* dt = (update_context*)ctx;
     double deltaTime = *dt;
-    update_entities(Entity_Registry,deltaTime);
+    if(State&1)
+        update_entities(Entity_Registry,deltaTime);
 }
 void main_layer_rendering_start_callback(layer* self,void *ctx){
     runewall_start_render_frame(Renderer);
@@ -104,6 +107,7 @@ entity_registry* load_scene(const char* path){
     GAVEN_ASSERT(Entity_Registry->Count<=0,"Entity registry already contains a scene, unload it before loading");
     Entity_Registry->Path=path;
     deserialize_entity_registry(path,Entity_Registry);
+    Scene_Path=path;
     return Entity_Registry;
 }
 void save_scene(const char* Path,const char* Name){
@@ -114,4 +118,14 @@ void save_scene(const char* Path,const char* Name){
 
 void unload_scene(void){
     unload_entity_registry(Entity_Registry);
+}
+void change_update_state(uint8_t new_state){
+    if(!(new_state&1)&&State&1){
+        unload_scene();
+        load_scene(Scene_Path);
+    }
+    State=new_state;
+}
+uint8_t get_state(void){
+    return State;
 }

@@ -14,4 +14,6 @@ short get_window_height(void);
 entity_registry* load_scene(const char* path);
 void save_scene(const char* Path,const char* Name);
 void unload_scene(void);
+void change_update_state(uint8_t new_state);
+uint8_t get_state(void);
 #endif
