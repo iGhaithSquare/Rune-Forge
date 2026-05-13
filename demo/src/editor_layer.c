@@ -1,10 +1,10 @@
 #include <runeforge.h>
 #include <stdlib.h>
 #include "panels/panel_button.h"
-#include "panels/file_explorer.h"
-#include "panels/scene_explorer.h"
-#include "panels/inspector.h"
-#include "panels/navbar.h"
+#include "panels/editor_panels/file_explorer.h"
+#include "panels/editor_panels/scene_explorer.h"
+#include "panels/editor_panels/inspector.h"
+#include "panels/editor_panels/navbar.h"
 typedef struct editor_layer_data{
     panel_registry* Panel_Registry;
 }editor_layer_data;

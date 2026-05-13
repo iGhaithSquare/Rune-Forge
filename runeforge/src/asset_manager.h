@@ -13,4 +13,5 @@ size_t add_asset_from_file(asset_manager *Asset_Manager,asset_type Type,const ch
 sprite get_sprite(asset_manager *Asset_Manager,size_t id);
 const char* get_scene_path(asset_manager *Asset_Manager,size_t id);
 void destroy_asset_manager(asset_manager* Self);
+void remove_asset_from_asset_manager(asset_manager* Manager,size_t ID);
 #endif

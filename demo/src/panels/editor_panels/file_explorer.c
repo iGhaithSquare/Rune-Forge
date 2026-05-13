@@ -1,7 +1,7 @@
 #include "file_explorer.h"
 #include <stdlib.h>
 #include <string.h>
-#include "panel_button.h"
+#include "../panel_button.h"
 #ifdef _WIN32
 #include <windows.h>
 #ifndef PATH_MAX

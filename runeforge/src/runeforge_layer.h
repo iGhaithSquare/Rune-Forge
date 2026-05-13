@@ -16,4 +16,5 @@ void save_scene(const char* Path,const char* Name);
 void unload_scene(void);
 void change_update_state(uint8_t new_state);
 uint8_t get_state(void);
+void remove_asset(size_t ID);
 #endif

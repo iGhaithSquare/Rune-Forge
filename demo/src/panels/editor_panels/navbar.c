@@ -1,9 +1,9 @@
 #include "navbar.h"
 #include <stdlib.h>
 #include <string.h>
-#include "panel_button.h"
+#include "../panel_button.h"
 #include "scene_explorer.h"
-#include "popup_panel.h"
+#include "../popup_panel.h"
 #include "inspector.h"
 typedef struct add_entity_button_data{
     panel* Inspector;

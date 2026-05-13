@@ -99,7 +99,6 @@ application* gaven_main(int argc, char** argv){
     layer* main_layer = create_main_layer("Main Layer");
     game_main(app,argc,argv);
     Renderer = create_runewall(width,height);
-    GAVEN_ASSERT(main_scene,"No main scene detected");
     add_layer(app->Layer_Registry,main_layer);
     return app;
 }
@@ -128,4 +127,7 @@ void change_update_state(uint8_t new_state){
 }
 uint8_t get_state(void){
     return State;
+}
+void remove_asset(size_t ID){
+    remove_asset_from_asset_manager(Asset_Manager,ID);
 }

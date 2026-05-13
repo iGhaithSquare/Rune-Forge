@@ -111,3 +111,19 @@ void destroy_asset_manager(asset_manager* Self){
     free(Self->Assets);
     free(Self);
 }
+void destroy_asset(asset* Asset){
+    asset_type Type=Asset->type;
+    switch(Type){
+        case ASSET_TYPE_SPRITE: destroy_sprite((sprite*)(&Asset->data)); return;
+        case ASSET_TYPE_SCENE: return;
+        default: GAVEN_ASSERT(0,"UNSUPPORTED ASSET TYPE %d",Type); return;
+    }
+
+}
+void remove_asset_from_asset_manager(asset_manager* Manager,size_t ID){
+    if(!Manager) return;
+    Manager->Assets[ID] = Manager->Assets[Manager->Count-1];
+    asset* Asset= &Manager->Assets[Manager->Count-1];
+    Manager->Count--;
+    destroy_asset(Asset);
+}
