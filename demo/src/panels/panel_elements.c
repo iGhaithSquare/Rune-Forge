@@ -5,4 +5,5 @@ void init_panel_element_base(panel_element* Element,short X,short Y,void (*On_Up
     Element->On_Update=On_Update;
     Element->On_Render=On_Render;
     Element->On_Destroy=On_Destroy;
+    //todo add an onclick;
 }
