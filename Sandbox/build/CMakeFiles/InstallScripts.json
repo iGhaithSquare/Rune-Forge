@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

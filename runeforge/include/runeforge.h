@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include "../src/runeforge_layer.h"
 #include "../src/input.h"
+
 typedef enum asset_type {
     ASSET_TYPE_SPRITE,
     ASSET_TYPE_SCENE

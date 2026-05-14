@@ -6,15 +6,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include "../../editor.h"
 #ifdef _WIN32
-#define PATH_SEP "\\"
 #include <windows.h>
 #else
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
 #include <limits.h>
-#define PATH_SEP "/"
 #endif
 uint8_t check_if_folder_exists(const char* path){
     #ifdef _WIN32
@@ -41,7 +40,13 @@ void write_file(const char* Path,const char* Content){
     fputs(Content,f);
     fclose(f);
 }
+typedef struct background_panel_main_button_data{
+    layer_registry* Registry;
+    layer* Layer;
+}background_panel_main_button_data;
 typedef struct background_panel_buttons_data{
+    layer_registry* Registry;
+    layer* Layer;
     panel* Panel;
     panel_input_text* Input_Name_Field;
     panel_input_text* Input_Path_Field;
@@ -111,22 +116,38 @@ void create_project_impl(panel_button* Self){
     char src_dir[512];
     snprintf(src_dir,sizeof(src_dir),"%s%s%s",project_dir,PATH_SEP,"src");
     char asset_dir[512];
-    snprintf(asset_dir,sizeof(asset_dir),"%s%s%s",project_dir,PATH_SEP,"asset");
+    snprintf(asset_dir,sizeof(asset_dir),"%s%s%s",project_dir,PATH_SEP,"assets");
     create_new_folder(project_dir);
     create_new_folder(src_dir);
     create_new_folder(asset_dir);
 
+    char scene_file[512];
+    snprintf(scene_file,sizeof(scene_file),"%s%s%s",asset_dir,PATH_SEP,"main.jsonscn");
+    char scene_content[1024];
+    snprintf(scene_content,sizeof(scene_content),"{\n\"Scene\":\"Main\",\n\"Entities\":	[]\n}");
+    write_file(scene_file,scene_content);
+
     char project_file[512];
-    snprintf(project_file,sizeof(project_file),"%s%s%s",project_dir,PATH_SEP,"asset.asciiprj");
+    snprintf(project_file,sizeof(project_file),"%s%s%s",project_dir,PATH_SEP,"project.asciiprj");
     char project_content[1024];
-    snprintf(project_content,sizeof(project_content),"name=%s\nroot=%s\n",Name,project_dir);
+    snprintf(project_content,sizeof(project_content),"name=%s\nroot=%s\nmain_scene=assets%smain.jsonscn",Name,project_dir,PATH_SEP);
+
     write_file(project_file,project_content);
 
     char game_file[512];
     snprintf(game_file,sizeof(game_file),"%s%s%s",src_dir,PATH_SEP,"game.c");
-    const char* Starter = "#include <runeforge.h>\n\nvoid game(void){\n//Register Types Here\n}\n";
+    const char* Starter = "#include <runeforge.h>\n"
+    "#ifdef _WIN32\n"
+    "    #ifdef GAME_BUILD_DLL\n"
+    "        #define GAME_API __declspec(dllexport)\n"
+    "    #else\n"
+    "        #define GAME_API __declspec(dllimport)\n"
+    "    #endif\n"
+    "#else\n"
+    "    #define GAME_API __attribute__((visibility(\"default\")))\n"
+    "#endif\n"
+    "GAME_API void game(void){\n//Register Types Here\n}\n";
     write_file(game_file,Starter);
-
     char editor_dir[512];
     GAVEN_ASSERT(get_editor_path(editor_dir,sizeof(editor_dir)),"Couldnt get editor path");
     char* last =strrchr(Path,PATH_SEP[0]);
@@ -153,14 +174,18 @@ void create_project_impl(panel_button* Self){
     "file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS \"src/*.c\")\n"
     "set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../bin/$<CONFIG>/)\n"
     "add_library(%s SHARED ${SOURCES})\n"
+    "target_compile_definitions(%s PRIVATE GAME_BUILD_DLL)\n"
     "target_link_libraries(%s \"%slibruneforge.a\")\n"
-    "target_include_directories(%s PRIVATE \"%sinclude\")\n",Name,Name,editor_dir,Name,editor_dir);
+    "target_include_directories(%s PRIVATE \"%sinclude\")\n",Name,Name,Name,editor_dir,Name,editor_dir);
 
     write_file(cmake_file,cmake_content);
+    open_project(Data->Registry,project_file);
     remove_panel_from_registry(P,P->Registry);
+    remove_layer(Data->Registry,Data->Layer);
 }
 void background_panel_show_create_project(panel_button* Self){
     panel* P=create_popup_panel("Create Project",5,10,110,12);
+    background_panel_main_button_data* Main_Data=(background_panel_main_button_data*)Self->Button_Data;
     background_panel_buttons_data* Data = (background_panel_buttons_data*)malloc(sizeof(background_panel_buttons_data));
     Data->Panel=P;
     panel_registry* Reg=Self->Base.Parent->Registry;
@@ -168,6 +193,8 @@ void background_panel_show_create_project(panel_button* Self){
     panel_input_text* Input_Path_Field = create_panel_input_text(8,5,100);
     Data->Input_Name_Field=Input_Name_Field;
     Data->Input_Path_Field=Input_Path_Field;
+    Data->Registry=Main_Data->Registry;
+    Data->Layer=Main_Data->Layer;
     panel_button* Create_Project = create_panel_button(24,9,"Create Project",18,Data,create_project_impl);
     panel_button* Cancle_Create_Project = create_panel_button(64,9,"Cancle Creating",19,Data,cancle_create_project_impl);
     panel_text* Input_Name = create_panel_text("Name:",36,2,101);
@@ -191,7 +218,7 @@ background_panel_element* create_background_panel_element(void){
     init_panel_element_base(&Element->Base,0,0,NULL,render_background_panel_element,destroy_background_panel_element);
     return Element;
 }
-panel* create_background_panel(void){
+panel* create_background_panel(layer_registry* Registry,layer* Layer){
     panel_data p={
         .Name="Background Panel",
         .Background_Char=' ',
@@ -206,7 +233,10 @@ panel* create_background_panel(void){
     panel *Background = create_panel(p);
     background_panel_element *E=create_background_panel_element();
     add_element_to_panel(Background,&E->Base);
-    panel_button* Create = create_panel_button(95,0,"Create New Project",22,NULL,background_panel_show_create_project);
+    background_panel_main_button_data* Main_Button_Data=(background_panel_main_button_data*)malloc(sizeof(background_panel_main_button_data));
+    Main_Button_Data->Registry=Registry;
+    Main_Button_Data->Layer=Layer;
+    panel_button* Create = create_panel_button(95,0,"Create New Project",22,Main_Button_Data,background_panel_show_create_project);
     add_element_to_panel(Background,&Create->Base);
     return Background;
 }

@@ -17,7 +17,7 @@ void detach_editor_menu_layer(layer* self){
     destroy_panel_registry(Data->Panel_Registry);
 }
 
-layer* create_editor_menu_layer(void){
+layer* create_editor_menu_layer(layer_registry* Registry){
     layer* Editor =calloc(1,sizeof(layer));
     Editor->Name="Editor Menu Layer";
     editor_layer_menu_data* Data= (editor_layer_menu_data*)malloc(sizeof(editor_layer_menu_data));
@@ -25,7 +25,7 @@ layer* create_editor_menu_layer(void){
     Editor->LayerData=Data;
     bind_layer_phase(Editor,layer_phase_overlay_render,render_editor_menu_layer);
     bind_layer_phase(Editor,layer_phase_Update,update_editor_menu_layer);
-    add_panel_to_registry(create_background_panel(),Data->Panel_Registry);
+    add_panel_to_registry(create_background_panel(Registry,Editor),Data->Panel_Registry);
     Editor->OnDettach=detach_editor_menu_layer;
     return Editor;
 }

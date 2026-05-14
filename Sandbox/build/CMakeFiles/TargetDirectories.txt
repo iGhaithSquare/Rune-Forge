@@ -1,0 +1,3 @@
+C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/Sandbox.dir
+C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/ALL_BUILD.dir
+C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/ZERO_CHECK.dir
