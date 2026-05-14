@@ -52,7 +52,7 @@ void open_project(layer_registry* Registry,const char* Path){
     system(cmake_build_cmd);
 
     char dll_path[512];
-    snprintf(dll_path,sizeof(dll_path),"%s%s%s%s%s%s%s%s",project_root,PATH_SEP,"bin",PATH_SEP,"Debug",PATH_SEP,name,".dll");
+    snprintf(dll_path,sizeof(dll_path),"%s%s%s%s%s%s%s%s%s",project_root,PATH_SEP,"bin",PATH_SEP,"Debug",PATH_SEP,"lib",name,".dll");
 
     void (*game_fn)(void) =NULL;
     #ifdef _WIN32
