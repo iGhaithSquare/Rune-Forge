@@ -62,10 +62,16 @@ void panel_input_text_update(panel_element *Self){
             Text->Editing=0;
             return;
         }
+        else if(is_key_pressed(RUNEFORGE_KEY_ENTER)){
+            return;
+        }
         if(is_key_just_pressed(RUNEFORGE_KEY_ESCAPE)){
             snprintf(Text->Final_Text,256,"%s",Text->Real_Text);
             Text->Is_Dirty=1;
             Text->Editing=0;
+            return;
+        }
+        else if(is_key_pressed(RUNEFORGE_KEY_ESCAPE)){
             return;
         }
         if(is_key_just_pressed(RUNEFORGE_KEY_BACKSPACE)){
@@ -75,14 +81,23 @@ void panel_input_text_update(panel_element *Self){
             }
             return;
         }
+        else if(is_key_pressed(RUNEFORGE_KEY_BACKSPACE)){
+            return;
+        }
         if(is_key_just_pressed(RUNEFORGE_KEY_DELETE))
             return;
+        else if(is_key_pressed(RUNEFORGE_KEY_DELETE)){
+            return;
+        }
         if(is_key_just_pressed(RUNEFORGE_KEY_TAB)){
             if(len<255&&len<Text->Width-1){
                 Text->Final_Text[len]=' ';
                 Text->Final_Text[len+1]='\0';
                 Text->Is_Dirty=1;
             }
+            return;
+        }
+        else if(is_key_pressed(RUNEFORGE_KEY_TAB)){
             return;
         }
         size_t add_len=0;
