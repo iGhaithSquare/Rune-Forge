@@ -1,6 +1,19 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 #include "runewall.h"
+
+#ifndef RUNEFORGE_API
+#ifdef _WIN32
+    #ifdef RUNEFORGE_BUILD_DLL
+        #define RUNEFORGE_API __declspec(dllexport)
+    #else
+        #define RUNEFORGE_API __declspec(dllimport)
+    #endif
+#else
+    #define RUNEFORGE_API __attribute__((visibility("default")))
+#endif
+#endif
+
 typedef struct entity entity;
 typedef enum {
     PROPERTY_TYPE_INT,
@@ -34,8 +47,8 @@ struct entity{
     type_info *Type;
     char *Name;
 };
-entity* create_entity(const char* Type_Name,const char* Entity_Name);
-void TypeDB_Register(type_info* Type);
-void Destroy_TypeDB(void);
-type_info** Get_Entity_Types(size_t* Count);
+RUNEFORGE_API entity* create_entity(const char* Type_Name,const char* Entity_Name);
+RUNEFORGE_API void TypeDB_Register(type_info* Type);
+RUNEFORGE_API void Destroy_TypeDB(void);
+RUNEFORGE_API type_info** Get_Entity_Types(size_t* Count);
 #endif

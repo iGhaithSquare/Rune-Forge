@@ -11,1039 +11,6 @@ events:
   -
     kind: "find-v1"
     backtrace:
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:468 (find_file)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:506 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
-      - "CMakeLists.txt"
-    mode: "file"
-    variable: "src_in"
-    description: "Path to a file."
-    settings:
-      SearchFramework: "NEVER"
-      SearchAppBundle: "NEVER"
-      CMAKE_FIND_USE_CMAKE_PATH: true
-      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
-      CMAKE_FIND_USE_INSTALL_PREFIX: true
-    names:
-      - "CMakeCCompilerId.c.in"
-    candidate_directories:
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/"
-    found: "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeCCompilerId.c.in"
-    search_context:
-      ENV{PATH}:
-        - "C:\\Program Files\\Eclipse Foundation\\jdk-8.0.302.8-hotspot\\bin"
-        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
-        - "C:\\Windows\\system32"
-        - "C:\\Windows"
-        - "C:\\Windows\\System32\\Wbem"
-        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
-        - "C:\\Windows\\System32\\OpenSSH\\"
-        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
-        - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR"
-        - "C:\\Program Files\\Microsoft VS Code\\bin"
-        - "C:\\Program Files\\Git\\cmd"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\Program Files\\ffmpeg-2026-03-15-git-6ba0b59d8b-full_build\\bin"
-        - "C:\\Program Files\\CMake\\bin"
-        - "C:\\Users\\ghait\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:\\Users\\ghait\\AppData\\Local\\Python\\bin"
-  -
-    kind: "message-v1"
-    backtrace:
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
-      - "CMakeLists.txt"
-    message: |
-      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
-      Compiler:  
-      Build flags: 
-      Id flags:  
-      
-      The output was:
-      0
-      Microsoft (R) Build Engine version 16.11.6+a918ceb31 for .NET Framework
-      Copyright (C) Microsoft Corporation. All rights reserved.
-      
-      Build started 5/14/2026 12:40:20 PM.
-      Project "C:\\dev\\Visual Studio Code\\Rune-Forge\\Sandbox\\build\\CMakeFiles\\4.3.0-rc3\\CompilerIdC\\CompilerIdC.vcxproj" on node 1 (default targets).
-      PrepareForBuild:
-        Creating directory "Debug\\".
-        Creating directory "Debug\\CompilerIdC.tlog\\".
-      InitializeBuildStatus:
-        Creating "Debug\\CompilerIdC.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
-      ClCompile:
-        C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\CL.exe /c /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc142.pdb" /external:W0 /Gd /TC /FC /errorReport:queue CMakeCCompilerId.c
-        CMakeCCompilerId.c
-      Link:
-        C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdC.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdC.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdC.lib" /MACHINE:X64 Debug\\CMakeCCompilerId.obj
-        CompilerIdC.vcxproj -> C:\\dev\\Visual Studio Code\\Rune-Forge\\Sandbox\\build\\CMakeFiles\\4.3.0-rc3\\CompilerIdC\\CompilerIdC.exe
-      PostBuildEvent:
-        for %%i in (cl.exe) do @echo CMAKE_C_COMPILER=%%~$PATH:i
-        :VCEnd
-        CMAKE_C_COMPILER=C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\Hostx64\\x64\\cl.exe
-      FinalizeBuildStatus:
-        Deleting file "Debug\\CompilerIdC.tlog\\unsuccessfulbuild".
-        Touching "Debug\\CompilerIdC.tlog\\CompilerIdC.lastbuildstate".
-      Done Building Project "C:\\dev\\Visual Studio Code\\Rune-Forge\\Sandbox\\build\\CMakeFiles\\4.3.0-rc3\\CompilerIdC\\CompilerIdC.vcxproj" (default targets).
-      
-      Build succeeded.
-          0 Warning(s)
-          0 Error(s)
-      
-      Time Elapsed 00:00:00.94
-      
-      
-      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
-      
-      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.vcxproj"
-      
-      The C compiler identification is MSVC, found in:
-        C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/4.3.0-rc3/CompilerIdC/CompilerIdC.exe
-      
-  -
-    kind: "find-v1"
-    backtrace:
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeFindBinUtils.cmake:37 (find_program)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeFindBinUtils.cmake:65 (__resolve_tool_path)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeFindBinUtils.cmake:103 (__resolve_linker_path)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
-      - "CMakeLists.txt"
-    mode: "program"
-    variable: "_CMAKE_TOOL_WITH_PATH"
-    description: "Path to a program."
-    settings:
-      SearchFramework: "NEVER"
-      SearchAppBundle: "NEVER"
-      CMAKE_FIND_USE_CMAKE_PATH: false
-      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
-      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
-      CMAKE_FIND_USE_INSTALL_PREFIX: true
-    names:
-      - "link"
-    candidate_directories:
-      - "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/"
-      - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/"
-      - "C:/Program Files/Common Files/Oracle/Java/javapath/"
-      - "C:/Windows/System32/"
-      - "C:/Windows/"
-      - "C:/Windows/System32/wbem/"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
-      - "C:/Windows/System32/OpenSSH/"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
-      - "C:/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR/"
-      - "C:/Program Files/Microsoft VS Code/bin/"
-      - "C:/Program Files/Git/cmd/"
-      - "C:/msys64/ucrt64/bin/"
-      - "C:/Program Files/ffmpeg-2026-03-15-git-6ba0b59d8b-full_build/bin/"
-      - "C:/Program Files/CMake/bin/"
-      - "C:/Users/ghait/AppData/Local/Microsoft/WindowsApps/"
-      - "C:/Users/ghait/AppData/Local/Python/bin/"
-    searched_directories:
-      - "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/link.com"
-    found: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/link.exe"
-    search_context:
-      ENV{PATH}:
-        - "C:\\Program Files\\Eclipse Foundation\\jdk-8.0.302.8-hotspot\\bin"
-        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
-        - "C:\\Windows\\system32"
-        - "C:\\Windows"
-        - "C:\\Windows\\System32\\Wbem"
-        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
-        - "C:\\Windows\\System32\\OpenSSH\\"
-        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
-        - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR"
-        - "C:\\Program Files\\Microsoft VS Code\\bin"
-        - "C:\\Program Files\\Git\\cmd"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\Program Files\\ffmpeg-2026-03-15-git-6ba0b59d8b-full_build\\bin"
-        - "C:\\Program Files\\CMake\\bin"
-        - "C:\\Users\\ghait\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:\\Users\\ghait\\AppData\\Local\\Python\\bin"
-  -
-    kind: "find-v1"
-    backtrace:
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeFindBinUtils.cmake:37 (find_program)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeFindBinUtils.cmake:65 (__resolve_tool_path)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeFindBinUtils.cmake:104 (__resolve_linker_path)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
-      - "CMakeLists.txt"
-    mode: "program"
-    variable: "_CMAKE_TOOL_WITH_PATH"
-    description: "Path to a program."
-    settings:
-      SearchFramework: "NEVER"
-      SearchAppBundle: "NEVER"
-      CMAKE_FIND_USE_CMAKE_PATH: false
-      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
-      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
-      CMAKE_FIND_USE_INSTALL_PREFIX: true
-    names:
-      - "lld-link"
-    candidate_directories:
-      - "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/"
-      - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/"
-      - "C:/Program Files/Common Files/Oracle/Java/javapath/"
-      - "C:/Windows/System32/"
-      - "C:/Windows/"
-      - "C:/Windows/System32/wbem/"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
-      - "C:/Windows/System32/OpenSSH/"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
-      - "C:/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR/"
-      - "C:/Program Files/Microsoft VS Code/bin/"
-      - "C:/Program Files/Git/cmd/"
-      - "C:/msys64/ucrt64/bin/"
-      - "C:/Program Files/ffmpeg-2026-03-15-git-6ba0b59d8b-full_build/bin/"
-      - "C:/Program Files/CMake/bin/"
-      - "C:/Users/ghait/AppData/Local/Microsoft/WindowsApps/"
-      - "C:/Users/ghait/AppData/Local/Python/bin/"
-    searched_directories:
-      - "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/lld-link.com"
-      - "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/lld-link.exe"
-      - "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/lld-link"
-      - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/lld-link.com"
-      - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/lld-link.exe"
-      - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/lld-link"
-      - "C:/Program Files/Common Files/Oracle/Java/javapath/lld-link.com"
-      - "C:/Program Files/Common Files/Oracle/Java/javapath/lld-link.exe"
-      - "C:/Program Files/Common Files/Oracle/Java/javapath/lld-link"
-      - "C:/Windows/System32/lld-link.com"
-      - "C:/Windows/System32/lld-link.exe"
-      - "C:/Windows/System32/lld-link"
-      - "C:/Windows/lld-link.com"
-      - "C:/Windows/lld-link.exe"
-      - "C:/Windows/lld-link"
-      - "C:/Windows/System32/wbem/lld-link.com"
-      - "C:/Windows/System32/wbem/lld-link.exe"
-      - "C:/Windows/System32/wbem/lld-link"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/lld-link.com"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/lld-link.exe"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/lld-link"
-      - "C:/Windows/System32/OpenSSH/lld-link.com"
-      - "C:/Windows/System32/OpenSSH/lld-link.exe"
-      - "C:/Windows/System32/OpenSSH/lld-link"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/lld-link.com"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/lld-link.exe"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/lld-link"
-      - "C:/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR/lld-link.com"
-      - "C:/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR/lld-link.exe"
-      - "C:/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR/lld-link"
-      - "C:/Program Files/Microsoft VS Code/bin/lld-link.com"
-      - "C:/Program Files/Microsoft VS Code/bin/lld-link.exe"
-      - "C:/Program Files/Microsoft VS Code/bin/lld-link"
-      - "C:/Program Files/Git/cmd/lld-link.com"
-      - "C:/Program Files/Git/cmd/lld-link.exe"
-      - "C:/Program Files/Git/cmd/lld-link"
-      - "C:/msys64/ucrt64/bin/lld-link.com"
-      - "C:/msys64/ucrt64/bin/lld-link.exe"
-      - "C:/msys64/ucrt64/bin/lld-link"
-      - "C:/Program Files/ffmpeg-2026-03-15-git-6ba0b59d8b-full_build/bin/lld-link.com"
-      - "C:/Program Files/ffmpeg-2026-03-15-git-6ba0b59d8b-full_build/bin/lld-link.exe"
-      - "C:/Program Files/ffmpeg-2026-03-15-git-6ba0b59d8b-full_build/bin/lld-link"
-      - "C:/Program Files/CMake/bin/lld-link.com"
-      - "C:/Program Files/CMake/bin/lld-link.exe"
-      - "C:/Program Files/CMake/bin/lld-link"
-      - "C:/Users/ghait/AppData/Local/Microsoft/WindowsApps/lld-link.com"
-      - "C:/Users/ghait/AppData/Local/Microsoft/WindowsApps/lld-link.exe"
-      - "C:/Users/ghait/AppData/Local/Microsoft/WindowsApps/lld-link"
-      - "C:/Users/ghait/AppData/Local/Python/bin/lld-link.com"
-      - "C:/Users/ghait/AppData/Local/Python/bin/lld-link.exe"
-      - "C:/Users/ghait/AppData/Local/Python/bin/lld-link"
-    found: false
-    search_context:
-      ENV{PATH}:
-        - "C:\\Program Files\\Eclipse Foundation\\jdk-8.0.302.8-hotspot\\bin"
-        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
-        - "C:\\Windows\\system32"
-        - "C:\\Windows"
-        - "C:\\Windows\\System32\\Wbem"
-        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
-        - "C:\\Windows\\System32\\OpenSSH\\"
-        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
-        - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR"
-        - "C:\\Program Files\\Microsoft VS Code\\bin"
-        - "C:\\Program Files\\Git\\cmd"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\Program Files\\ffmpeg-2026-03-15-git-6ba0b59d8b-full_build\\bin"
-        - "C:\\Program Files\\CMake\\bin"
-        - "C:\\Users\\ghait\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:\\Users\\ghait\\AppData\\Local\\Python\\bin"
-  -
-    kind: "find-v1"
-    backtrace:
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
-      - "CMakeLists.txt"
-    mode: "program"
-    variable: "CMAKE_LINKER"
-    description: "Path to a program."
-    settings:
-      SearchFramework: "NEVER"
-      SearchAppBundle: "NEVER"
-      CMAKE_FIND_USE_CMAKE_PATH: false
-      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
-      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
-      CMAKE_FIND_USE_INSTALL_PREFIX: true
-    names:
-      - "link"
-    candidate_directories:
-      - "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/"
-      - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/"
-      - "C:/Program Files/Common Files/Oracle/Java/javapath/"
-      - "C:/Windows/System32/"
-      - "C:/Windows/"
-      - "C:/Windows/System32/wbem/"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
-      - "C:/Windows/System32/OpenSSH/"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
-      - "C:/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR/"
-      - "C:/Program Files/Microsoft VS Code/bin/"
-      - "C:/Program Files/Git/cmd/"
-      - "C:/msys64/ucrt64/bin/"
-      - "C:/Program Files/ffmpeg-2026-03-15-git-6ba0b59d8b-full_build/bin/"
-      - "C:/Program Files/CMake/bin/"
-      - "C:/Users/ghait/AppData/Local/Microsoft/WindowsApps/"
-      - "C:/Users/ghait/AppData/Local/Python/bin/"
-    searched_directories:
-      - "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/link.com"
-    found: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/link.exe"
-    search_context:
-      ENV{PATH}:
-        - "C:\\Program Files\\Eclipse Foundation\\jdk-8.0.302.8-hotspot\\bin"
-        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
-        - "C:\\Windows\\system32"
-        - "C:\\Windows"
-        - "C:\\Windows\\System32\\Wbem"
-        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
-        - "C:\\Windows\\System32\\OpenSSH\\"
-        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
-        - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR"
-        - "C:\\Program Files\\Microsoft VS Code\\bin"
-        - "C:\\Program Files\\Git\\cmd"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\Program Files\\ffmpeg-2026-03-15-git-6ba0b59d8b-full_build\\bin"
-        - "C:\\Program Files\\CMake\\bin"
-        - "C:\\Users\\ghait\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:\\Users\\ghait\\AppData\\Local\\Python\\bin"
-  -
-    kind: "find-v1"
-    backtrace:
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
-      - "CMakeLists.txt"
-    mode: "program"
-    variable: "CMAKE_MT"
-    description: "Path to a program."
-    settings:
-      SearchFramework: "NEVER"
-      SearchAppBundle: "NEVER"
-      CMAKE_FIND_USE_CMAKE_PATH: false
-      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
-      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
-      CMAKE_FIND_USE_INSTALL_PREFIX: true
-    names:
-      - "mt"
-    candidate_directories:
-      - "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/"
-      - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/"
-      - "C:/Program Files/Common Files/Oracle/Java/javapath/"
-      - "C:/Windows/System32/"
-      - "C:/Windows/"
-      - "C:/Windows/System32/wbem/"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
-      - "C:/Windows/System32/OpenSSH/"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
-      - "C:/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR/"
-      - "C:/Program Files/Microsoft VS Code/bin/"
-      - "C:/Program Files/Git/cmd/"
-      - "C:/msys64/ucrt64/bin/"
-      - "C:/Program Files/ffmpeg-2026-03-15-git-6ba0b59d8b-full_build/bin/"
-      - "C:/Program Files/CMake/bin/"
-      - "C:/Users/ghait/AppData/Local/Microsoft/WindowsApps/"
-      - "C:/Users/ghait/AppData/Local/Python/bin/"
-    searched_directories:
-      - "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/mt.com"
-      - "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/mt.exe"
-      - "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/mt"
-      - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/mt.com"
-      - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/mt.exe"
-      - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/mt"
-      - "C:/Program Files/Common Files/Oracle/Java/javapath/mt.com"
-      - "C:/Program Files/Common Files/Oracle/Java/javapath/mt.exe"
-      - "C:/Program Files/Common Files/Oracle/Java/javapath/mt"
-      - "C:/Windows/System32/mt.com"
-      - "C:/Windows/System32/mt.exe"
-      - "C:/Windows/System32/mt"
-      - "C:/Windows/mt.com"
-      - "C:/Windows/mt.exe"
-      - "C:/Windows/mt"
-      - "C:/Windows/System32/wbem/mt.com"
-      - "C:/Windows/System32/wbem/mt.exe"
-      - "C:/Windows/System32/wbem/mt"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/mt.com"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/mt.exe"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/mt"
-      - "C:/Windows/System32/OpenSSH/mt.com"
-      - "C:/Windows/System32/OpenSSH/mt.exe"
-      - "C:/Windows/System32/OpenSSH/mt"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/mt.com"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/mt.exe"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/mt"
-      - "C:/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR/mt.com"
-      - "C:/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR/mt.exe"
-      - "C:/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR/mt"
-      - "C:/Program Files/Microsoft VS Code/bin/mt.com"
-      - "C:/Program Files/Microsoft VS Code/bin/mt.exe"
-      - "C:/Program Files/Microsoft VS Code/bin/mt"
-      - "C:/Program Files/Git/cmd/mt.com"
-      - "C:/Program Files/Git/cmd/mt.exe"
-      - "C:/Program Files/Git/cmd/mt"
-      - "C:/msys64/ucrt64/bin/mt.com"
-      - "C:/msys64/ucrt64/bin/mt.exe"
-      - "C:/msys64/ucrt64/bin/mt"
-      - "C:/Program Files/ffmpeg-2026-03-15-git-6ba0b59d8b-full_build/bin/mt.com"
-      - "C:/Program Files/ffmpeg-2026-03-15-git-6ba0b59d8b-full_build/bin/mt.exe"
-      - "C:/Program Files/ffmpeg-2026-03-15-git-6ba0b59d8b-full_build/bin/mt"
-      - "C:/Program Files/CMake/bin/mt.com"
-      - "C:/Program Files/CMake/bin/mt.exe"
-      - "C:/Program Files/CMake/bin/mt"
-      - "C:/Users/ghait/AppData/Local/Microsoft/WindowsApps/mt.com"
-      - "C:/Users/ghait/AppData/Local/Microsoft/WindowsApps/mt.exe"
-      - "C:/Users/ghait/AppData/Local/Microsoft/WindowsApps/mt"
-      - "C:/Users/ghait/AppData/Local/Python/bin/mt.com"
-      - "C:/Users/ghait/AppData/Local/Python/bin/mt.exe"
-      - "C:/Users/ghait/AppData/Local/Python/bin/mt"
-    found: false
-    search_context:
-      ENV{PATH}:
-        - "C:\\Program Files\\Eclipse Foundation\\jdk-8.0.302.8-hotspot\\bin"
-        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
-        - "C:\\Windows\\system32"
-        - "C:\\Windows"
-        - "C:\\Windows\\System32\\Wbem"
-        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
-        - "C:\\Windows\\System32\\OpenSSH\\"
-        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
-        - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR"
-        - "C:\\Program Files\\Microsoft VS Code\\bin"
-        - "C:\\Program Files\\Git\\cmd"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\Program Files\\ffmpeg-2026-03-15-git-6ba0b59d8b-full_build\\bin"
-        - "C:\\Program Files\\CMake\\bin"
-        - "C:\\Users\\ghait\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:\\Users\\ghait\\AppData\\Local\\Python\\bin"
-  -
-    kind: "find-v1"
-    backtrace:
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
-      - "CMakeLists.txt"
-    mode: "program"
-    variable: "CMAKE_AR"
-    description: "Path to a program."
-    settings:
-      SearchFramework: "NEVER"
-      SearchAppBundle: "NEVER"
-      CMAKE_FIND_USE_CMAKE_PATH: false
-      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
-      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
-      CMAKE_FIND_USE_INSTALL_PREFIX: true
-    names:
-      - "lib"
-    candidate_directories:
-      - "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/"
-      - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/"
-      - "C:/Program Files/Common Files/Oracle/Java/javapath/"
-      - "C:/Windows/System32/"
-      - "C:/Windows/"
-      - "C:/Windows/System32/wbem/"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
-      - "C:/Windows/System32/OpenSSH/"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
-      - "C:/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR/"
-      - "C:/Program Files/Microsoft VS Code/bin/"
-      - "C:/Program Files/Git/cmd/"
-      - "C:/msys64/ucrt64/bin/"
-      - "C:/Program Files/ffmpeg-2026-03-15-git-6ba0b59d8b-full_build/bin/"
-      - "C:/Program Files/CMake/bin/"
-      - "C:/Users/ghait/AppData/Local/Microsoft/WindowsApps/"
-      - "C:/Users/ghait/AppData/Local/Python/bin/"
-    searched_directories:
-      - "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/lib.com"
-    found: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/lib.exe"
-    search_context:
-      ENV{PATH}:
-        - "C:\\Program Files\\Eclipse Foundation\\jdk-8.0.302.8-hotspot\\bin"
-        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
-        - "C:\\Windows\\system32"
-        - "C:\\Windows"
-        - "C:\\Windows\\System32\\Wbem"
-        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
-        - "C:\\Windows\\System32\\OpenSSH\\"
-        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
-        - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR"
-        - "C:\\Program Files\\Microsoft VS Code\\bin"
-        - "C:\\Program Files\\Git\\cmd"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\Program Files\\ffmpeg-2026-03-15-git-6ba0b59d8b-full_build\\bin"
-        - "C:\\Program Files\\CMake\\bin"
-        - "C:\\Users\\ghait\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:\\Users\\ghait\\AppData\\Local\\Python\\bin"
-  -
-    kind: "find-v1"
-    backtrace:
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:468 (find_file)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:506 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDetermineCXXCompiler.cmake:125 (CMAKE_DETERMINE_COMPILER_ID)"
-      - "CMakeLists.txt"
-    mode: "file"
-    variable: "src_in"
-    description: "Path to a file."
-    settings:
-      SearchFramework: "NEVER"
-      SearchAppBundle: "NEVER"
-      CMAKE_FIND_USE_CMAKE_PATH: true
-      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
-      CMAKE_FIND_USE_INSTALL_PREFIX: true
-    names:
-      - "CMakeCXXCompilerId.cpp.in"
-    candidate_directories:
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/"
-    found: "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeCXXCompilerId.cpp.in"
-    search_context:
-      ENV{PATH}:
-        - "C:\\Program Files\\Eclipse Foundation\\jdk-8.0.302.8-hotspot\\bin"
-        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
-        - "C:\\Windows\\system32"
-        - "C:\\Windows"
-        - "C:\\Windows\\System32\\Wbem"
-        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
-        - "C:\\Windows\\System32\\OpenSSH\\"
-        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
-        - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR"
-        - "C:\\Program Files\\Microsoft VS Code\\bin"
-        - "C:\\Program Files\\Git\\cmd"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\Program Files\\ffmpeg-2026-03-15-git-6ba0b59d8b-full_build\\bin"
-        - "C:\\Program Files\\CMake\\bin"
-        - "C:\\Users\\ghait\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:\\Users\\ghait\\AppData\\Local\\Python\\bin"
-  -
-    kind: "message-v1"
-    backtrace:
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDetermineCXXCompiler.cmake:125 (CMAKE_DETERMINE_COMPILER_ID)"
-      - "CMakeLists.txt"
-    message: |
-      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
-      Compiler:  
-      Build flags: 
-      Id flags:  
-      
-      The output was:
-      0
-      Microsoft (R) Build Engine version 16.11.6+a918ceb31 for .NET Framework
-      Copyright (C) Microsoft Corporation. All rights reserved.
-      
-      Build started 5/14/2026 12:40:21 PM.
-      Project "C:\\dev\\Visual Studio Code\\Rune-Forge\\Sandbox\\build\\CMakeFiles\\4.3.0-rc3\\CompilerIdCXX\\CompilerIdCXX.vcxproj" on node 1 (default targets).
-      PrepareForBuild:
-        Creating directory "Debug\\".
-        Creating directory "Debug\\CompilerIdCXX.tlog\\".
-      InitializeBuildStatus:
-        Creating "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
-      ClCompile:
-        C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\CL.exe /c /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc142.pdb" /external:W0 /Gd /TP /FC /errorReport:queue CMakeCXXCompilerId.cpp
-        CMakeCXXCompilerId.cpp
-      Link:
-        C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdCXX.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdCXX.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdCXX.lib" /MACHINE:X64 Debug\\CMakeCXXCompilerId.obj
-        CompilerIdCXX.vcxproj -> C:\\dev\\Visual Studio Code\\Rune-Forge\\Sandbox\\build\\CMakeFiles\\4.3.0-rc3\\CompilerIdCXX\\CompilerIdCXX.exe
-      PostBuildEvent:
-        for %%i in (cl.exe) do @echo CMAKE_CXX_COMPILER=%%~$PATH:i
-        :VCEnd
-        CMAKE_CXX_COMPILER=C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\Hostx64\\x64\\cl.exe
-      FinalizeBuildStatus:
-        Deleting file "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild".
-        Touching "Debug\\CompilerIdCXX.tlog\\CompilerIdCXX.lastbuildstate".
-      Done Building Project "C:\\dev\\Visual Studio Code\\Rune-Forge\\Sandbox\\build\\CMakeFiles\\4.3.0-rc3\\CompilerIdCXX\\CompilerIdCXX.vcxproj" (default targets).
-      
-      Build succeeded.
-          0 Warning(s)
-          0 Error(s)
-      
-      Time Elapsed 00:00:00.92
-      
-      
-      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
-      
-      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.vcxproj"
-      
-      The CXX compiler identification is MSVC, found in:
-        C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/4.3.0-rc3/CompilerIdCXX/CompilerIdCXX.exe
-      
-  -
-    kind: "find-v1"
-    backtrace:
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeFindBinUtils.cmake:37 (find_program)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeFindBinUtils.cmake:65 (__resolve_tool_path)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeFindBinUtils.cmake:104 (__resolve_linker_path)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
-      - "CMakeLists.txt"
-    mode: "program"
-    variable: "_CMAKE_TOOL_WITH_PATH"
-    description: "Path to a program."
-    settings:
-      SearchFramework: "NEVER"
-      SearchAppBundle: "NEVER"
-      CMAKE_FIND_USE_CMAKE_PATH: false
-      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
-      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
-      CMAKE_FIND_USE_INSTALL_PREFIX: true
-    names:
-      - "lld-link"
-    candidate_directories:
-      - "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/"
-      - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/"
-      - "C:/Program Files/Common Files/Oracle/Java/javapath/"
-      - "C:/Windows/System32/"
-      - "C:/Windows/"
-      - "C:/Windows/System32/wbem/"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
-      - "C:/Windows/System32/OpenSSH/"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
-      - "C:/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR/"
-      - "C:/Program Files/Microsoft VS Code/bin/"
-      - "C:/Program Files/Git/cmd/"
-      - "C:/msys64/ucrt64/bin/"
-      - "C:/Program Files/ffmpeg-2026-03-15-git-6ba0b59d8b-full_build/bin/"
-      - "C:/Program Files/CMake/bin/"
-      - "C:/Users/ghait/AppData/Local/Microsoft/WindowsApps/"
-      - "C:/Users/ghait/AppData/Local/Python/bin/"
-    searched_directories:
-      - "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/lld-link.com"
-      - "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/lld-link.exe"
-      - "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/lld-link"
-      - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/lld-link.com"
-      - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/lld-link.exe"
-      - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/lld-link"
-      - "C:/Program Files/Common Files/Oracle/Java/javapath/lld-link.com"
-      - "C:/Program Files/Common Files/Oracle/Java/javapath/lld-link.exe"
-      - "C:/Program Files/Common Files/Oracle/Java/javapath/lld-link"
-      - "C:/Windows/System32/lld-link.com"
-      - "C:/Windows/System32/lld-link.exe"
-      - "C:/Windows/System32/lld-link"
-      - "C:/Windows/lld-link.com"
-      - "C:/Windows/lld-link.exe"
-      - "C:/Windows/lld-link"
-      - "C:/Windows/System32/wbem/lld-link.com"
-      - "C:/Windows/System32/wbem/lld-link.exe"
-      - "C:/Windows/System32/wbem/lld-link"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/lld-link.com"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/lld-link.exe"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/lld-link"
-      - "C:/Windows/System32/OpenSSH/lld-link.com"
-      - "C:/Windows/System32/OpenSSH/lld-link.exe"
-      - "C:/Windows/System32/OpenSSH/lld-link"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/lld-link.com"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/lld-link.exe"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/lld-link"
-      - "C:/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR/lld-link.com"
-      - "C:/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR/lld-link.exe"
-      - "C:/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR/lld-link"
-      - "C:/Program Files/Microsoft VS Code/bin/lld-link.com"
-      - "C:/Program Files/Microsoft VS Code/bin/lld-link.exe"
-      - "C:/Program Files/Microsoft VS Code/bin/lld-link"
-      - "C:/Program Files/Git/cmd/lld-link.com"
-      - "C:/Program Files/Git/cmd/lld-link.exe"
-      - "C:/Program Files/Git/cmd/lld-link"
-      - "C:/msys64/ucrt64/bin/lld-link.com"
-      - "C:/msys64/ucrt64/bin/lld-link.exe"
-      - "C:/msys64/ucrt64/bin/lld-link"
-      - "C:/Program Files/ffmpeg-2026-03-15-git-6ba0b59d8b-full_build/bin/lld-link.com"
-      - "C:/Program Files/ffmpeg-2026-03-15-git-6ba0b59d8b-full_build/bin/lld-link.exe"
-      - "C:/Program Files/ffmpeg-2026-03-15-git-6ba0b59d8b-full_build/bin/lld-link"
-      - "C:/Program Files/CMake/bin/lld-link.com"
-      - "C:/Program Files/CMake/bin/lld-link.exe"
-      - "C:/Program Files/CMake/bin/lld-link"
-      - "C:/Users/ghait/AppData/Local/Microsoft/WindowsApps/lld-link.com"
-      - "C:/Users/ghait/AppData/Local/Microsoft/WindowsApps/lld-link.exe"
-      - "C:/Users/ghait/AppData/Local/Microsoft/WindowsApps/lld-link"
-      - "C:/Users/ghait/AppData/Local/Python/bin/lld-link.com"
-      - "C:/Users/ghait/AppData/Local/Python/bin/lld-link.exe"
-      - "C:/Users/ghait/AppData/Local/Python/bin/lld-link"
-    found: false
-    search_context:
-      ENV{PATH}:
-        - "C:\\Program Files\\Eclipse Foundation\\jdk-8.0.302.8-hotspot\\bin"
-        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
-        - "C:\\Windows\\system32"
-        - "C:\\Windows"
-        - "C:\\Windows\\System32\\Wbem"
-        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
-        - "C:\\Windows\\System32\\OpenSSH\\"
-        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
-        - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR"
-        - "C:\\Program Files\\Microsoft VS Code\\bin"
-        - "C:\\Program Files\\Git\\cmd"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\Program Files\\ffmpeg-2026-03-15-git-6ba0b59d8b-full_build\\bin"
-        - "C:\\Program Files\\CMake\\bin"
-        - "C:\\Users\\ghait\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:\\Users\\ghait\\AppData\\Local\\Python\\bin"
-  -
-    kind: "find-v1"
-    backtrace:
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDetermineRCCompiler.cmake:40 (find_program)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/Platform/Windows-MSVC.cmake:583 (enable_language)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/Platform/Windows-MSVC.cmake:556 (__windows_compiler_msvc_enable_rc)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/Platform/Windows-MSVC-C.cmake:5 (__windows_compiler_msvc)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeCInformation.cmake:48 (include)"
-      - "CMakeLists.txt"
-    mode: "program"
-    variable: "CMAKE_RC_COMPILER"
-    description: "RC compiler"
-    settings:
-      SearchFramework: "NEVER"
-      SearchAppBundle: "NEVER"
-      CMAKE_FIND_USE_CMAKE_PATH: true
-      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
-      CMAKE_FIND_USE_INSTALL_PREFIX: true
-    names:
-      - "rc"
-    candidate_directories:
-      - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/"
-      - "C:/Program Files/Common Files/Oracle/Java/javapath/"
-      - "C:/Windows/System32/"
-      - "C:/Windows/"
-      - "C:/Windows/System32/wbem/"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
-      - "C:/Windows/System32/OpenSSH/"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
-      - "C:/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR/"
-      - "C:/Program Files/Microsoft VS Code/bin/"
-      - "C:/Program Files/Git/cmd/"
-      - "C:/msys64/ucrt64/bin/"
-      - "C:/Program Files/ffmpeg-2026-03-15-git-6ba0b59d8b-full_build/bin/"
-      - "C:/Program Files/CMake/bin/"
-      - "C:/Users/ghait/AppData/Local/Microsoft/WindowsApps/"
-      - "C:/Users/ghait/AppData/Local/Python/bin/"
-      - "C:/Program Files/bin/"
-      - "C:/Program Files/sbin/"
-      - "C:/Program Files/"
-      - "C:/Program Files (x86)/bin/"
-      - "C:/Program Files (x86)/sbin/"
-      - "C:/Program Files (x86)/"
-      - "C:/Program Files/CMake/bin/"
-      - "C:/Program Files/CMake/sbin/"
-      - "C:/Program Files/CMake/"
-      - "C:/Program Files (x86)/Project/bin/"
-      - "C:/Program Files (x86)/Project/sbin/"
-      - "C:/Program Files (x86)/Project/"
-    searched_directories:
-      - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/rc.com"
-      - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/rc.exe"
-      - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/rc"
-      - "C:/Program Files/Common Files/Oracle/Java/javapath/rc.com"
-      - "C:/Program Files/Common Files/Oracle/Java/javapath/rc.exe"
-      - "C:/Program Files/Common Files/Oracle/Java/javapath/rc"
-      - "C:/Windows/System32/rc.com"
-      - "C:/Windows/System32/rc.exe"
-      - "C:/Windows/System32/rc"
-      - "C:/Windows/rc.com"
-      - "C:/Windows/rc.exe"
-      - "C:/Windows/rc"
-      - "C:/Windows/System32/wbem/rc.com"
-      - "C:/Windows/System32/wbem/rc.exe"
-      - "C:/Windows/System32/wbem/rc"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/rc.com"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/rc.exe"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/rc"
-      - "C:/Windows/System32/OpenSSH/rc.com"
-      - "C:/Windows/System32/OpenSSH/rc.exe"
-      - "C:/Windows/System32/OpenSSH/rc"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/rc.com"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/rc.exe"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/rc"
-      - "C:/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR/rc.com"
-      - "C:/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR/rc.exe"
-      - "C:/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR/rc"
-      - "C:/Program Files/Microsoft VS Code/bin/rc.com"
-      - "C:/Program Files/Microsoft VS Code/bin/rc.exe"
-      - "C:/Program Files/Microsoft VS Code/bin/rc"
-      - "C:/Program Files/Git/cmd/rc.com"
-      - "C:/Program Files/Git/cmd/rc.exe"
-      - "C:/Program Files/Git/cmd/rc"
-      - "C:/msys64/ucrt64/bin/rc.com"
-      - "C:/msys64/ucrt64/bin/rc.exe"
-      - "C:/msys64/ucrt64/bin/rc"
-      - "C:/Program Files/ffmpeg-2026-03-15-git-6ba0b59d8b-full_build/bin/rc.com"
-      - "C:/Program Files/ffmpeg-2026-03-15-git-6ba0b59d8b-full_build/bin/rc.exe"
-      - "C:/Program Files/ffmpeg-2026-03-15-git-6ba0b59d8b-full_build/bin/rc"
-      - "C:/Program Files/CMake/bin/rc.com"
-      - "C:/Program Files/CMake/bin/rc.exe"
-      - "C:/Program Files/CMake/bin/rc"
-      - "C:/Users/ghait/AppData/Local/Microsoft/WindowsApps/rc.com"
-      - "C:/Users/ghait/AppData/Local/Microsoft/WindowsApps/rc.exe"
-      - "C:/Users/ghait/AppData/Local/Microsoft/WindowsApps/rc"
-      - "C:/Users/ghait/AppData/Local/Python/bin/rc.com"
-      - "C:/Users/ghait/AppData/Local/Python/bin/rc.exe"
-      - "C:/Users/ghait/AppData/Local/Python/bin/rc"
-      - "C:/Program Files/bin/rc.com"
-      - "C:/Program Files/bin/rc.exe"
-      - "C:/Program Files/bin/rc"
-      - "C:/Program Files/sbin/rc.com"
-      - "C:/Program Files/sbin/rc.exe"
-      - "C:/Program Files/sbin/rc"
-      - "C:/Program Files/rc.com"
-      - "C:/Program Files/rc.exe"
-      - "C:/Program Files/rc"
-      - "C:/Program Files (x86)/bin/rc.com"
-      - "C:/Program Files (x86)/bin/rc.exe"
-      - "C:/Program Files (x86)/bin/rc"
-      - "C:/Program Files (x86)/sbin/rc.com"
-      - "C:/Program Files (x86)/sbin/rc.exe"
-      - "C:/Program Files (x86)/sbin/rc"
-      - "C:/Program Files (x86)/rc.com"
-      - "C:/Program Files (x86)/rc.exe"
-      - "C:/Program Files (x86)/rc"
-      - "C:/Program Files/CMake/bin/rc.com"
-      - "C:/Program Files/CMake/bin/rc.exe"
-      - "C:/Program Files/CMake/bin/rc"
-      - "C:/Program Files/CMake/sbin/rc.com"
-      - "C:/Program Files/CMake/sbin/rc.exe"
-      - "C:/Program Files/CMake/sbin/rc"
-      - "C:/Program Files/CMake/rc.com"
-      - "C:/Program Files/CMake/rc.exe"
-      - "C:/Program Files/CMake/rc"
-      - "C:/Program Files (x86)/Project/bin/rc.com"
-      - "C:/Program Files (x86)/Project/bin/rc.exe"
-      - "C:/Program Files (x86)/Project/bin/rc"
-      - "C:/Program Files (x86)/Project/sbin/rc.com"
-      - "C:/Program Files (x86)/Project/sbin/rc.exe"
-      - "C:/Program Files (x86)/Project/sbin/rc"
-      - "C:/Program Files (x86)/Project/rc.com"
-      - "C:/Program Files (x86)/Project/rc.exe"
-      - "C:/Program Files (x86)/Project/rc"
-    found: false
-    search_context:
-      ENV{PATH}:
-        - "C:\\Program Files\\Eclipse Foundation\\jdk-8.0.302.8-hotspot\\bin"
-        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
-        - "C:\\Windows\\system32"
-        - "C:\\Windows"
-        - "C:\\Windows\\System32\\Wbem"
-        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
-        - "C:\\Windows\\System32\\OpenSSH\\"
-        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
-        - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR"
-        - "C:\\Program Files\\Microsoft VS Code\\bin"
-        - "C:\\Program Files\\Git\\cmd"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\Program Files\\ffmpeg-2026-03-15-git-6ba0b59d8b-full_build\\bin"
-        - "C:\\Program Files\\CMake\\bin"
-        - "C:\\Users\\ghait\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:\\Users\\ghait\\AppData\\Local\\Python\\bin"
-      CMAKE_INSTALL_PREFIX: "C:/Program Files (x86)/Project"
-      CMAKE_SYSTEM_PREFIX_PATH:
-        - "C:/Program Files"
-        - "C:/Program Files (x86)"
-        - "C:/Program Files/CMake"
-        - "C:/Program Files (x86)/Project"
-  -
-    kind: "try_compile-v1"
-    backtrace:
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDetermineCompilerABI.cmake:83 (try_compile)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
-      - "CMakeLists.txt"
-    checks:
-      - "Detecting C compiler ABI info"
-    directories:
-      source: "C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-wvovks"
-      binary: "C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-wvovks"
-    cmakeVariables:
-      CMAKE_CXX_STDLIB_MODULES_JSON: ""
-      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
-      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
-    buildResult:
-      variable: "CMAKE_C_ABI_COMPILED"
-      cached: true
-      stdout: |
-        Change Dir: 'C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-wvovks'
-        
-        Run Build Command(s): "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/MSBuild/Current/Bin/MSBuild.exe" cmTC_745f6.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=16.0 /v:n
-        Microsoft (R) Build Engine version 16.11.6+a918ceb31 for .NET Framework
-        Copyright (C) Microsoft Corporation. All rights reserved.
-        
-        Build started 5/14/2026 12:40:23 PM.
-        Project "C:\\dev\\Visual Studio Code\\Rune-Forge\\Sandbox\\build\\CMakeFiles\\CMakeScratch\\TryCompile-wvovks\\cmTC_745f6.vcxproj" on node 1 (default targets).
-        PrepareForBuild:
-          Creating directory "C:\\dev\\Visual Studio Code\\Rune-Forge\\Sandbox\\build\\CMakeFiles\\CMakeScratch\\TryCompile-wvovks\\Debug\\".
-          Creating directory "cmTC_745f6.dir\\Debug\\cmTC_745f6.tlog\\".
-        InitializeBuildStatus:
-          Creating "cmTC_745f6.dir\\Debug\\cmTC_745f6.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
-        ClCompile:
-          C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_745f6.dir\\Debug\\\\" /Fd"cmTC_745f6.dir\\Debug\\vc142.pdb" /external:W3 /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.3\\Modules\\CMakeCCompilerABI.c"
-          Microsoft (R) C/C++ Optimizing Compiler Version 19.29.30159 for x64
-          Copyright (C) Microsoft Corporation.  All rights reserved.
-          CMakeCCompilerABI.c
-          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_745f6.dir\\Debug\\\\" /Fd"cmTC_745f6.dir\\Debug\\vc142.pdb" /external:W3 /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.3\\Modules\\CMakeCCompilerABI.c"
-        Link:
-          C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\dev\\Visual Studio Code\\Rune-Forge\\Sandbox\\build\\CMakeFiles\\CMakeScratch\\TryCompile-wvovks\\Debug\\cmTC_745f6.exe" /INCREMENTAL /ILK:"cmTC_745f6.dir\\Debug\\cmTC_745f6.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-wvovks/Debug/cmTC_745f6.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-wvovks/Debug/cmTC_745f6.lib" /MACHINE:X64  /machine:x64 cmTC_745f6.dir\\Debug\\CMakeCCompilerABI.obj
-          cmTC_745f6.vcxproj -> C:\\dev\\Visual Studio Code\\Rune-Forge\\Sandbox\\build\\CMakeFiles\\CMakeScratch\\TryCompile-wvovks\\Debug\\cmTC_745f6.exe
-        FinalizeBuildStatus:
-          Deleting file "cmTC_745f6.dir\\Debug\\cmTC_745f6.tlog\\unsuccessfulbuild".
-          Touching "cmTC_745f6.dir\\Debug\\cmTC_745f6.tlog\\cmTC_745f6.lastbuildstate".
-        Done Building Project "C:\\dev\\Visual Studio Code\\Rune-Forge\\Sandbox\\build\\CMakeFiles\\CMakeScratch\\TryCompile-wvovks\\cmTC_745f6.vcxproj" (default targets).
-        
-        Build succeeded.
-            0 Warning(s)
-            0 Error(s)
-        
-        Time Elapsed 00:00:00.83
-        
-      exitCode: 0
-  -
-    kind: "message-v1"
-    backtrace:
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDetermineCompilerABI.cmake:253 (message)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
-      - "CMakeLists.txt"
-    message: |
-      Parsed C implicit link information:
-        link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|link\\.exe|lld-link(\\.exe)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
-        linker tool regex: [^[ 	]*(->|"|[0-9]+>[ 	-]*Build:[ 	0-9]+ ms[ 	]*)?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|link\\.exe|lld-link(\\.exe)?))("|,| |$)]
-        linker tool for 'C': C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/HostX64/x64/link.exe
-        implicit libs: []
-        implicit objs: []
-        implicit dirs: []
-        implicit fwks: []
-      
-      
-  -
-    kind: "message-v1"
-    backtrace:
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/Internal/CMakeDetermineLinkerId.cmake:38 (message)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDetermineCompilerABI.cmake:299 (cmake_determine_linker_id)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
-      - "CMakeLists.txt"
-    message: |
-      Running the C compiler's linker: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/HostX64/x64/link.exe" "-v"
-      Microsoft (R) Incremental Linker Version 14.29.30159.0
-      Copyright (C) Microsoft Corporation.  All rights reserved.
-  -
-    kind: "try_compile-v1"
-    backtrace:
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDetermineCompilerABI.cmake:83 (try_compile)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
-      - "CMakeLists.txt"
-    checks:
-      - "Detecting CXX compiler ABI info"
-    directories:
-      source: "C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-jawi8m"
-      binary: "C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-jawi8m"
-    cmakeVariables:
-      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
-      CMAKE_CXX_SCAN_FOR_MODULES: "OFF"
-      CMAKE_CXX_STDLIB_MODULES_JSON: ""
-      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
-    buildResult:
-      variable: "CMAKE_CXX_ABI_COMPILED"
-      cached: true
-      stdout: |
-        Change Dir: 'C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-jawi8m'
-        
-        Run Build Command(s): "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/MSBuild/Current/Bin/MSBuild.exe" cmTC_2ea44.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=16.0 /v:n
-        Microsoft (R) Build Engine version 16.11.6+a918ceb31 for .NET Framework
-        Copyright (C) Microsoft Corporation. All rights reserved.
-        
-        Build started 5/14/2026 12:40:24 PM.
-        Project "C:\\dev\\Visual Studio Code\\Rune-Forge\\Sandbox\\build\\CMakeFiles\\CMakeScratch\\TryCompile-jawi8m\\cmTC_2ea44.vcxproj" on node 1 (default targets).
-        PrepareForBuild:
-          Creating directory "C:\\dev\\Visual Studio Code\\Rune-Forge\\Sandbox\\build\\CMakeFiles\\CMakeScratch\\TryCompile-jawi8m\\Debug\\".
-          Creating directory "cmTC_2ea44.dir\\Debug\\cmTC_2ea44.tlog\\".
-        InitializeBuildStatus:
-          Creating "cmTC_2ea44.dir\\Debug\\cmTC_2ea44.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
-        ClCompile:
-          C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /Fo"cmTC_2ea44.dir\\Debug\\\\" /Fd"cmTC_2ea44.dir\\Debug\\vc142.pdb" /external:W3 /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.3\\Modules\\CMakeCXXCompilerABI.cpp"
-          Microsoft (R) C/C++ Optimizing Compiler Version 19.29.30159 for x64
-          CMakeCXXCompilerABI.cpp
-          Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /Fo"cmTC_2ea44.dir\\Debug\\\\" /Fd"cmTC_2ea44.dir\\Debug\\vc142.pdb" /external:W3 /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.3\\Modules\\CMakeCXXCompilerABI.cpp"
-        Link:
-          C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\dev\\Visual Studio Code\\Rune-Forge\\Sandbox\\build\\CMakeFiles\\CMakeScratch\\TryCompile-jawi8m\\Debug\\cmTC_2ea44.exe" /INCREMENTAL /ILK:"cmTC_2ea44.dir\\Debug\\cmTC_2ea44.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-jawi8m/Debug/cmTC_2ea44.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-jawi8m/Debug/cmTC_2ea44.lib" /MACHINE:X64  /machine:x64 cmTC_2ea44.dir\\Debug\\CMakeCXXCompilerABI.obj
-          cmTC_2ea44.vcxproj -> C:\\dev\\Visual Studio Code\\Rune-Forge\\Sandbox\\build\\CMakeFiles\\CMakeScratch\\TryCompile-jawi8m\\Debug\\cmTC_2ea44.exe
-        FinalizeBuildStatus:
-          Deleting file "cmTC_2ea44.dir\\Debug\\cmTC_2ea44.tlog\\unsuccessfulbuild".
-          Touching "cmTC_2ea44.dir\\Debug\\cmTC_2ea44.tlog\\cmTC_2ea44.lastbuildstate".
-        Done Building Project "C:\\dev\\Visual Studio Code\\Rune-Forge\\Sandbox\\build\\CMakeFiles\\CMakeScratch\\TryCompile-jawi8m\\cmTC_2ea44.vcxproj" (default targets).
-        
-        Build succeeded.
-            0 Warning(s)
-            0 Error(s)
-        
-        Time Elapsed 00:00:00.88
-        
-      exitCode: 0
-  -
-    kind: "message-v1"
-    backtrace:
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDetermineCompilerABI.cmake:253 (message)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
-      - "CMakeLists.txt"
-    message: |
-      Parsed CXX implicit link information:
-        link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|link\\.exe|lld-link(\\.exe)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
-        linker tool regex: [^[ 	]*(->|"|[0-9]+>[ 	-]*Build:[ 	0-9]+ ms[ 	]*)?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|link\\.exe|lld-link(\\.exe)?))("|,| |$)]
-        linker tool for 'CXX': C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/HostX64/x64/link.exe
-        implicit libs: []
-        implicit objs: []
-        implicit dirs: []
-        implicit fwks: []
-      
-      
-  -
-    kind: "message-v1"
-    backtrace:
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/Internal/CMakeDetermineLinkerId.cmake:38 (message)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDetermineCompilerABI.cmake:299 (cmake_determine_linker_id)"
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
-      - "CMakeLists.txt"
-    message: |
-      Running the CXX compiler's linker: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/HostX64/x64/link.exe" "-v"
-      Microsoft (R) Incremental Linker Version 14.29.30159.0
-      Copyright (C) Microsoft Corporation.  All rights reserved.
-...
-
----
-events:
-  -
-    kind: "message-v1"
-    backtrace:
-      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDetermineSystem.cmake:212 (message)"
-      - "CMakeLists.txt"
-    message: |
-      The system is: Windows - 10.0.26200 - AMD64
-  -
-    kind: "find-v1"
-    backtrace:
       - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeMinGWFindMake.cmake:5 (find_program)"
       - "CMakeLists.txt"
     mode: "program"
@@ -1060,9 +27,6 @@ events:
     names:
       - "mingw32-make.exe"
     candidate_directories:
-      - "C:/msys64/ucrt64/bin/"
-      - "C:/msys64/usr/bin/"
-      - "C:/Program Files/Microsoft VS Code/"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/"
       - "C:/Program Files/Common Files/Oracle/Java/javapath/"
       - "C:/Windows/System32/"
@@ -1074,6 +38,7 @@ events:
       - "C:/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR/"
       - "C:/Program Files/Microsoft VS Code/bin/"
       - "C:/Program Files/Git/cmd/"
+      - "C:/msys64/ucrt64/bin/"
       - "C:/Program Files/ffmpeg-2026-03-15-git-6ba0b59d8b-full_build/bin/"
       - "C:/Program Files/CMake/bin/"
       - "C:/Users/ghait/AppData/Local/Microsoft/WindowsApps/"
@@ -1083,31 +48,138 @@ events:
       - "/MinGW/bin/"
       - "/REGISTRY-NOTFOUND/MinGW/bin/"
     searched_directories:
+      - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/mingw32-make.exe.com"
+      - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/mingw32-make.exe"
+      - "C:/Program Files/Common Files/Oracle/Java/javapath/mingw32-make.exe.com"
+      - "C:/Program Files/Common Files/Oracle/Java/javapath/mingw32-make.exe"
+      - "C:/Windows/System32/mingw32-make.exe.com"
+      - "C:/Windows/System32/mingw32-make.exe"
+      - "C:/Windows/mingw32-make.exe.com"
+      - "C:/Windows/mingw32-make.exe"
+      - "C:/Windows/System32/wbem/mingw32-make.exe.com"
+      - "C:/Windows/System32/wbem/mingw32-make.exe"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/mingw32-make.exe.com"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/mingw32-make.exe"
+      - "C:/Windows/System32/OpenSSH/mingw32-make.exe.com"
+      - "C:/Windows/System32/OpenSSH/mingw32-make.exe"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/mingw32-make.exe.com"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/mingw32-make.exe"
+      - "C:/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR/mingw32-make.exe.com"
+      - "C:/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR/mingw32-make.exe"
+      - "C:/Program Files/Microsoft VS Code/bin/mingw32-make.exe.com"
+      - "C:/Program Files/Microsoft VS Code/bin/mingw32-make.exe"
+      - "C:/Program Files/Git/cmd/mingw32-make.exe.com"
+      - "C:/Program Files/Git/cmd/mingw32-make.exe"
       - "C:/msys64/ucrt64/bin/mingw32-make.exe.com"
     found: "C:/msys64/ucrt64/bin/mingw32-make.exe"
     search_context:
       ENV{PATH}:
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\usr\\bin"
-        - "C:/Program Files/Microsoft VS Code"
         - "C:\\Program Files\\Eclipse Foundation\\jdk-8.0.302.8-hotspot\\bin"
-        - "C:/Program Files/Common Files/Oracle/Java/javapath"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
         - "C:\\Windows\\system32"
-        - "C:/Windows"
+        - "C:\\Windows"
         - "C:\\Windows\\System32\\Wbem"
-        - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
         - "C:\\Windows\\System32\\OpenSSH\\"
-        - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
         - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR"
-        - "C:/Program Files/Microsoft VS Code/bin"
+        - "C:\\Program Files\\Microsoft VS Code\\bin"
         - "C:\\Program Files\\Git\\cmd"
-        - "C:/msys64/ucrt64/bin"
+        - "C:\\msys64\\ucrt64\\bin"
         - "C:\\Program Files\\ffmpeg-2026-03-15-git-6ba0b59d8b-full_build\\bin"
-        - "C:/Program Files/CMake/bin"
+        - "C:\\Program Files\\CMake\\bin"
         - "C:\\Users\\ghait\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:/Users/ghait/AppData/Local/Python/bin"
+        - "C:\\Users\\ghait\\AppData\\Local\\Python\\bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDetermineCompiler.cmake:115 (find_program)"
+      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:67 (_cmake_find_compiler_path)"
+      - "CMakeLists.txt"
+    mode: "program"
+    variable: "CMAKE_C_COMPILER_WITH_PATH"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "gcc"
+    candidate_directories:
+      - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/"
+      - "C:/Program Files/Common Files/Oracle/Java/javapath/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
+      - "C:/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR/"
+      - "C:/Program Files/Microsoft VS Code/bin/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/msys64/ucrt64/bin/"
+      - "C:/Program Files/ffmpeg-2026-03-15-git-6ba0b59d8b-full_build/bin/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Users/ghait/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/ghait/AppData/Local/Python/bin/"
+    searched_directories:
+      - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc.com"
+      - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc.exe"
+      - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc"
+      - "C:/Program Files/Common Files/Oracle/Java/javapath/gcc.com"
+      - "C:/Program Files/Common Files/Oracle/Java/javapath/gcc.exe"
+      - "C:/Program Files/Common Files/Oracle/Java/javapath/gcc"
+      - "C:/Windows/System32/gcc.com"
+      - "C:/Windows/System32/gcc.exe"
+      - "C:/Windows/System32/gcc"
+      - "C:/Windows/gcc.com"
+      - "C:/Windows/gcc.exe"
+      - "C:/Windows/gcc"
+      - "C:/Windows/System32/wbem/gcc.com"
+      - "C:/Windows/System32/wbem/gcc.exe"
+      - "C:/Windows/System32/wbem/gcc"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/gcc.com"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/gcc.exe"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/gcc"
+      - "C:/Windows/System32/OpenSSH/gcc.com"
+      - "C:/Windows/System32/OpenSSH/gcc.exe"
+      - "C:/Windows/System32/OpenSSH/gcc"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/gcc.com"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/gcc.exe"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/gcc"
+      - "C:/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR/gcc.com"
+      - "C:/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR/gcc.exe"
+      - "C:/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR/gcc"
+      - "C:/Program Files/Microsoft VS Code/bin/gcc.com"
+      - "C:/Program Files/Microsoft VS Code/bin/gcc.exe"
+      - "C:/Program Files/Microsoft VS Code/bin/gcc"
+      - "C:/Program Files/Git/cmd/gcc.com"
+      - "C:/Program Files/Git/cmd/gcc.exe"
+      - "C:/Program Files/Git/cmd/gcc"
+      - "C:/msys64/ucrt64/bin/gcc.com"
+    found: "C:/msys64/ucrt64/bin/gcc.exe"
+    search_context:
+      ENV{PATH}:
+        - "C:\\Program Files\\Eclipse Foundation\\jdk-8.0.302.8-hotspot\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR"
+        - "C:\\Program Files\\Microsoft VS Code\\bin"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\msys64\\ucrt64\\bin"
+        - "C:\\Program Files\\ffmpeg-2026-03-15-git-6ba0b59d8b-full_build\\bin"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Users\\ghait\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\ghait\\AppData\\Local\\Python\\bin"
   -
     kind: "find-v1"
     backtrace:
@@ -1135,27 +207,22 @@ events:
     found: "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeCCompilerId.c.in"
     search_context:
       ENV{PATH}:
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\usr\\bin"
-        - "C:/Program Files/Microsoft VS Code"
         - "C:\\Program Files\\Eclipse Foundation\\jdk-8.0.302.8-hotspot\\bin"
-        - "C:/Program Files/Common Files/Oracle/Java/javapath"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
         - "C:\\Windows\\system32"
-        - "C:/Windows"
+        - "C:\\Windows"
         - "C:\\Windows\\System32\\Wbem"
-        - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
         - "C:\\Windows\\System32\\OpenSSH\\"
-        - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
         - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR"
-        - "C:/Program Files/Microsoft VS Code/bin"
+        - "C:\\Program Files\\Microsoft VS Code\\bin"
         - "C:\\Program Files\\Git\\cmd"
-        - "C:/msys64/ucrt64/bin"
+        - "C:\\msys64\\ucrt64\\bin"
         - "C:\\Program Files\\ffmpeg-2026-03-15-git-6ba0b59d8b-full_build\\bin"
-        - "C:/Program Files/CMake/bin"
+        - "C:\\Program Files\\CMake\\bin"
         - "C:\\Users\\ghait\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:/Users/ghait/AppData/Local/Python/bin"
+        - "C:\\Users\\ghait\\AppData\\Local\\Python\\bin"
   -
     kind: "message-v1"
     backtrace:
@@ -1199,8 +266,6 @@ events:
       - "ar"
     candidate_directories:
       - "C:/msys64/ucrt64/bin/"
-      - "C:/msys64/usr/bin/"
-      - "C:/Program Files/Microsoft VS Code/"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/"
       - "C:/Program Files/Common Files/Oracle/Java/javapath/"
       - "C:/Windows/System32/"
@@ -1221,27 +286,22 @@ events:
     found: "C:/msys64/ucrt64/bin/ar.exe"
     search_context:
       ENV{PATH}:
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\usr\\bin"
-        - "C:/Program Files/Microsoft VS Code"
         - "C:\\Program Files\\Eclipse Foundation\\jdk-8.0.302.8-hotspot\\bin"
-        - "C:/Program Files/Common Files/Oracle/Java/javapath"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
         - "C:\\Windows\\system32"
-        - "C:/Windows"
+        - "C:\\Windows"
         - "C:\\Windows\\System32\\Wbem"
-        - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
         - "C:\\Windows\\System32\\OpenSSH\\"
-        - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
         - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR"
-        - "C:/Program Files/Microsoft VS Code/bin"
+        - "C:\\Program Files\\Microsoft VS Code\\bin"
         - "C:\\Program Files\\Git\\cmd"
-        - "C:/msys64/ucrt64/bin"
+        - "C:\\msys64\\ucrt64\\bin"
         - "C:\\Program Files\\ffmpeg-2026-03-15-git-6ba0b59d8b-full_build\\bin"
-        - "C:/Program Files/CMake/bin"
+        - "C:\\Program Files\\CMake\\bin"
         - "C:\\Users\\ghait\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:/Users/ghait/AppData/Local/Python/bin"
+        - "C:\\Users\\ghait\\AppData\\Local\\Python\\bin"
   -
     kind: "find-v1"
     backtrace:
@@ -1263,8 +323,6 @@ events:
       - "ranlib"
     candidate_directories:
       - "C:/msys64/ucrt64/bin/"
-      - "C:/msys64/usr/bin/"
-      - "C:/Program Files/Microsoft VS Code/"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/"
       - "C:/Program Files/Common Files/Oracle/Java/javapath/"
       - "C:/Windows/System32/"
@@ -1285,27 +343,22 @@ events:
     found: "C:/msys64/ucrt64/bin/ranlib.exe"
     search_context:
       ENV{PATH}:
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\usr\\bin"
-        - "C:/Program Files/Microsoft VS Code"
         - "C:\\Program Files\\Eclipse Foundation\\jdk-8.0.302.8-hotspot\\bin"
-        - "C:/Program Files/Common Files/Oracle/Java/javapath"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
         - "C:\\Windows\\system32"
-        - "C:/Windows"
+        - "C:\\Windows"
         - "C:\\Windows\\System32\\Wbem"
-        - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
         - "C:\\Windows\\System32\\OpenSSH\\"
-        - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
         - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR"
-        - "C:/Program Files/Microsoft VS Code/bin"
+        - "C:\\Program Files\\Microsoft VS Code\\bin"
         - "C:\\Program Files\\Git\\cmd"
-        - "C:/msys64/ucrt64/bin"
+        - "C:\\msys64\\ucrt64\\bin"
         - "C:\\Program Files\\ffmpeg-2026-03-15-git-6ba0b59d8b-full_build\\bin"
-        - "C:/Program Files/CMake/bin"
+        - "C:\\Program Files\\CMake\\bin"
         - "C:\\Users\\ghait\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:/Users/ghait/AppData/Local/Python/bin"
+        - "C:\\Users\\ghait\\AppData\\Local\\Python\\bin"
   -
     kind: "find-v1"
     backtrace:
@@ -1327,8 +380,6 @@ events:
       - "strip"
     candidate_directories:
       - "C:/msys64/ucrt64/bin/"
-      - "C:/msys64/usr/bin/"
-      - "C:/Program Files/Microsoft VS Code/"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/"
       - "C:/Program Files/Common Files/Oracle/Java/javapath/"
       - "C:/Windows/System32/"
@@ -1349,27 +400,22 @@ events:
     found: "C:/msys64/ucrt64/bin/strip.exe"
     search_context:
       ENV{PATH}:
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\usr\\bin"
-        - "C:/Program Files/Microsoft VS Code"
         - "C:\\Program Files\\Eclipse Foundation\\jdk-8.0.302.8-hotspot\\bin"
-        - "C:/Program Files/Common Files/Oracle/Java/javapath"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
         - "C:\\Windows\\system32"
-        - "C:/Windows"
+        - "C:\\Windows"
         - "C:\\Windows\\System32\\Wbem"
-        - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
         - "C:\\Windows\\System32\\OpenSSH\\"
-        - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
         - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR"
-        - "C:/Program Files/Microsoft VS Code/bin"
+        - "C:\\Program Files\\Microsoft VS Code\\bin"
         - "C:\\Program Files\\Git\\cmd"
-        - "C:/msys64/ucrt64/bin"
+        - "C:\\msys64\\ucrt64\\bin"
         - "C:\\Program Files\\ffmpeg-2026-03-15-git-6ba0b59d8b-full_build\\bin"
-        - "C:/Program Files/CMake/bin"
+        - "C:\\Program Files\\CMake\\bin"
         - "C:\\Users\\ghait\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:/Users/ghait/AppData/Local/Python/bin"
+        - "C:\\Users\\ghait\\AppData\\Local\\Python\\bin"
   -
     kind: "find-v1"
     backtrace:
@@ -1391,8 +437,6 @@ events:
       - "ld"
     candidate_directories:
       - "C:/msys64/ucrt64/bin/"
-      - "C:/msys64/usr/bin/"
-      - "C:/Program Files/Microsoft VS Code/"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/"
       - "C:/Program Files/Common Files/Oracle/Java/javapath/"
       - "C:/Windows/System32/"
@@ -1413,27 +457,22 @@ events:
     found: "C:/msys64/ucrt64/bin/ld.exe"
     search_context:
       ENV{PATH}:
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\usr\\bin"
-        - "C:/Program Files/Microsoft VS Code"
         - "C:\\Program Files\\Eclipse Foundation\\jdk-8.0.302.8-hotspot\\bin"
-        - "C:/Program Files/Common Files/Oracle/Java/javapath"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
         - "C:\\Windows\\system32"
-        - "C:/Windows"
+        - "C:\\Windows"
         - "C:\\Windows\\System32\\Wbem"
-        - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
         - "C:\\Windows\\System32\\OpenSSH\\"
-        - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
         - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR"
-        - "C:/Program Files/Microsoft VS Code/bin"
+        - "C:\\Program Files\\Microsoft VS Code\\bin"
         - "C:\\Program Files\\Git\\cmd"
-        - "C:/msys64/ucrt64/bin"
+        - "C:\\msys64\\ucrt64\\bin"
         - "C:\\Program Files\\ffmpeg-2026-03-15-git-6ba0b59d8b-full_build\\bin"
-        - "C:/Program Files/CMake/bin"
+        - "C:\\Program Files\\CMake\\bin"
         - "C:\\Users\\ghait\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:/Users/ghait/AppData/Local/Python/bin"
+        - "C:\\Users\\ghait\\AppData\\Local\\Python\\bin"
   -
     kind: "find-v1"
     backtrace:
@@ -1455,8 +494,6 @@ events:
       - "nm"
     candidate_directories:
       - "C:/msys64/ucrt64/bin/"
-      - "C:/msys64/usr/bin/"
-      - "C:/Program Files/Microsoft VS Code/"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/"
       - "C:/Program Files/Common Files/Oracle/Java/javapath/"
       - "C:/Windows/System32/"
@@ -1477,27 +514,22 @@ events:
     found: "C:/msys64/ucrt64/bin/nm.exe"
     search_context:
       ENV{PATH}:
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\usr\\bin"
-        - "C:/Program Files/Microsoft VS Code"
         - "C:\\Program Files\\Eclipse Foundation\\jdk-8.0.302.8-hotspot\\bin"
-        - "C:/Program Files/Common Files/Oracle/Java/javapath"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
         - "C:\\Windows\\system32"
-        - "C:/Windows"
+        - "C:\\Windows"
         - "C:\\Windows\\System32\\Wbem"
-        - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
         - "C:\\Windows\\System32\\OpenSSH\\"
-        - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
         - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR"
-        - "C:/Program Files/Microsoft VS Code/bin"
+        - "C:\\Program Files\\Microsoft VS Code\\bin"
         - "C:\\Program Files\\Git\\cmd"
-        - "C:/msys64/ucrt64/bin"
+        - "C:\\msys64\\ucrt64\\bin"
         - "C:\\Program Files\\ffmpeg-2026-03-15-git-6ba0b59d8b-full_build\\bin"
-        - "C:/Program Files/CMake/bin"
+        - "C:\\Program Files\\CMake\\bin"
         - "C:\\Users\\ghait\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:/Users/ghait/AppData/Local/Python/bin"
+        - "C:\\Users\\ghait\\AppData\\Local\\Python\\bin"
   -
     kind: "find-v1"
     backtrace:
@@ -1519,8 +551,6 @@ events:
       - "objdump"
     candidate_directories:
       - "C:/msys64/ucrt64/bin/"
-      - "C:/msys64/usr/bin/"
-      - "C:/Program Files/Microsoft VS Code/"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/"
       - "C:/Program Files/Common Files/Oracle/Java/javapath/"
       - "C:/Windows/System32/"
@@ -1541,27 +571,22 @@ events:
     found: "C:/msys64/ucrt64/bin/objdump.exe"
     search_context:
       ENV{PATH}:
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\usr\\bin"
-        - "C:/Program Files/Microsoft VS Code"
         - "C:\\Program Files\\Eclipse Foundation\\jdk-8.0.302.8-hotspot\\bin"
-        - "C:/Program Files/Common Files/Oracle/Java/javapath"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
         - "C:\\Windows\\system32"
-        - "C:/Windows"
+        - "C:\\Windows"
         - "C:\\Windows\\System32\\Wbem"
-        - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
         - "C:\\Windows\\System32\\OpenSSH\\"
-        - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
         - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR"
-        - "C:/Program Files/Microsoft VS Code/bin"
+        - "C:\\Program Files\\Microsoft VS Code\\bin"
         - "C:\\Program Files\\Git\\cmd"
-        - "C:/msys64/ucrt64/bin"
+        - "C:\\msys64\\ucrt64\\bin"
         - "C:\\Program Files\\ffmpeg-2026-03-15-git-6ba0b59d8b-full_build\\bin"
-        - "C:/Program Files/CMake/bin"
+        - "C:\\Program Files\\CMake\\bin"
         - "C:\\Users\\ghait\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:/Users/ghait/AppData/Local/Python/bin"
+        - "C:\\Users\\ghait\\AppData\\Local\\Python\\bin"
   -
     kind: "find-v1"
     backtrace:
@@ -1583,8 +608,6 @@ events:
       - "objcopy"
     candidate_directories:
       - "C:/msys64/ucrt64/bin/"
-      - "C:/msys64/usr/bin/"
-      - "C:/Program Files/Microsoft VS Code/"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/"
       - "C:/Program Files/Common Files/Oracle/Java/javapath/"
       - "C:/Windows/System32/"
@@ -1605,27 +628,22 @@ events:
     found: "C:/msys64/ucrt64/bin/objcopy.exe"
     search_context:
       ENV{PATH}:
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\usr\\bin"
-        - "C:/Program Files/Microsoft VS Code"
         - "C:\\Program Files\\Eclipse Foundation\\jdk-8.0.302.8-hotspot\\bin"
-        - "C:/Program Files/Common Files/Oracle/Java/javapath"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
         - "C:\\Windows\\system32"
-        - "C:/Windows"
+        - "C:\\Windows"
         - "C:\\Windows\\System32\\Wbem"
-        - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
         - "C:\\Windows\\System32\\OpenSSH\\"
-        - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
         - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR"
-        - "C:/Program Files/Microsoft VS Code/bin"
+        - "C:\\Program Files\\Microsoft VS Code\\bin"
         - "C:\\Program Files\\Git\\cmd"
-        - "C:/msys64/ucrt64/bin"
+        - "C:\\msys64\\ucrt64\\bin"
         - "C:\\Program Files\\ffmpeg-2026-03-15-git-6ba0b59d8b-full_build\\bin"
-        - "C:/Program Files/CMake/bin"
+        - "C:\\Program Files\\CMake\\bin"
         - "C:\\Users\\ghait\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:/Users/ghait/AppData/Local/Python/bin"
+        - "C:\\Users\\ghait\\AppData\\Local\\Python\\bin"
   -
     kind: "find-v1"
     backtrace:
@@ -1647,8 +665,6 @@ events:
       - "readelf"
     candidate_directories:
       - "C:/msys64/ucrt64/bin/"
-      - "C:/msys64/usr/bin/"
-      - "C:/Program Files/Microsoft VS Code/"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/"
       - "C:/Program Files/Common Files/Oracle/Java/javapath/"
       - "C:/Windows/System32/"
@@ -1669,27 +685,22 @@ events:
     found: "C:/msys64/ucrt64/bin/readelf.exe"
     search_context:
       ENV{PATH}:
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\usr\\bin"
-        - "C:/Program Files/Microsoft VS Code"
         - "C:\\Program Files\\Eclipse Foundation\\jdk-8.0.302.8-hotspot\\bin"
-        - "C:/Program Files/Common Files/Oracle/Java/javapath"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
         - "C:\\Windows\\system32"
-        - "C:/Windows"
+        - "C:\\Windows"
         - "C:\\Windows\\System32\\Wbem"
-        - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
         - "C:\\Windows\\System32\\OpenSSH\\"
-        - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
         - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR"
-        - "C:/Program Files/Microsoft VS Code/bin"
+        - "C:\\Program Files\\Microsoft VS Code\\bin"
         - "C:\\Program Files\\Git\\cmd"
-        - "C:/msys64/ucrt64/bin"
+        - "C:\\msys64\\ucrt64\\bin"
         - "C:\\Program Files\\ffmpeg-2026-03-15-git-6ba0b59d8b-full_build\\bin"
-        - "C:/Program Files/CMake/bin"
+        - "C:\\Program Files\\CMake\\bin"
         - "C:\\Users\\ghait\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:/Users/ghait/AppData/Local/Python/bin"
+        - "C:\\Users\\ghait\\AppData\\Local\\Python\\bin"
   -
     kind: "find-v1"
     backtrace:
@@ -1711,8 +722,6 @@ events:
       - "dlltool"
     candidate_directories:
       - "C:/msys64/ucrt64/bin/"
-      - "C:/msys64/usr/bin/"
-      - "C:/Program Files/Microsoft VS Code/"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/"
       - "C:/Program Files/Common Files/Oracle/Java/javapath/"
       - "C:/Windows/System32/"
@@ -1733,27 +742,22 @@ events:
     found: "C:/msys64/ucrt64/bin/dlltool.exe"
     search_context:
       ENV{PATH}:
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\usr\\bin"
-        - "C:/Program Files/Microsoft VS Code"
         - "C:\\Program Files\\Eclipse Foundation\\jdk-8.0.302.8-hotspot\\bin"
-        - "C:/Program Files/Common Files/Oracle/Java/javapath"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
         - "C:\\Windows\\system32"
-        - "C:/Windows"
+        - "C:\\Windows"
         - "C:\\Windows\\System32\\Wbem"
-        - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
         - "C:\\Windows\\System32\\OpenSSH\\"
-        - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
         - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR"
-        - "C:/Program Files/Microsoft VS Code/bin"
+        - "C:\\Program Files\\Microsoft VS Code\\bin"
         - "C:\\Program Files\\Git\\cmd"
-        - "C:/msys64/ucrt64/bin"
+        - "C:\\msys64\\ucrt64\\bin"
         - "C:\\Program Files\\ffmpeg-2026-03-15-git-6ba0b59d8b-full_build\\bin"
-        - "C:/Program Files/CMake/bin"
+        - "C:\\Program Files\\CMake\\bin"
         - "C:\\Users\\ghait\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:/Users/ghait/AppData/Local/Python/bin"
+        - "C:\\Users\\ghait\\AppData\\Local\\Python\\bin"
   -
     kind: "find-v1"
     backtrace:
@@ -1775,8 +779,6 @@ events:
       - "addr2line"
     candidate_directories:
       - "C:/msys64/ucrt64/bin/"
-      - "C:/msys64/usr/bin/"
-      - "C:/Program Files/Microsoft VS Code/"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/"
       - "C:/Program Files/Common Files/Oracle/Java/javapath/"
       - "C:/Windows/System32/"
@@ -1797,27 +799,22 @@ events:
     found: "C:/msys64/ucrt64/bin/addr2line.exe"
     search_context:
       ENV{PATH}:
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\usr\\bin"
-        - "C:/Program Files/Microsoft VS Code"
         - "C:\\Program Files\\Eclipse Foundation\\jdk-8.0.302.8-hotspot\\bin"
-        - "C:/Program Files/Common Files/Oracle/Java/javapath"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
         - "C:\\Windows\\system32"
-        - "C:/Windows"
+        - "C:\\Windows"
         - "C:\\Windows\\System32\\Wbem"
-        - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
         - "C:\\Windows\\System32\\OpenSSH\\"
-        - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
         - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR"
-        - "C:/Program Files/Microsoft VS Code/bin"
+        - "C:\\Program Files\\Microsoft VS Code\\bin"
         - "C:\\Program Files\\Git\\cmd"
-        - "C:/msys64/ucrt64/bin"
+        - "C:\\msys64\\ucrt64\\bin"
         - "C:\\Program Files\\ffmpeg-2026-03-15-git-6ba0b59d8b-full_build\\bin"
-        - "C:/Program Files/CMake/bin"
+        - "C:\\Program Files\\CMake\\bin"
         - "C:\\Users\\ghait\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:/Users/ghait/AppData/Local/Python/bin"
+        - "C:\\Users\\ghait\\AppData\\Local\\Python\\bin"
   -
     kind: "find-v1"
     backtrace:
@@ -1839,8 +836,6 @@ events:
       - "tapi"
     candidate_directories:
       - "C:/msys64/ucrt64/bin/"
-      - "C:/msys64/usr/bin/"
-      - "C:/Program Files/Microsoft VS Code/"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/"
       - "C:/Program Files/Common Files/Oracle/Java/javapath/"
       - "C:/Windows/System32/"
@@ -1860,12 +855,6 @@ events:
       - "C:/msys64/ucrt64/bin/tapi.com"
       - "C:/msys64/ucrt64/bin/tapi.exe"
       - "C:/msys64/ucrt64/bin/tapi"
-      - "C:/msys64/usr/bin/tapi.com"
-      - "C:/msys64/usr/bin/tapi.exe"
-      - "C:/msys64/usr/bin/tapi"
-      - "C:/Program Files/Microsoft VS Code/tapi.com"
-      - "C:/Program Files/Microsoft VS Code/tapi.exe"
-      - "C:/Program Files/Microsoft VS Code/tapi"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/tapi.com"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/tapi.exe"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/tapi"
@@ -1914,27 +903,22 @@ events:
     found: false
     search_context:
       ENV{PATH}:
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\usr\\bin"
-        - "C:/Program Files/Microsoft VS Code"
         - "C:\\Program Files\\Eclipse Foundation\\jdk-8.0.302.8-hotspot\\bin"
-        - "C:/Program Files/Common Files/Oracle/Java/javapath"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
         - "C:\\Windows\\system32"
-        - "C:/Windows"
+        - "C:\\Windows"
         - "C:\\Windows\\System32\\Wbem"
-        - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
         - "C:\\Windows\\System32\\OpenSSH\\"
-        - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
         - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR"
-        - "C:/Program Files/Microsoft VS Code/bin"
+        - "C:\\Program Files\\Microsoft VS Code\\bin"
         - "C:\\Program Files\\Git\\cmd"
-        - "C:/msys64/ucrt64/bin"
+        - "C:\\msys64\\ucrt64\\bin"
         - "C:\\Program Files\\ffmpeg-2026-03-15-git-6ba0b59d8b-full_build\\bin"
-        - "C:/Program Files/CMake/bin"
+        - "C:\\Program Files\\CMake\\bin"
         - "C:\\Users\\ghait\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:/Users/ghait/AppData/Local/Python/bin"
+        - "C:\\Users\\ghait\\AppData\\Local\\Python\\bin"
   -
     kind: "find-v1"
     backtrace:
@@ -1959,8 +943,6 @@ events:
       - "gcc-ar"
     candidate_directories:
       - "C:/msys64/ucrt64/bin/"
-      - "C:/msys64/usr/bin/"
-      - "C:/Program Files/Microsoft VS Code/"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/"
       - "C:/Program Files/Common Files/Oracle/Java/javapath/"
       - "C:/Windows/System32/"
@@ -1980,12 +962,6 @@ events:
       - "C:/msys64/ucrt64/bin/gcc-ar-15.2.com"
       - "C:/msys64/ucrt64/bin/gcc-ar-15.2.exe"
       - "C:/msys64/ucrt64/bin/gcc-ar-15.2"
-      - "C:/msys64/usr/bin/gcc-ar-15.2.com"
-      - "C:/msys64/usr/bin/gcc-ar-15.2.exe"
-      - "C:/msys64/usr/bin/gcc-ar-15.2"
-      - "C:/Program Files/Microsoft VS Code/gcc-ar-15.2.com"
-      - "C:/Program Files/Microsoft VS Code/gcc-ar-15.2.exe"
-      - "C:/Program Files/Microsoft VS Code/gcc-ar-15.2"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ar-15.2.com"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ar-15.2.exe"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ar-15.2"
@@ -2034,12 +1010,6 @@ events:
       - "C:/msys64/ucrt64/bin/gcc-ar-15.com"
       - "C:/msys64/ucrt64/bin/gcc-ar-15.exe"
       - "C:/msys64/ucrt64/bin/gcc-ar-15"
-      - "C:/msys64/usr/bin/gcc-ar-15.com"
-      - "C:/msys64/usr/bin/gcc-ar-15.exe"
-      - "C:/msys64/usr/bin/gcc-ar-15"
-      - "C:/Program Files/Microsoft VS Code/gcc-ar-15.com"
-      - "C:/Program Files/Microsoft VS Code/gcc-ar-15.exe"
-      - "C:/Program Files/Microsoft VS Code/gcc-ar-15"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ar-15.com"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ar-15.exe"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ar-15"
@@ -2088,12 +1058,6 @@ events:
       - "C:/msys64/ucrt64/bin/gcc-ar15.com"
       - "C:/msys64/ucrt64/bin/gcc-ar15.exe"
       - "C:/msys64/ucrt64/bin/gcc-ar15"
-      - "C:/msys64/usr/bin/gcc-ar15.com"
-      - "C:/msys64/usr/bin/gcc-ar15.exe"
-      - "C:/msys64/usr/bin/gcc-ar15"
-      - "C:/Program Files/Microsoft VS Code/gcc-ar15.com"
-      - "C:/Program Files/Microsoft VS Code/gcc-ar15.exe"
-      - "C:/Program Files/Microsoft VS Code/gcc-ar15"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ar15.com"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ar15.exe"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ar15"
@@ -2143,27 +1107,22 @@ events:
     found: "C:/msys64/ucrt64/bin/gcc-ar.exe"
     search_context:
       ENV{PATH}:
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\usr\\bin"
-        - "C:/Program Files/Microsoft VS Code"
         - "C:\\Program Files\\Eclipse Foundation\\jdk-8.0.302.8-hotspot\\bin"
-        - "C:/Program Files/Common Files/Oracle/Java/javapath"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
         - "C:\\Windows\\system32"
-        - "C:/Windows"
+        - "C:\\Windows"
         - "C:\\Windows\\System32\\Wbem"
-        - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
         - "C:\\Windows\\System32\\OpenSSH\\"
-        - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
         - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR"
-        - "C:/Program Files/Microsoft VS Code/bin"
+        - "C:\\Program Files\\Microsoft VS Code\\bin"
         - "C:\\Program Files\\Git\\cmd"
-        - "C:/msys64/ucrt64/bin"
+        - "C:\\msys64\\ucrt64\\bin"
         - "C:\\Program Files\\ffmpeg-2026-03-15-git-6ba0b59d8b-full_build\\bin"
-        - "C:/Program Files/CMake/bin"
+        - "C:\\Program Files\\CMake\\bin"
         - "C:\\Users\\ghait\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:/Users/ghait/AppData/Local/Python/bin"
+        - "C:\\Users\\ghait\\AppData\\Local\\Python\\bin"
   -
     kind: "find-v1"
     backtrace:
@@ -2188,8 +1147,6 @@ events:
       - "gcc-ranlib"
     candidate_directories:
       - "C:/msys64/ucrt64/bin/"
-      - "C:/msys64/usr/bin/"
-      - "C:/Program Files/Microsoft VS Code/"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/"
       - "C:/Program Files/Common Files/Oracle/Java/javapath/"
       - "C:/Windows/System32/"
@@ -2209,12 +1166,6 @@ events:
       - "C:/msys64/ucrt64/bin/gcc-ranlib-15.2.com"
       - "C:/msys64/ucrt64/bin/gcc-ranlib-15.2.exe"
       - "C:/msys64/ucrt64/bin/gcc-ranlib-15.2"
-      - "C:/msys64/usr/bin/gcc-ranlib-15.2.com"
-      - "C:/msys64/usr/bin/gcc-ranlib-15.2.exe"
-      - "C:/msys64/usr/bin/gcc-ranlib-15.2"
-      - "C:/Program Files/Microsoft VS Code/gcc-ranlib-15.2.com"
-      - "C:/Program Files/Microsoft VS Code/gcc-ranlib-15.2.exe"
-      - "C:/Program Files/Microsoft VS Code/gcc-ranlib-15.2"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ranlib-15.2.com"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ranlib-15.2.exe"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ranlib-15.2"
@@ -2263,12 +1214,6 @@ events:
       - "C:/msys64/ucrt64/bin/gcc-ranlib-15.com"
       - "C:/msys64/ucrt64/bin/gcc-ranlib-15.exe"
       - "C:/msys64/ucrt64/bin/gcc-ranlib-15"
-      - "C:/msys64/usr/bin/gcc-ranlib-15.com"
-      - "C:/msys64/usr/bin/gcc-ranlib-15.exe"
-      - "C:/msys64/usr/bin/gcc-ranlib-15"
-      - "C:/Program Files/Microsoft VS Code/gcc-ranlib-15.com"
-      - "C:/Program Files/Microsoft VS Code/gcc-ranlib-15.exe"
-      - "C:/Program Files/Microsoft VS Code/gcc-ranlib-15"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ranlib-15.com"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ranlib-15.exe"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ranlib-15"
@@ -2317,12 +1262,6 @@ events:
       - "C:/msys64/ucrt64/bin/gcc-ranlib15.com"
       - "C:/msys64/ucrt64/bin/gcc-ranlib15.exe"
       - "C:/msys64/ucrt64/bin/gcc-ranlib15"
-      - "C:/msys64/usr/bin/gcc-ranlib15.com"
-      - "C:/msys64/usr/bin/gcc-ranlib15.exe"
-      - "C:/msys64/usr/bin/gcc-ranlib15"
-      - "C:/Program Files/Microsoft VS Code/gcc-ranlib15.com"
-      - "C:/Program Files/Microsoft VS Code/gcc-ranlib15.exe"
-      - "C:/Program Files/Microsoft VS Code/gcc-ranlib15"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ranlib15.com"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ranlib15.exe"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ranlib15"
@@ -2372,27 +1311,112 @@ events:
     found: "C:/msys64/ucrt64/bin/gcc-ranlib.exe"
     search_context:
       ENV{PATH}:
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\usr\\bin"
-        - "C:/Program Files/Microsoft VS Code"
         - "C:\\Program Files\\Eclipse Foundation\\jdk-8.0.302.8-hotspot\\bin"
-        - "C:/Program Files/Common Files/Oracle/Java/javapath"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
         - "C:\\Windows\\system32"
-        - "C:/Windows"
+        - "C:\\Windows"
         - "C:\\Windows\\System32\\Wbem"
-        - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
         - "C:\\Windows\\System32\\OpenSSH\\"
-        - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
         - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR"
-        - "C:/Program Files/Microsoft VS Code/bin"
+        - "C:\\Program Files\\Microsoft VS Code\\bin"
         - "C:\\Program Files\\Git\\cmd"
-        - "C:/msys64/ucrt64/bin"
+        - "C:\\msys64\\ucrt64\\bin"
         - "C:\\Program Files\\ffmpeg-2026-03-15-git-6ba0b59d8b-full_build\\bin"
-        - "C:/Program Files/CMake/bin"
+        - "C:\\Program Files\\CMake\\bin"
         - "C:\\Users\\ghait\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:/Users/ghait/AppData/Local/Python/bin"
+        - "C:\\Users\\ghait\\AppData\\Local\\Python\\bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDetermineCompiler.cmake:115 (find_program)"
+      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDetermineCXXCompiler.cmake:71 (_cmake_find_compiler_path)"
+      - "CMakeLists.txt"
+    mode: "program"
+    variable: "CMAKE_CXX_COMPILER_WITH_PATH"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "g++"
+    candidate_directories:
+      - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/"
+      - "C:/Program Files/Common Files/Oracle/Java/javapath/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
+      - "C:/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR/"
+      - "C:/Program Files/Microsoft VS Code/bin/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/msys64/ucrt64/bin/"
+      - "C:/Program Files/ffmpeg-2026-03-15-git-6ba0b59d8b-full_build/bin/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Users/ghait/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/ghait/AppData/Local/Python/bin/"
+    searched_directories:
+      - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/g++.com"
+      - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/g++.exe"
+      - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/g++"
+      - "C:/Program Files/Common Files/Oracle/Java/javapath/g++.com"
+      - "C:/Program Files/Common Files/Oracle/Java/javapath/g++.exe"
+      - "C:/Program Files/Common Files/Oracle/Java/javapath/g++"
+      - "C:/Windows/System32/g++.com"
+      - "C:/Windows/System32/g++.exe"
+      - "C:/Windows/System32/g++"
+      - "C:/Windows/g++.com"
+      - "C:/Windows/g++.exe"
+      - "C:/Windows/g++"
+      - "C:/Windows/System32/wbem/g++.com"
+      - "C:/Windows/System32/wbem/g++.exe"
+      - "C:/Windows/System32/wbem/g++"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/g++.com"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/g++.exe"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/g++"
+      - "C:/Windows/System32/OpenSSH/g++.com"
+      - "C:/Windows/System32/OpenSSH/g++.exe"
+      - "C:/Windows/System32/OpenSSH/g++"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/g++.com"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/g++.exe"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/g++"
+      - "C:/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR/g++.com"
+      - "C:/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR/g++.exe"
+      - "C:/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR/g++"
+      - "C:/Program Files/Microsoft VS Code/bin/g++.com"
+      - "C:/Program Files/Microsoft VS Code/bin/g++.exe"
+      - "C:/Program Files/Microsoft VS Code/bin/g++"
+      - "C:/Program Files/Git/cmd/g++.com"
+      - "C:/Program Files/Git/cmd/g++.exe"
+      - "C:/Program Files/Git/cmd/g++"
+      - "C:/msys64/ucrt64/bin/g++.com"
+    found: "C:/msys64/ucrt64/bin/g++.exe"
+    search_context:
+      ENV{PATH}:
+        - "C:\\Program Files\\Eclipse Foundation\\jdk-8.0.302.8-hotspot\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR"
+        - "C:\\Program Files\\Microsoft VS Code\\bin"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\msys64\\ucrt64\\bin"
+        - "C:\\Program Files\\ffmpeg-2026-03-15-git-6ba0b59d8b-full_build\\bin"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Users\\ghait\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\ghait\\AppData\\Local\\Python\\bin"
   -
     kind: "find-v1"
     backtrace:
@@ -2420,27 +1444,22 @@ events:
     found: "C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeCXXCompilerId.cpp.in"
     search_context:
       ENV{PATH}:
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\usr\\bin"
-        - "C:/Program Files/Microsoft VS Code"
         - "C:\\Program Files\\Eclipse Foundation\\jdk-8.0.302.8-hotspot\\bin"
-        - "C:/Program Files/Common Files/Oracle/Java/javapath"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
         - "C:\\Windows\\system32"
-        - "C:/Windows"
+        - "C:\\Windows"
         - "C:\\Windows\\System32\\Wbem"
-        - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
         - "C:\\Windows\\System32\\OpenSSH\\"
-        - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
         - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR"
-        - "C:/Program Files/Microsoft VS Code/bin"
+        - "C:\\Program Files\\Microsoft VS Code\\bin"
         - "C:\\Program Files\\Git\\cmd"
-        - "C:/msys64/ucrt64/bin"
+        - "C:\\msys64\\ucrt64\\bin"
         - "C:\\Program Files\\ffmpeg-2026-03-15-git-6ba0b59d8b-full_build\\bin"
-        - "C:/Program Files/CMake/bin"
+        - "C:\\Program Files\\CMake\\bin"
         - "C:\\Users\\ghait\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:/Users/ghait/AppData/Local/Python/bin"
+        - "C:\\Users\\ghait\\AppData\\Local\\Python\\bin"
   -
     kind: "message-v1"
     backtrace:
@@ -2487,8 +1506,6 @@ events:
       - "gcc-ar"
     candidate_directories:
       - "C:/msys64/ucrt64/bin/"
-      - "C:/msys64/usr/bin/"
-      - "C:/Program Files/Microsoft VS Code/"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/"
       - "C:/Program Files/Common Files/Oracle/Java/javapath/"
       - "C:/Windows/System32/"
@@ -2508,12 +1525,6 @@ events:
       - "C:/msys64/ucrt64/bin/gcc-ar-15.2.com"
       - "C:/msys64/ucrt64/bin/gcc-ar-15.2.exe"
       - "C:/msys64/ucrt64/bin/gcc-ar-15.2"
-      - "C:/msys64/usr/bin/gcc-ar-15.2.com"
-      - "C:/msys64/usr/bin/gcc-ar-15.2.exe"
-      - "C:/msys64/usr/bin/gcc-ar-15.2"
-      - "C:/Program Files/Microsoft VS Code/gcc-ar-15.2.com"
-      - "C:/Program Files/Microsoft VS Code/gcc-ar-15.2.exe"
-      - "C:/Program Files/Microsoft VS Code/gcc-ar-15.2"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ar-15.2.com"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ar-15.2.exe"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ar-15.2"
@@ -2562,12 +1573,6 @@ events:
       - "C:/msys64/ucrt64/bin/gcc-ar-15.com"
       - "C:/msys64/ucrt64/bin/gcc-ar-15.exe"
       - "C:/msys64/ucrt64/bin/gcc-ar-15"
-      - "C:/msys64/usr/bin/gcc-ar-15.com"
-      - "C:/msys64/usr/bin/gcc-ar-15.exe"
-      - "C:/msys64/usr/bin/gcc-ar-15"
-      - "C:/Program Files/Microsoft VS Code/gcc-ar-15.com"
-      - "C:/Program Files/Microsoft VS Code/gcc-ar-15.exe"
-      - "C:/Program Files/Microsoft VS Code/gcc-ar-15"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ar-15.com"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ar-15.exe"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ar-15"
@@ -2616,12 +1621,6 @@ events:
       - "C:/msys64/ucrt64/bin/gcc-ar15.com"
       - "C:/msys64/ucrt64/bin/gcc-ar15.exe"
       - "C:/msys64/ucrt64/bin/gcc-ar15"
-      - "C:/msys64/usr/bin/gcc-ar15.com"
-      - "C:/msys64/usr/bin/gcc-ar15.exe"
-      - "C:/msys64/usr/bin/gcc-ar15"
-      - "C:/Program Files/Microsoft VS Code/gcc-ar15.com"
-      - "C:/Program Files/Microsoft VS Code/gcc-ar15.exe"
-      - "C:/Program Files/Microsoft VS Code/gcc-ar15"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ar15.com"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ar15.exe"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ar15"
@@ -2671,27 +1670,22 @@ events:
     found: "C:/msys64/ucrt64/bin/gcc-ar.exe"
     search_context:
       ENV{PATH}:
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\usr\\bin"
-        - "C:/Program Files/Microsoft VS Code"
         - "C:\\Program Files\\Eclipse Foundation\\jdk-8.0.302.8-hotspot\\bin"
-        - "C:/Program Files/Common Files/Oracle/Java/javapath"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
         - "C:\\Windows\\system32"
-        - "C:/Windows"
+        - "C:\\Windows"
         - "C:\\Windows\\System32\\Wbem"
-        - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
         - "C:\\Windows\\System32\\OpenSSH\\"
-        - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
         - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR"
-        - "C:/Program Files/Microsoft VS Code/bin"
+        - "C:\\Program Files\\Microsoft VS Code\\bin"
         - "C:\\Program Files\\Git\\cmd"
-        - "C:/msys64/ucrt64/bin"
+        - "C:\\msys64\\ucrt64\\bin"
         - "C:\\Program Files\\ffmpeg-2026-03-15-git-6ba0b59d8b-full_build\\bin"
-        - "C:/Program Files/CMake/bin"
+        - "C:\\Program Files\\CMake\\bin"
         - "C:\\Users\\ghait\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:/Users/ghait/AppData/Local/Python/bin"
+        - "C:\\Users\\ghait\\AppData\\Local\\Python\\bin"
   -
     kind: "find-v1"
     backtrace:
@@ -2716,8 +1710,6 @@ events:
       - "gcc-ranlib"
     candidate_directories:
       - "C:/msys64/ucrt64/bin/"
-      - "C:/msys64/usr/bin/"
-      - "C:/Program Files/Microsoft VS Code/"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/"
       - "C:/Program Files/Common Files/Oracle/Java/javapath/"
       - "C:/Windows/System32/"
@@ -2737,12 +1729,6 @@ events:
       - "C:/msys64/ucrt64/bin/gcc-ranlib-15.2.com"
       - "C:/msys64/ucrt64/bin/gcc-ranlib-15.2.exe"
       - "C:/msys64/ucrt64/bin/gcc-ranlib-15.2"
-      - "C:/msys64/usr/bin/gcc-ranlib-15.2.com"
-      - "C:/msys64/usr/bin/gcc-ranlib-15.2.exe"
-      - "C:/msys64/usr/bin/gcc-ranlib-15.2"
-      - "C:/Program Files/Microsoft VS Code/gcc-ranlib-15.2.com"
-      - "C:/Program Files/Microsoft VS Code/gcc-ranlib-15.2.exe"
-      - "C:/Program Files/Microsoft VS Code/gcc-ranlib-15.2"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ranlib-15.2.com"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ranlib-15.2.exe"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ranlib-15.2"
@@ -2791,12 +1777,6 @@ events:
       - "C:/msys64/ucrt64/bin/gcc-ranlib-15.com"
       - "C:/msys64/ucrt64/bin/gcc-ranlib-15.exe"
       - "C:/msys64/ucrt64/bin/gcc-ranlib-15"
-      - "C:/msys64/usr/bin/gcc-ranlib-15.com"
-      - "C:/msys64/usr/bin/gcc-ranlib-15.exe"
-      - "C:/msys64/usr/bin/gcc-ranlib-15"
-      - "C:/Program Files/Microsoft VS Code/gcc-ranlib-15.com"
-      - "C:/Program Files/Microsoft VS Code/gcc-ranlib-15.exe"
-      - "C:/Program Files/Microsoft VS Code/gcc-ranlib-15"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ranlib-15.com"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ranlib-15.exe"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ranlib-15"
@@ -2845,12 +1825,6 @@ events:
       - "C:/msys64/ucrt64/bin/gcc-ranlib15.com"
       - "C:/msys64/ucrt64/bin/gcc-ranlib15.exe"
       - "C:/msys64/ucrt64/bin/gcc-ranlib15"
-      - "C:/msys64/usr/bin/gcc-ranlib15.com"
-      - "C:/msys64/usr/bin/gcc-ranlib15.exe"
-      - "C:/msys64/usr/bin/gcc-ranlib15"
-      - "C:/Program Files/Microsoft VS Code/gcc-ranlib15.com"
-      - "C:/Program Files/Microsoft VS Code/gcc-ranlib15.exe"
-      - "C:/Program Files/Microsoft VS Code/gcc-ranlib15"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ranlib15.com"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ranlib15.exe"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/gcc-ranlib15"
@@ -2900,27 +1874,22 @@ events:
     found: "C:/msys64/ucrt64/bin/gcc-ranlib.exe"
     search_context:
       ENV{PATH}:
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\usr\\bin"
-        - "C:/Program Files/Microsoft VS Code"
         - "C:\\Program Files\\Eclipse Foundation\\jdk-8.0.302.8-hotspot\\bin"
-        - "C:/Program Files/Common Files/Oracle/Java/javapath"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
         - "C:\\Windows\\system32"
-        - "C:/Windows"
+        - "C:\\Windows"
         - "C:\\Windows\\System32\\Wbem"
-        - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
         - "C:\\Windows\\System32\\OpenSSH\\"
-        - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
         - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR"
-        - "C:/Program Files/Microsoft VS Code/bin"
+        - "C:\\Program Files\\Microsoft VS Code\\bin"
         - "C:\\Program Files\\Git\\cmd"
-        - "C:/msys64/ucrt64/bin"
+        - "C:\\msys64\\ucrt64\\bin"
         - "C:\\Program Files\\ffmpeg-2026-03-15-git-6ba0b59d8b-full_build\\bin"
-        - "C:/Program Files/CMake/bin"
+        - "C:\\Program Files\\CMake\\bin"
         - "C:\\Users\\ghait\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:/Users/ghait/AppData/Local/Python/bin"
+        - "C:\\Users\\ghait\\AppData\\Local\\Python\\bin"
   -
     kind: "find-v1"
     backtrace:
@@ -2944,9 +1913,6 @@ events:
       - "windres"
       - "windres"
     candidate_directories:
-      - "C:/msys64/ucrt64/bin/"
-      - "C:/msys64/usr/bin/"
-      - "C:/Program Files/Microsoft VS Code/"
       - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/"
       - "C:/Program Files/Common Files/Oracle/Java/javapath/"
       - "C:/Windows/System32/"
@@ -2958,13 +1924,11 @@ events:
       - "C:/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR/"
       - "C:/Program Files/Microsoft VS Code/bin/"
       - "C:/Program Files/Git/cmd/"
+      - "C:/msys64/ucrt64/bin/"
       - "C:/Program Files/ffmpeg-2026-03-15-git-6ba0b59d8b-full_build/bin/"
       - "C:/Program Files/CMake/bin/"
       - "C:/Users/ghait/AppData/Local/Microsoft/WindowsApps/"
       - "C:/Users/ghait/AppData/Local/Python/bin/"
-      - "C:/msys64/ucrt64/bin/"
-      - "C:/msys64/ucrt64/sbin/"
-      - "C:/msys64/ucrt64/"
       - "C:/Program Files/bin/"
       - "C:/Program Files/sbin/"
       - "C:/Program Files/"
@@ -2978,34 +1942,61 @@ events:
       - "C:/Program Files (x86)/Project/sbin/"
       - "C:/Program Files (x86)/Project/"
     searched_directories:
+      - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/windres.com"
+      - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/windres.exe"
+      - "C:/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin/windres"
+      - "C:/Program Files/Common Files/Oracle/Java/javapath/windres.com"
+      - "C:/Program Files/Common Files/Oracle/Java/javapath/windres.exe"
+      - "C:/Program Files/Common Files/Oracle/Java/javapath/windres"
+      - "C:/Windows/System32/windres.com"
+      - "C:/Windows/System32/windres.exe"
+      - "C:/Windows/System32/windres"
+      - "C:/Windows/windres.com"
+      - "C:/Windows/windres.exe"
+      - "C:/Windows/windres"
+      - "C:/Windows/System32/wbem/windres.com"
+      - "C:/Windows/System32/wbem/windres.exe"
+      - "C:/Windows/System32/wbem/windres"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/windres.com"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/windres.exe"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/windres"
+      - "C:/Windows/System32/OpenSSH/windres.com"
+      - "C:/Windows/System32/OpenSSH/windres.exe"
+      - "C:/Windows/System32/OpenSSH/windres"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/windres.com"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/windres.exe"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/windres"
+      - "C:/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR/windres.com"
+      - "C:/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR/windres.exe"
+      - "C:/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR/windres"
+      - "C:/Program Files/Microsoft VS Code/bin/windres.com"
+      - "C:/Program Files/Microsoft VS Code/bin/windres.exe"
+      - "C:/Program Files/Microsoft VS Code/bin/windres"
+      - "C:/Program Files/Git/cmd/windres.com"
+      - "C:/Program Files/Git/cmd/windres.exe"
+      - "C:/Program Files/Git/cmd/windres"
       - "C:/msys64/ucrt64/bin/windres.com"
     found: "C:/msys64/ucrt64/bin/windres.exe"
     search_context:
       ENV{PATH}:
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\ucrt64\\bin"
-        - "C:\\msys64\\usr\\bin"
-        - "C:/Program Files/Microsoft VS Code"
         - "C:\\Program Files\\Eclipse Foundation\\jdk-8.0.302.8-hotspot\\bin"
-        - "C:/Program Files/Common Files/Oracle/Java/javapath"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
         - "C:\\Windows\\system32"
-        - "C:/Windows"
+        - "C:\\Windows"
         - "C:\\Windows\\System32\\Wbem"
-        - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
         - "C:\\Windows\\System32\\OpenSSH\\"
-        - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
         - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR"
-        - "C:/Program Files/Microsoft VS Code/bin"
+        - "C:\\Program Files\\Microsoft VS Code\\bin"
         - "C:\\Program Files\\Git\\cmd"
-        - "C:/msys64/ucrt64/bin"
+        - "C:\\msys64\\ucrt64\\bin"
         - "C:\\Program Files\\ffmpeg-2026-03-15-git-6ba0b59d8b-full_build\\bin"
-        - "C:/Program Files/CMake/bin"
+        - "C:\\Program Files\\CMake\\bin"
         - "C:\\Users\\ghait\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:/Users/ghait/AppData/Local/Python/bin"
+        - "C:\\Users\\ghait\\AppData\\Local\\Python\\bin"
       CMAKE_INSTALL_PREFIX: "C:/Program Files (x86)/Project"
       CMAKE_SYSTEM_PREFIX_PATH:
-        - "C:/msys64/ucrt64"
         - "C:/Program Files"
         - "C:/Program Files (x86)"
         - "C:/Program Files/CMake"
@@ -3019,8 +2010,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-tw5nmn"
-      binary: "C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-tw5nmn"
+      source: "C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-ywlls0"
+      binary: "C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-ywlls0"
     cmakeVariables:
       CMAKE_CXX_STDLIB_MODULES_JSON: ""
       CMAKE_C_FLAGS: ""
@@ -3029,13 +2020,13 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-tw5nmn'
+        Change Dir: 'C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-ywlls0'
         
-        Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/msys64/ucrt64/bin/mingw32-make.exe -f Makefile cmTC_d88a8/fast
-        C:/msys64/ucrt64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_d88a8.dir\\build.make CMakeFiles/cmTC_d88a8.dir/build
-        mingw32-make[1]: Entering directory 'C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-tw5nmn'
-        Building C object CMakeFiles/cmTC_d88a8.dir/CMakeCCompilerABI.c.obj
-        C:\\msys64\\ucrt64\\bin\\gcc.exe   -v -o CMakeFiles\\cmTC_d88a8.dir\\CMakeCCompilerABI.c.obj -c "C:\\Program Files\\CMake\\share\\cmake-4.3\\Modules\\CMakeCCompilerABI.c"
+        Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/msys64/ucrt64/bin/mingw32-make.exe -f Makefile cmTC_0f4ce/fast
+        C:/msys64/ucrt64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_0f4ce.dir\\build.make CMakeFiles/cmTC_0f4ce.dir/build
+        mingw32-make[1]: Entering directory 'C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-ywlls0'
+        Building C object CMakeFiles/cmTC_0f4ce.dir/CMakeCCompilerABI.c.obj
+        C:\\msys64\\ucrt64\\bin\\gcc.exe   -v -o CMakeFiles\\cmTC_0f4ce.dir\\CMakeCCompilerABI.c.obj -c "C:\\Program Files\\CMake\\share\\cmake-4.3\\Modules\\CMakeCCompilerABI.c"
         Using built-in specs.
         COLLECT_GCC=C:\\msys64\\ucrt64\\bin\\gcc.exe
         Target: x86_64-w64-mingw32
@@ -3043,8 +2034,8 @@ events:
         Thread model: posix
         Supported LTO compression algorithms: zlib zstd
         gcc version 15.2.0 (Rev8, Built by MSYS2 project) 
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_d88a8.dir\\CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles\\cmTC_d88a8.dir\\'
-         C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/cc1.exe -quiet -v -iprefix C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/ -D_REENTRANT C:\\Program Files\\CMake\\share\\cmake-4.3\\Modules\\CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles\\cmTC_d88a8.dir\\ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=generic -march=nocona -version -o C:\\Users\\ghait\\AppData\\Local\\Temp\\ccKi0WXD.s
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_0f4ce.dir\\CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles\\cmTC_0f4ce.dir\\'
+         C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/cc1.exe -quiet -v -iprefix C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/ -D_REENTRANT C:\\Program Files\\CMake\\share\\cmake-4.3\\Modules\\CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles\\cmTC_0f4ce.dir\\ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=generic -march=nocona -version -o C:\\Users\\ghait\\AppData\\Local\\Temp\\cchqWB9d.s
         GNU C23 (Rev8, Built by MSYS2 project) version 15.2.0 (x86_64-w64-mingw32)
         	compiled by GNU C version 15.2.0, GMP version 6.3.0, MPFR version 4.2.2, MPC version 1.3.1, isl version isl-0.27-GMP
         
@@ -3063,14 +2054,14 @@ events:
          C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/include-fixed
         End of search list.
         Compiler executable checksum: f68563dd6aebdc6b84233a210e98d3c3
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_d88a8.dir\\CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles\\cmTC_d88a8.dir\\'
-         C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/bin/as.exe -v -o CMakeFiles\\cmTC_d88a8.dir\\CMakeCCompilerABI.c.obj C:\\Users\\ghait\\AppData\\Local\\Temp\\ccKi0WXD.s
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_0f4ce.dir\\CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles\\cmTC_0f4ce.dir\\'
+         C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/bin/as.exe -v -o CMakeFiles\\cmTC_0f4ce.dir\\CMakeCCompilerABI.c.obj C:\\Users\\ghait\\AppData\\Local\\Temp\\cchqWB9d.s
         GNU assembler version 2.45.1 (x86_64-w64-mingw32) using BFD version (GNU Binutils) 2.45.1
         COMPILER_PATH=C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/;C:/msys64/ucrt64/bin/../lib/gcc/;C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/bin/
         LIBRARY_PATH=C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/;C:/msys64/ucrt64/bin/../lib/gcc/;C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib/../lib/;C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/;C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib/;C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_d88a8.dir\\CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles\\cmTC_d88a8.dir\\CMakeCCompilerABI.c.'
-        Linking C executable cmTC_d88a8.exe
-        "C:\\Program Files\\CMake\\bin\\cmake.exe" -E cmake_link_script CMakeFiles\\cmTC_d88a8.dir\\link.txt --verbose=1
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_0f4ce.dir\\CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles\\cmTC_0f4ce.dir\\CMakeCCompilerABI.c.'
+        Linking C executable cmTC_0f4ce.exe
+        "C:\\Program Files\\CMake\\bin\\cmake.exe" -E cmake_link_script CMakeFiles\\cmTC_0f4ce.dir\\link.txt --verbose=1
         Using built-in specs.
         COLLECT_GCC=C:\\msys64\\ucrt64\\bin\\gcc.exe
         COLLECT_LTO_WRAPPER=C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/lto-wrapper.exe
@@ -3081,16 +2072,16 @@ events:
         gcc version 15.2.0 (Rev8, Built by MSYS2 project) 
         COMPILER_PATH=C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/;C:/msys64/ucrt64/bin/../lib/gcc/;C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/bin/
         LIBRARY_PATH=C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/;C:/msys64/ucrt64/bin/../lib/gcc/;C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib/../lib/;C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/;C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib/;C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_d88a8.exe' '-mtune=generic' '-march=nocona' '-dumpdir' 'cmTC_d88a8.'
-         C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/collect2.exe -plugin C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/liblto_plugin.dll -plugin-opt=C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\ghait\\AppData\\Local\\Temp\\cc4IdSzU.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -m i386pep -Bdynamic -o cmTC_d88a8.exe C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/crt2.o C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtbegin.o -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0 -LC:/msys64/ucrt64/bin/../lib/gcc -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../.. -v --whole-archive CMakeFiles\\cmTC_d88a8.dir/objects.a --no-whole-archive --out-implib libcmTC_d88a8.dll.a --major-image-version 0 --minor-image-version 0 -lmingw32 -lgcc -lgcc_eh -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc -lgcc_eh -lmingwex -lmsvcrt -lkernel32 C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/default-manifest.o C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtend.o
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_0f4ce.exe' '-mtune=generic' '-march=nocona' '-dumpdir' 'cmTC_0f4ce.'
+         C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/collect2.exe -plugin C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/liblto_plugin.dll -plugin-opt=C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\ghait\\AppData\\Local\\Temp\\ccrBXNBs.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -m i386pep -Bdynamic -o cmTC_0f4ce.exe C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/crt2.o C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtbegin.o -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0 -LC:/msys64/ucrt64/bin/../lib/gcc -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../.. -v --whole-archive CMakeFiles\\cmTC_0f4ce.dir/objects.a --no-whole-archive --out-implib libcmTC_0f4ce.dll.a --major-image-version 0 --minor-image-version 0 -lmingw32 -lgcc -lgcc_eh -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc -lgcc_eh -lmingwex -lmsvcrt -lkernel32 C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/default-manifest.o C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtend.o
         collect2 version 15.2.0
-        C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe -plugin C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/liblto_plugin.dll -plugin-opt=C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\ghait\\AppData\\Local\\Temp\\cc4IdSzU.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -m i386pep -Bdynamic -o cmTC_d88a8.exe C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/crt2.o C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtbegin.o -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0 -LC:/msys64/ucrt64/bin/../lib/gcc -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../.. -v --whole-archive CMakeFiles\\cmTC_d88a8.dir/objects.a --no-whole-archive --out-implib libcmTC_d88a8.dll.a --major-image-version 0 --minor-image-version 0 -lmingw32 -lgcc -lgcc_eh -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc -lgcc_eh -lmingwex -lmsvcrt -lkernel32 C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/default-manifest.o C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtend.o
+        C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe -plugin C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/liblto_plugin.dll -plugin-opt=C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\ghait\\AppData\\Local\\Temp\\ccrBXNBs.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -m i386pep -Bdynamic -o cmTC_0f4ce.exe C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/crt2.o C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtbegin.o -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0 -LC:/msys64/ucrt64/bin/../lib/gcc -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../.. -v --whole-archive CMakeFiles\\cmTC_0f4ce.dir/objects.a --no-whole-archive --out-implib libcmTC_0f4ce.dll.a --major-image-version 0 --minor-image-version 0 -lmingw32 -lgcc -lgcc_eh -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc -lgcc_eh -lmingwex -lmsvcrt -lkernel32 C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/default-manifest.o C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtend.o
         GNU ld (GNU Binutils) 2.45.1
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_d88a8.exe' '-mtune=generic' '-march=nocona' '-dumpdir' 'cmTC_d88a8.'
-        "C:\\Program Files\\CMake\\bin\\cmake.exe" -E rm -f CMakeFiles\\cmTC_d88a8.dir/objects.a
-        C:\\msys64\\ucrt64\\bin\\ar.exe qc CMakeFiles\\cmTC_d88a8.dir/objects.a @CMakeFiles\\cmTC_d88a8.dir\\objects1.rsp
-        C:\\msys64\\ucrt64\\bin\\gcc.exe  -v -Wl,-v -Wl,--whole-archive CMakeFiles\\cmTC_d88a8.dir/objects.a -Wl,--no-whole-archive -o cmTC_d88a8.exe -Wl,--out-implib,libcmTC_d88a8.dll.a -Wl,--major-image-version,0,--minor-image-version,0
-        mingw32-make[1]: Leaving directory 'C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-tw5nmn'
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_0f4ce.exe' '-mtune=generic' '-march=nocona' '-dumpdir' 'cmTC_0f4ce.'
+        "C:\\Program Files\\CMake\\bin\\cmake.exe" -E rm -f CMakeFiles\\cmTC_0f4ce.dir/objects.a
+        C:\\msys64\\ucrt64\\bin\\ar.exe qc CMakeFiles\\cmTC_0f4ce.dir/objects.a @CMakeFiles\\cmTC_0f4ce.dir\\objects1.rsp
+        C:\\msys64\\ucrt64\\bin\\gcc.exe  -v -Wl,-v -Wl,--whole-archive CMakeFiles\\cmTC_0f4ce.dir/objects.a -Wl,--no-whole-archive -o cmTC_0f4ce.exe -Wl,--out-implib,libcmTC_0f4ce.dll.a -Wl,--major-image-version,0,--minor-image-version,0
+        mingw32-make[1]: Leaving directory 'C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-ywlls0'
         
       exitCode: 0
   -
@@ -3123,13 +2114,13 @@ events:
       Parsed C implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|"|[0-9]+>[ 	-]*Build:[ 	0-9]+ ms[ 	]*)?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
-        ignore line: [Change Dir: 'C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-tw5nmn']
+        ignore line: [Change Dir: 'C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-ywlls0']
         ignore line: []
-        ignore line: [Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/msys64/ucrt64/bin/mingw32-make.exe -f Makefile cmTC_d88a8/fast]
-        ignore line: [C:/msys64/ucrt64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_d88a8.dir\\build.make CMakeFiles/cmTC_d88a8.dir/build]
-        ignore line: [mingw32-make[1]: Entering directory 'C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-tw5nmn']
-        ignore line: [Building C object CMakeFiles/cmTC_d88a8.dir/CMakeCCompilerABI.c.obj]
-        ignore line: [C:\\msys64\\ucrt64\\bin\\gcc.exe   -v -o CMakeFiles\\cmTC_d88a8.dir\\CMakeCCompilerABI.c.obj -c "C:\\Program Files\\CMake\\share\\cmake-4.3\\Modules\\CMakeCCompilerABI.c"]
+        ignore line: [Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/msys64/ucrt64/bin/mingw32-make.exe -f Makefile cmTC_0f4ce/fast]
+        ignore line: [C:/msys64/ucrt64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_0f4ce.dir\\build.make CMakeFiles/cmTC_0f4ce.dir/build]
+        ignore line: [mingw32-make[1]: Entering directory 'C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-ywlls0']
+        ignore line: [Building C object CMakeFiles/cmTC_0f4ce.dir/CMakeCCompilerABI.c.obj]
+        ignore line: [C:\\msys64\\ucrt64\\bin\\gcc.exe   -v -o CMakeFiles\\cmTC_0f4ce.dir\\CMakeCCompilerABI.c.obj -c "C:\\Program Files\\CMake\\share\\cmake-4.3\\Modules\\CMakeCCompilerABI.c"]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=C:\\msys64\\ucrt64\\bin\\gcc.exe]
         ignore line: [Target: x86_64-w64-mingw32]
@@ -3137,8 +2128,8 @@ events:
         ignore line: [Thread model: posix]
         ignore line: [Supported LTO compression algorithms: zlib zstd]
         ignore line: [gcc version 15.2.0 (Rev8  Built by MSYS2 project) ]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_d88a8.dir\\CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles\\cmTC_d88a8.dir\\']
-        ignore line: [ C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/cc1.exe -quiet -v -iprefix C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/ -D_REENTRANT C:\\Program Files\\CMake\\share\\cmake-4.3\\Modules\\CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles\\cmTC_d88a8.dir\\ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=generic -march=nocona -version -o C:\\Users\\ghait\\AppData\\Local\\Temp\\ccKi0WXD.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_0f4ce.dir\\CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles\\cmTC_0f4ce.dir\\']
+        ignore line: [ C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/cc1.exe -quiet -v -iprefix C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/ -D_REENTRANT C:\\Program Files\\CMake\\share\\cmake-4.3\\Modules\\CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles\\cmTC_0f4ce.dir\\ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=generic -march=nocona -version -o C:\\Users\\ghait\\AppData\\Local\\Temp\\cchqWB9d.s]
         ignore line: [GNU C23 (Rev8  Built by MSYS2 project) version 15.2.0 (x86_64-w64-mingw32)]
         ignore line: [	compiled by GNU C version 15.2.0  GMP version 6.3.0  MPFR version 4.2.2  MPC version 1.3.1  isl version isl-0.27-GMP]
         ignore line: []
@@ -3157,8 +2148,8 @@ events:
         ignore line: [ C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/include-fixed]
         ignore line: [End of search list.]
         ignore line: [Compiler executable checksum: f68563dd6aebdc6b84233a210e98d3c3]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_d88a8.dir\\CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles\\cmTC_d88a8.dir\\']
-        ignore line: [ C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/bin/as.exe -v -o CMakeFiles\\cmTC_d88a8.dir\\CMakeCCompilerABI.c.obj C:\\Users\\ghait\\AppData\\Local\\Temp\\ccKi0WXD.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_0f4ce.dir\\CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles\\cmTC_0f4ce.dir\\']
+        ignore line: [ C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/bin/as.exe -v -o CMakeFiles\\cmTC_0f4ce.dir\\CMakeCCompilerABI.c.obj C:\\Users\\ghait\\AppData\\Local\\Temp\\cchqWB9d.s]
         ignore line: [GNU assembler version 2.45.1 (x86_64-w64-mingw32) using BFD version (GNU Binutils) 2.45.1]
         ignore line: [COMPILER_PATH=C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/]
         ignore line: [C:/msys64/ucrt64/bin/../lib/gcc/]
@@ -3169,9 +2160,9 @@ events:
         ignore line: [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/]
         ignore line: [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib/]
         ignore line: [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_d88a8.dir\\CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles\\cmTC_d88a8.dir\\CMakeCCompilerABI.c.']
-        ignore line: [Linking C executable cmTC_d88a8.exe]
-        ignore line: ["C:\\Program Files\\CMake\\bin\\cmake.exe" -E cmake_link_script CMakeFiles\\cmTC_d88a8.dir\\link.txt --verbose=1]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_0f4ce.dir\\CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles\\cmTC_0f4ce.dir\\CMakeCCompilerABI.c.']
+        ignore line: [Linking C executable cmTC_0f4ce.exe]
+        ignore line: ["C:\\Program Files\\CMake\\bin\\cmake.exe" -E cmake_link_script CMakeFiles\\cmTC_0f4ce.dir\\link.txt --verbose=1]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=C:\\msys64\\ucrt64\\bin\\gcc.exe]
         ignore line: [COLLECT_LTO_WRAPPER=C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/lto-wrapper.exe]
@@ -3189,13 +2180,13 @@ events:
         ignore line: [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/]
         ignore line: [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib/]
         ignore line: [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_d88a8.exe' '-mtune=generic' '-march=nocona' '-dumpdir' 'cmTC_d88a8.']
-        link line: [ C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/collect2.exe -plugin C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/liblto_plugin.dll -plugin-opt=C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\ghait\\AppData\\Local\\Temp\\cc4IdSzU.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -m i386pep -Bdynamic -o cmTC_d88a8.exe C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/crt2.o C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtbegin.o -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0 -LC:/msys64/ucrt64/bin/../lib/gcc -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../.. -v --whole-archive CMakeFiles\\cmTC_d88a8.dir/objects.a --no-whole-archive --out-implib libcmTC_d88a8.dll.a --major-image-version 0 --minor-image-version 0 -lmingw32 -lgcc -lgcc_eh -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc -lgcc_eh -lmingwex -lmsvcrt -lkernel32 C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/default-manifest.o C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtend.o]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_0f4ce.exe' '-mtune=generic' '-march=nocona' '-dumpdir' 'cmTC_0f4ce.']
+        link line: [ C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/collect2.exe -plugin C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/liblto_plugin.dll -plugin-opt=C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\ghait\\AppData\\Local\\Temp\\ccrBXNBs.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -m i386pep -Bdynamic -o cmTC_0f4ce.exe C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/crt2.o C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtbegin.o -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0 -LC:/msys64/ucrt64/bin/../lib/gcc -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../.. -v --whole-archive CMakeFiles\\cmTC_0f4ce.dir/objects.a --no-whole-archive --out-implib libcmTC_0f4ce.dll.a --major-image-version 0 --minor-image-version 0 -lmingw32 -lgcc -lgcc_eh -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc -lgcc_eh -lmingwex -lmsvcrt -lkernel32 C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/default-manifest.o C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtend.o]
           arg [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/collect2.exe] ==> ignore
           arg [-plugin] ==> ignore
           arg [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/liblto_plugin.dll] ==> ignore
           arg [-plugin-opt=C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/lto-wrapper.exe] ==> ignore
-          arg [-plugin-opt=-fresolution=C:\\Users\\ghait\\AppData\\Local\\Temp\\cc4IdSzU.res] ==> ignore
+          arg [-plugin-opt=-fresolution=C:\\Users\\ghait\\AppData\\Local\\Temp\\ccrBXNBs.res] ==> ignore
           arg [-plugin-opt=-pass-through=-lmingw32] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc_eh] ==> ignore
@@ -3217,7 +2208,7 @@ events:
           arg [i386pep] ==> ignore
           arg [-Bdynamic] ==> search dynamic
           arg [-o] ==> ignore
-          arg [cmTC_d88a8.exe] ==> ignore
+          arg [cmTC_0f4ce.exe] ==> ignore
           arg [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/crt2.o] ==> obj [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/crt2.o]
           arg [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtbegin.o] ==> obj [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtbegin.o]
           arg [-LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0] ==> dir [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0]
@@ -3228,10 +2219,10 @@ events:
           arg [-LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../..] ==> dir [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../..]
           arg [-v] ==> ignore
           arg [--whole-archive] ==> ignore
-          arg [CMakeFiles\\cmTC_d88a8.dir/objects.a] ==> ignore
+          arg [CMakeFiles\\cmTC_0f4ce.dir/objects.a] ==> ignore
           arg [--no-whole-archive] ==> ignore
           arg [--out-implib] ==> ignore
-          arg [libcmTC_d88a8.dll.a] ==> ignore
+          arg [libcmTC_0f4ce.dll.a] ==> ignore
           arg [--major-image-version] ==> ignore
           arg [0] ==> ignore
           arg [--minor-image-version] ==> ignore
@@ -3256,7 +2247,7 @@ events:
           arg [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/default-manifest.o] ==> obj [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/default-manifest.o]
           arg [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtend.o] ==> obj [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtend.o]
         ignore line: [collect2 version 15.2.0]
-        ignore line: [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe -plugin C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/liblto_plugin.dll -plugin-opt=C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\ghait\\AppData\\Local\\Temp\\cc4IdSzU.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -m i386pep -Bdynamic -o cmTC_d88a8.exe C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/crt2.o C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtbegin.o -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0 -LC:/msys64/ucrt64/bin/../lib/gcc -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../.. -v --whole-archive CMakeFiles\\cmTC_d88a8.dir/objects.a --no-whole-archive --out-implib libcmTC_d88a8.dll.a --major-image-version 0 --minor-image-version 0 -lmingw32 -lgcc -lgcc_eh -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc -lgcc_eh -lmingwex -lmsvcrt -lkernel32 C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/default-manifest.o C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtend.o]
+        ignore line: [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe -plugin C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/liblto_plugin.dll -plugin-opt=C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\ghait\\AppData\\Local\\Temp\\ccrBXNBs.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -m i386pep -Bdynamic -o cmTC_0f4ce.exe C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/crt2.o C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtbegin.o -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0 -LC:/msys64/ucrt64/bin/../lib/gcc -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../.. -v --whole-archive CMakeFiles\\cmTC_0f4ce.dir/objects.a --no-whole-archive --out-implib libcmTC_0f4ce.dll.a --major-image-version 0 --minor-image-version 0 -lmingw32 -lgcc -lgcc_eh -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc -lgcc_eh -lmingwex -lmsvcrt -lkernel32 C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/default-manifest.o C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtend.o]
         linker tool for 'C': C:/msys64/ucrt64/x86_64-w64-mingw32/bin/ld.exe
         remove lib [gcc_eh]
         remove lib [msvcrt]
@@ -3297,8 +2288,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-5uq8q4"
-      binary: "C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-5uq8q4"
+      source: "C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-lsafea"
+      binary: "C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-lsafea"
     cmakeVariables:
       CMAKE_CXX_FLAGS: ""
       CMAKE_CXX_SCAN_FOR_MODULES: "OFF"
@@ -3308,13 +2299,13 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-5uq8q4'
+        Change Dir: 'C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-lsafea'
         
-        Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/msys64/ucrt64/bin/mingw32-make.exe -f Makefile cmTC_79c08/fast
-        C:/msys64/ucrt64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_79c08.dir\\build.make CMakeFiles/cmTC_79c08.dir/build
-        mingw32-make[1]: Entering directory 'C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-5uq8q4'
-        Building CXX object CMakeFiles/cmTC_79c08.dir/CMakeCXXCompilerABI.cpp.obj
-        C:\\msys64\\ucrt64\\bin\\g++.exe   -v -o CMakeFiles\\cmTC_79c08.dir\\CMakeCXXCompilerABI.cpp.obj -c "C:\\Program Files\\CMake\\share\\cmake-4.3\\Modules\\CMakeCXXCompilerABI.cpp"
+        Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/msys64/ucrt64/bin/mingw32-make.exe -f Makefile cmTC_4f68a/fast
+        C:/msys64/ucrt64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_4f68a.dir\\build.make CMakeFiles/cmTC_4f68a.dir/build
+        mingw32-make[1]: Entering directory 'C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-lsafea'
+        Building CXX object CMakeFiles/cmTC_4f68a.dir/CMakeCXXCompilerABI.cpp.obj
+        C:\\msys64\\ucrt64\\bin\\g++.exe   -v -o CMakeFiles\\cmTC_4f68a.dir\\CMakeCXXCompilerABI.cpp.obj -c "C:\\Program Files\\CMake\\share\\cmake-4.3\\Modules\\CMakeCXXCompilerABI.cpp"
         Using built-in specs.
         COLLECT_GCC=C:\\msys64\\ucrt64\\bin\\g++.exe
         Target: x86_64-w64-mingw32
@@ -3322,8 +2313,8 @@ events:
         Thread model: posix
         Supported LTO compression algorithms: zlib zstd
         gcc version 15.2.0 (Rev8, Built by MSYS2 project) 
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_79c08.dir\\CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles\\cmTC_79c08.dir\\'
-         C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/cc1plus.exe -quiet -v -iprefix C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/ -D_REENTRANT C:\\Program Files\\CMake\\share\\cmake-4.3\\Modules\\CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles\\cmTC_79c08.dir\\ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=nocona -version -o C:\\Users\\ghait\\AppData\\Local\\Temp\\ccLOhKWk.s
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_4f68a.dir\\CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles\\cmTC_4f68a.dir\\'
+         C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/cc1plus.exe -quiet -v -iprefix C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/ -D_REENTRANT C:\\Program Files\\CMake\\share\\cmake-4.3\\Modules\\CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles\\cmTC_4f68a.dir\\ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=nocona -version -o C:\\Users\\ghait\\AppData\\Local\\Temp\\ccV4HgpW.s
         GNU C++17 (Rev8, Built by MSYS2 project) version 15.2.0 (x86_64-w64-mingw32)
         	compiled by GNU C version 15.2.0, GMP version 6.3.0, MPFR version 4.2.2, MPC version 1.3.1, isl version isl-0.27-GMP
         
@@ -3348,14 +2339,14 @@ events:
          C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/include-fixed
         End of search list.
         Compiler executable checksum: 3a1a95c83f0136a64748ec8c5a2a87f3
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_79c08.dir\\CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles\\cmTC_79c08.dir\\'
-         C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/bin/as.exe -v -o CMakeFiles\\cmTC_79c08.dir\\CMakeCXXCompilerABI.cpp.obj C:\\Users\\ghait\\AppData\\Local\\Temp\\ccLOhKWk.s
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_4f68a.dir\\CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles\\cmTC_4f68a.dir\\'
+         C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/bin/as.exe -v -o CMakeFiles\\cmTC_4f68a.dir\\CMakeCXXCompilerABI.cpp.obj C:\\Users\\ghait\\AppData\\Local\\Temp\\ccV4HgpW.s
         GNU assembler version 2.45.1 (x86_64-w64-mingw32) using BFD version (GNU Binutils) 2.45.1
         COMPILER_PATH=C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/;C:/msys64/ucrt64/bin/../lib/gcc/;C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/bin/
         LIBRARY_PATH=C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/;C:/msys64/ucrt64/bin/../lib/gcc/;C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib/../lib/;C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/;C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib/;C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_79c08.dir\\CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles\\cmTC_79c08.dir\\CMakeCXXCompilerABI.cpp.'
-        Linking CXX executable cmTC_79c08.exe
-        "C:\\Program Files\\CMake\\bin\\cmake.exe" -E cmake_link_script CMakeFiles\\cmTC_79c08.dir\\link.txt --verbose=1
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_4f68a.dir\\CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles\\cmTC_4f68a.dir\\CMakeCXXCompilerABI.cpp.'
+        Linking CXX executable cmTC_4f68a.exe
+        "C:\\Program Files\\CMake\\bin\\cmake.exe" -E cmake_link_script CMakeFiles\\cmTC_4f68a.dir\\link.txt --verbose=1
         Using built-in specs.
         COLLECT_GCC=C:\\msys64\\ucrt64\\bin\\g++.exe
         COLLECT_LTO_WRAPPER=C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/lto-wrapper.exe
@@ -3366,16 +2357,16 @@ events:
         gcc version 15.2.0 (Rev8, Built by MSYS2 project) 
         COMPILER_PATH=C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/;C:/msys64/ucrt64/bin/../lib/gcc/;C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/bin/
         LIBRARY_PATH=C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/;C:/msys64/ucrt64/bin/../lib/gcc/;C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib/../lib/;C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/;C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib/;C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_79c08.exe' '-shared-libgcc' '-mtune=generic' '-march=nocona' '-dumpdir' 'cmTC_79c08.'
-         C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/collect2.exe -plugin C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/liblto_plugin.dll -plugin-opt=C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\ghait\\AppData\\Local\\Temp\\ccdJ3h8z.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -m i386pep -Bdynamic -o cmTC_79c08.exe C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/crt2.o C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtbegin.o -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0 -LC:/msys64/ucrt64/bin/../lib/gcc -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../.. -v --whole-archive CMakeFiles\\cmTC_79c08.dir/objects.a --no-whole-archive --out-implib libcmTC_79c08.dll.a --major-image-version 0 --minor-image-version 0 -lstdc++ -lmingw32 -lgcc_s -lgcc -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc_s -lgcc -lmingwex -lmsvcrt -lkernel32 C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/default-manifest.o C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtend.o
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_4f68a.exe' '-shared-libgcc' '-mtune=generic' '-march=nocona' '-dumpdir' 'cmTC_4f68a.'
+         C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/collect2.exe -plugin C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/liblto_plugin.dll -plugin-opt=C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\ghait\\AppData\\Local\\Temp\\ccJiyHQ6.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -m i386pep -Bdynamic -o cmTC_4f68a.exe C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/crt2.o C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtbegin.o -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0 -LC:/msys64/ucrt64/bin/../lib/gcc -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../.. -v --whole-archive CMakeFiles\\cmTC_4f68a.dir/objects.a --no-whole-archive --out-implib libcmTC_4f68a.dll.a --major-image-version 0 --minor-image-version 0 -lstdc++ -lmingw32 -lgcc_s -lgcc -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc_s -lgcc -lmingwex -lmsvcrt -lkernel32 C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/default-manifest.o C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtend.o
         collect2 version 15.2.0
-        C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe -plugin C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/liblto_plugin.dll -plugin-opt=C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\ghait\\AppData\\Local\\Temp\\ccdJ3h8z.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -m i386pep -Bdynamic -o cmTC_79c08.exe C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/crt2.o C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtbegin.o -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0 -LC:/msys64/ucrt64/bin/../lib/gcc -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../.. -v --whole-archive CMakeFiles\\cmTC_79c08.dir/objects.a --no-whole-archive --out-implib libcmTC_79c08.dll.a --major-image-version 0 --minor-image-version 0 -lstdc++ -lmingw32 -lgcc_s -lgcc -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc_s -lgcc -lmingwex -lmsvcrt -lkernel32 C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/default-manifest.o C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtend.o
+        C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe -plugin C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/liblto_plugin.dll -plugin-opt=C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\ghait\\AppData\\Local\\Temp\\ccJiyHQ6.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -m i386pep -Bdynamic -o cmTC_4f68a.exe C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/crt2.o C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtbegin.o -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0 -LC:/msys64/ucrt64/bin/../lib/gcc -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../.. -v --whole-archive CMakeFiles\\cmTC_4f68a.dir/objects.a --no-whole-archive --out-implib libcmTC_4f68a.dll.a --major-image-version 0 --minor-image-version 0 -lstdc++ -lmingw32 -lgcc_s -lgcc -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc_s -lgcc -lmingwex -lmsvcrt -lkernel32 C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/default-manifest.o C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtend.o
         GNU ld (GNU Binutils) 2.45.1
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_79c08.exe' '-shared-libgcc' '-mtune=generic' '-march=nocona' '-dumpdir' 'cmTC_79c08.'
-        "C:\\Program Files\\CMake\\bin\\cmake.exe" -E rm -f CMakeFiles\\cmTC_79c08.dir/objects.a
-        C:\\msys64\\ucrt64\\bin\\ar.exe qc CMakeFiles\\cmTC_79c08.dir/objects.a @CMakeFiles\\cmTC_79c08.dir\\objects1.rsp
-        C:\\msys64\\ucrt64\\bin\\g++.exe  -v -Wl,-v -Wl,--whole-archive CMakeFiles\\cmTC_79c08.dir/objects.a -Wl,--no-whole-archive -o cmTC_79c08.exe -Wl,--out-implib,libcmTC_79c08.dll.a -Wl,--major-image-version,0,--minor-image-version,0
-        mingw32-make[1]: Leaving directory 'C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-5uq8q4'
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_4f68a.exe' '-shared-libgcc' '-mtune=generic' '-march=nocona' '-dumpdir' 'cmTC_4f68a.'
+        "C:\\Program Files\\CMake\\bin\\cmake.exe" -E rm -f CMakeFiles\\cmTC_4f68a.dir/objects.a
+        C:\\msys64\\ucrt64\\bin\\ar.exe qc CMakeFiles\\cmTC_4f68a.dir/objects.a @CMakeFiles\\cmTC_4f68a.dir\\objects1.rsp
+        C:\\msys64\\ucrt64\\bin\\g++.exe  -v -Wl,-v -Wl,--whole-archive CMakeFiles\\cmTC_4f68a.dir/objects.a -Wl,--no-whole-archive -o cmTC_4f68a.exe -Wl,--out-implib,libcmTC_4f68a.dll.a -Wl,--major-image-version,0,--minor-image-version,0
+        mingw32-make[1]: Leaving directory 'C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-lsafea'
         
       exitCode: 0
   -
@@ -3414,13 +2405,13 @@ events:
       Parsed CXX implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|"|[0-9]+>[ 	-]*Build:[ 	0-9]+ ms[ 	]*)?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
-        ignore line: [Change Dir: 'C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-5uq8q4']
+        ignore line: [Change Dir: 'C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-lsafea']
         ignore line: []
-        ignore line: [Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/msys64/ucrt64/bin/mingw32-make.exe -f Makefile cmTC_79c08/fast]
-        ignore line: [C:/msys64/ucrt64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_79c08.dir\\build.make CMakeFiles/cmTC_79c08.dir/build]
-        ignore line: [mingw32-make[1]: Entering directory 'C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-5uq8q4']
-        ignore line: [Building CXX object CMakeFiles/cmTC_79c08.dir/CMakeCXXCompilerABI.cpp.obj]
-        ignore line: [C:\\msys64\\ucrt64\\bin\\g++.exe   -v -o CMakeFiles\\cmTC_79c08.dir\\CMakeCXXCompilerABI.cpp.obj -c "C:\\Program Files\\CMake\\share\\cmake-4.3\\Modules\\CMakeCXXCompilerABI.cpp"]
+        ignore line: [Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/msys64/ucrt64/bin/mingw32-make.exe -f Makefile cmTC_4f68a/fast]
+        ignore line: [C:/msys64/ucrt64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_4f68a.dir\\build.make CMakeFiles/cmTC_4f68a.dir/build]
+        ignore line: [mingw32-make[1]: Entering directory 'C:/dev/Visual Studio Code/Rune-Forge/Sandbox/build/CMakeFiles/CMakeScratch/TryCompile-lsafea']
+        ignore line: [Building CXX object CMakeFiles/cmTC_4f68a.dir/CMakeCXXCompilerABI.cpp.obj]
+        ignore line: [C:\\msys64\\ucrt64\\bin\\g++.exe   -v -o CMakeFiles\\cmTC_4f68a.dir\\CMakeCXXCompilerABI.cpp.obj -c "C:\\Program Files\\CMake\\share\\cmake-4.3\\Modules\\CMakeCXXCompilerABI.cpp"]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=C:\\msys64\\ucrt64\\bin\\g++.exe]
         ignore line: [Target: x86_64-w64-mingw32]
@@ -3428,8 +2419,8 @@ events:
         ignore line: [Thread model: posix]
         ignore line: [Supported LTO compression algorithms: zlib zstd]
         ignore line: [gcc version 15.2.0 (Rev8  Built by MSYS2 project) ]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_79c08.dir\\CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles\\cmTC_79c08.dir\\']
-        ignore line: [ C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/cc1plus.exe -quiet -v -iprefix C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/ -D_REENTRANT C:\\Program Files\\CMake\\share\\cmake-4.3\\Modules\\CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles\\cmTC_79c08.dir\\ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=nocona -version -o C:\\Users\\ghait\\AppData\\Local\\Temp\\ccLOhKWk.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_4f68a.dir\\CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles\\cmTC_4f68a.dir\\']
+        ignore line: [ C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/cc1plus.exe -quiet -v -iprefix C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/ -D_REENTRANT C:\\Program Files\\CMake\\share\\cmake-4.3\\Modules\\CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles\\cmTC_4f68a.dir\\ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=nocona -version -o C:\\Users\\ghait\\AppData\\Local\\Temp\\ccV4HgpW.s]
         ignore line: [GNU C++17 (Rev8  Built by MSYS2 project) version 15.2.0 (x86_64-w64-mingw32)]
         ignore line: [	compiled by GNU C version 15.2.0  GMP version 6.3.0  MPFR version 4.2.2  MPC version 1.3.1  isl version isl-0.27-GMP]
         ignore line: []
@@ -3454,8 +2445,8 @@ events:
         ignore line: [ C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/include-fixed]
         ignore line: [End of search list.]
         ignore line: [Compiler executable checksum: 3a1a95c83f0136a64748ec8c5a2a87f3]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_79c08.dir\\CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles\\cmTC_79c08.dir\\']
-        ignore line: [ C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/bin/as.exe -v -o CMakeFiles\\cmTC_79c08.dir\\CMakeCXXCompilerABI.cpp.obj C:\\Users\\ghait\\AppData\\Local\\Temp\\ccLOhKWk.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_4f68a.dir\\CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles\\cmTC_4f68a.dir\\']
+        ignore line: [ C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/bin/as.exe -v -o CMakeFiles\\cmTC_4f68a.dir\\CMakeCXXCompilerABI.cpp.obj C:\\Users\\ghait\\AppData\\Local\\Temp\\ccV4HgpW.s]
         ignore line: [GNU assembler version 2.45.1 (x86_64-w64-mingw32) using BFD version (GNU Binutils) 2.45.1]
         ignore line: [COMPILER_PATH=C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/]
         ignore line: [C:/msys64/ucrt64/bin/../lib/gcc/]
@@ -3466,9 +2457,9 @@ events:
         ignore line: [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/]
         ignore line: [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib/]
         ignore line: [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_79c08.dir\\CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles\\cmTC_79c08.dir\\CMakeCXXCompilerABI.cpp.']
-        ignore line: [Linking CXX executable cmTC_79c08.exe]
-        ignore line: ["C:\\Program Files\\CMake\\bin\\cmake.exe" -E cmake_link_script CMakeFiles\\cmTC_79c08.dir\\link.txt --verbose=1]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_4f68a.dir\\CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles\\cmTC_4f68a.dir\\CMakeCXXCompilerABI.cpp.']
+        ignore line: [Linking CXX executable cmTC_4f68a.exe]
+        ignore line: ["C:\\Program Files\\CMake\\bin\\cmake.exe" -E cmake_link_script CMakeFiles\\cmTC_4f68a.dir\\link.txt --verbose=1]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=C:\\msys64\\ucrt64\\bin\\g++.exe]
         ignore line: [COLLECT_LTO_WRAPPER=C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/lto-wrapper.exe]
@@ -3486,13 +2477,13 @@ events:
         ignore line: [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/]
         ignore line: [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib/]
         ignore line: [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_79c08.exe' '-shared-libgcc' '-mtune=generic' '-march=nocona' '-dumpdir' 'cmTC_79c08.']
-        link line: [ C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/collect2.exe -plugin C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/liblto_plugin.dll -plugin-opt=C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\ghait\\AppData\\Local\\Temp\\ccdJ3h8z.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -m i386pep -Bdynamic -o cmTC_79c08.exe C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/crt2.o C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtbegin.o -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0 -LC:/msys64/ucrt64/bin/../lib/gcc -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../.. -v --whole-archive CMakeFiles\\cmTC_79c08.dir/objects.a --no-whole-archive --out-implib libcmTC_79c08.dll.a --major-image-version 0 --minor-image-version 0 -lstdc++ -lmingw32 -lgcc_s -lgcc -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc_s -lgcc -lmingwex -lmsvcrt -lkernel32 C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/default-manifest.o C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtend.o]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_4f68a.exe' '-shared-libgcc' '-mtune=generic' '-march=nocona' '-dumpdir' 'cmTC_4f68a.']
+        link line: [ C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/collect2.exe -plugin C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/liblto_plugin.dll -plugin-opt=C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\ghait\\AppData\\Local\\Temp\\ccJiyHQ6.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -m i386pep -Bdynamic -o cmTC_4f68a.exe C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/crt2.o C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtbegin.o -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0 -LC:/msys64/ucrt64/bin/../lib/gcc -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../.. -v --whole-archive CMakeFiles\\cmTC_4f68a.dir/objects.a --no-whole-archive --out-implib libcmTC_4f68a.dll.a --major-image-version 0 --minor-image-version 0 -lstdc++ -lmingw32 -lgcc_s -lgcc -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc_s -lgcc -lmingwex -lmsvcrt -lkernel32 C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/default-manifest.o C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtend.o]
           arg [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/collect2.exe] ==> ignore
           arg [-plugin] ==> ignore
           arg [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/liblto_plugin.dll] ==> ignore
           arg [-plugin-opt=C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/lto-wrapper.exe] ==> ignore
-          arg [-plugin-opt=-fresolution=C:\\Users\\ghait\\AppData\\Local\\Temp\\ccdJ3h8z.res] ==> ignore
+          arg [-plugin-opt=-fresolution=C:\\Users\\ghait\\AppData\\Local\\Temp\\ccJiyHQ6.res] ==> ignore
           arg [-plugin-opt=-pass-through=-lmingw32] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
@@ -3514,7 +2505,7 @@ events:
           arg [i386pep] ==> ignore
           arg [-Bdynamic] ==> search dynamic
           arg [-o] ==> ignore
-          arg [cmTC_79c08.exe] ==> ignore
+          arg [cmTC_4f68a.exe] ==> ignore
           arg [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/crt2.o] ==> obj [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/crt2.o]
           arg [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtbegin.o] ==> obj [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtbegin.o]
           arg [-LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0] ==> dir [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0]
@@ -3525,10 +2516,10 @@ events:
           arg [-LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../..] ==> dir [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../..]
           arg [-v] ==> ignore
           arg [--whole-archive] ==> ignore
-          arg [CMakeFiles\\cmTC_79c08.dir/objects.a] ==> ignore
+          arg [CMakeFiles\\cmTC_4f68a.dir/objects.a] ==> ignore
           arg [--no-whole-archive] ==> ignore
           arg [--out-implib] ==> ignore
-          arg [libcmTC_79c08.dll.a] ==> ignore
+          arg [libcmTC_4f68a.dll.a] ==> ignore
           arg [--major-image-version] ==> ignore
           arg [0] ==> ignore
           arg [--minor-image-version] ==> ignore
@@ -3554,7 +2545,7 @@ events:
           arg [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/default-manifest.o] ==> obj [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/default-manifest.o]
           arg [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtend.o] ==> obj [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtend.o]
         ignore line: [collect2 version 15.2.0]
-        ignore line: [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe -plugin C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/liblto_plugin.dll -plugin-opt=C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\ghait\\AppData\\Local\\Temp\\ccdJ3h8z.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -m i386pep -Bdynamic -o cmTC_79c08.exe C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/crt2.o C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtbegin.o -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0 -LC:/msys64/ucrt64/bin/../lib/gcc -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../.. -v --whole-archive CMakeFiles\\cmTC_79c08.dir/objects.a --no-whole-archive --out-implib libcmTC_79c08.dll.a --major-image-version 0 --minor-image-version 0 -lstdc++ -lmingw32 -lgcc_s -lgcc -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc_s -lgcc -lmingwex -lmsvcrt -lkernel32 C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/default-manifest.o C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtend.o]
+        ignore line: [C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe -plugin C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/liblto_plugin.dll -plugin-opt=C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\ghait\\AppData\\Local\\Temp\\ccJiyHQ6.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -m i386pep -Bdynamic -o cmTC_4f68a.exe C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/crt2.o C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtbegin.o -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0 -LC:/msys64/ucrt64/bin/../lib/gcc -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../x86_64-w64-mingw32/lib -LC:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../.. -v --whole-archive CMakeFiles\\cmTC_4f68a.dir/objects.a --no-whole-archive --out-implib libcmTC_4f68a.dll.a --major-image-version 0 --minor-image-version 0 -lstdc++ -lmingw32 -lgcc_s -lgcc -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc_s -lgcc -lmingwex -lmsvcrt -lkernel32 C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/../../../../lib/default-manifest.o C:/msys64/ucrt64/bin/../lib/gcc/x86_64-w64-mingw32/15.2.0/crtend.o]
         linker tool for 'CXX': C:/msys64/ucrt64/x86_64-w64-mingw32/bin/ld.exe
         remove lib [msvcrt]
         remove lib [msvcrt]

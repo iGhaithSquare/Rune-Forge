@@ -44,7 +44,7 @@ void open_project(layer_registry* Registry,const char* Path){
     snprintf(build_dir,sizeof(build_dir),"%s%s%s",project_root,PATH_SEP,"build");
     if(!check_if_folder_exists(build_dir)){
         char cmake_config_cmd[1024];
-        snprintf(cmake_config_cmd,sizeof(cmake_config_cmd),"cmake -S \"%s\" -B \"%s\"",project_root,build_dir);
+        snprintf(cmake_config_cmd,sizeof(cmake_config_cmd),"cmake -S \"%s\" -B \"%s\" -G \"MinGW Makefiles\" -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++",project_root,build_dir);
         system(cmake_config_cmd);
     }
     char cmake_build_cmd[1024];
@@ -52,7 +52,7 @@ void open_project(layer_registry* Registry,const char* Path){
     system(cmake_build_cmd);
 
     char dll_path[512];
-    snprintf(dll_path,sizeof(dll_path),"%s%s%s%s%s%s%s%s%s",project_root,PATH_SEP,"bin",PATH_SEP,"Debug",PATH_SEP,"lib",name,".dll");
+    snprintf(dll_path,sizeof(dll_path),"%s%s%s%s%s%s%s",project_root,PATH_SEP,"bin",PATH_SEP,"lib",name,".dll");
 
     void (*game_fn)(void) =NULL;
     #ifdef _WIN32
@@ -66,6 +66,7 @@ void open_project(layer_registry* Registry,const char* Path){
     #endif
     GAVEN_ASSERT(game_fn,"Failed to open game function inside %s.dll",name);
     game_fn();
+    init_input();
     set_main_scene(Full_Scene_Path);
     entity_registry* Reg =load_scene(Full_Scene_Path);
     add_layer(Registry,create_editor_layer(Reg));

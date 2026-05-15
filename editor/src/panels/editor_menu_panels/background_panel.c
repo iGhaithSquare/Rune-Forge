@@ -136,7 +136,13 @@ void create_project_impl(panel_button* Self){
 
     char game_file[512];
     snprintf(game_file,sizeof(game_file),"%s%s%s",src_dir,PATH_SEP,"game.c");
-    const char* Starter = "#include <runeforge.h>\n"
+    const char* Starter = "#include \"game.h\"\nGAME_API void game(void){\n//Register Types Here\n}\n";
+    write_file(game_file,Starter);
+
+    
+    char game_header_file[512];
+    snprintf(game_header_file,sizeof(game_header_file),"%s%s%s",src_dir,PATH_SEP,"game.h");
+    const char* game_header_content = "#ifndef GAME_H \n#define GAME_H \n#include <runeforge.h>\n"
     "#ifdef _WIN32\n"
     "    #ifdef GAME_BUILD_DLL\n"
     "        #define GAME_API __declspec(dllexport)\n"
@@ -145,9 +151,9 @@ void create_project_impl(panel_button* Self){
     "    #endif\n"
     "#else\n"
     "    #define GAME_API __attribute__((visibility(\"default\")))\n"
-    "#endif\n"
-    "GAME_API void game(void){\n//Register Types Here\n}\n";
-    write_file(game_file,Starter);
+    "#endif\n#endif";
+    write_file(game_header_file,game_header_content);
+
     char editor_dir[512];
     GAVEN_ASSERT(get_editor_path(editor_dir,sizeof(editor_dir)),"Couldnt get editor path");
     char* last =strrchr(Path,PATH_SEP[0]);
@@ -175,7 +181,7 @@ void create_project_impl(panel_button* Self){
     "set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../bin/$<CONFIG>/)\n"
     "add_library(%s SHARED ${SOURCES})\n"
     "target_compile_definitions(%s PRIVATE GAME_BUILD_DLL)\n"
-    "target_link_libraries(%s \"%slibruneforge.a\")\n"
+    "target_link_libraries(%s \"%slibruneforge.dll\")\n"
     "target_include_directories(%s PRIVATE \"%sinclude\")\n",Name,Name,Name,editor_dir,Name,editor_dir);
 
     write_file(cmake_file,cmake_content);

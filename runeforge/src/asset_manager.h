@@ -1,10 +1,7 @@
 #ifndef ASSETMANAGER_H
 #define ASSETMANAGER_H
 #include <runewall.h>
-typedef enum asset_type {
-    ASSET_TYPE_SPRITE,
-    ASSET_TYPE_SCENE
-}asset_type;
+#include "asset_types.h"
 typedef struct asset_manager asset_manager;
 asset_manager* create_asset_manager(void);
 

@@ -41,7 +41,7 @@ asset_type get_asset_type(const char* Path){
     const char* Extension = get_file_extension(Path);
     if(!Extension) return -1;
     if(!strcmp(Extension,"jsons")) return ASSET_TYPE_SPRITE;
-    if(!strcmp(Extension,"json")) return ASSET_TYPE_SCENE;
+    if(!strcmp(Extension,"jsonscn")) return ASSET_TYPE_SCENE;
     return -1;
 }
 void file_button_load_scene_impl(file_node* Node){

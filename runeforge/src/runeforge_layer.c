@@ -11,7 +11,7 @@ static asset_manager* Asset_Manager=NULL;
 static entity_registry* Entity_Registry=NULL;
 static short width=80;
 static short height=24;
-static const char* Scene_Path;
+static char* Scene_Path;
 uint8_t State=0;
 void set_main_scene(const char *path){
     main_scene=path;
@@ -32,6 +32,7 @@ void main_layer_ondetach(layer* self){
     destroy_entity_registry(Entity_Registry);
     Destroy_TypeDB();
     destroy_runewall(Renderer);
+    free(Scene_Path);
 }
 void main_layer_polling_callback(layer* self,void* ctx){
     input_polling();
@@ -88,7 +89,7 @@ void add_entity(entity* e){
 void set_panel_offset(short X,short Y){
     set_renderer_offset(Renderer,X,Y);
 }
-application* gaven_main(int argc, char** argv){
+application* runeforge_main(void){
     /* We create the application*/
     application* app = create_gaven_application();
     /* Start Updates*/
@@ -97,16 +98,15 @@ application* gaven_main(int argc, char** argv){
     init_input();
     /* Create main layer */
     layer* main_layer = create_main_layer("Main Layer");
-    game_main(app,argc,argv);
     Renderer = create_runewall(width,height);
     add_layer(app->Layer_Registry,main_layer);
     return app;
 }
 entity_registry* load_scene(const char* path){
     GAVEN_ASSERT(Entity_Registry->Count<=0,"Entity registry already contains a scene, unload it before loading");
-    Entity_Registry->Path=path;
+    Entity_Registry->Path=strdup(path);
     deserialize_entity_registry(path,Entity_Registry);
-    Scene_Path=path;
+    Scene_Path=Entity_Registry->Path;
     return Entity_Registry;
 }
 void save_scene(const char* Path,const char* Name){
