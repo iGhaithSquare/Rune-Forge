@@ -131,3 +131,6 @@ uint8_t get_state(void){
 void remove_asset(size_t ID){
     remove_asset_from_asset_manager(Asset_Manager,ID);
 }
+size_t get_asset_id_from_path(const char* Path){
+    return find_asset_from_asset_manager_with_path(Asset_Manager,Path);
+}

@@ -57,6 +57,7 @@ layer* create_editor_layer(entity_registry* Entity_Registry){
     add_panel_neighbor(Pan,File_Explorer,0);
     panel* Inspector = create_inspector();
     navbar_add_inspector(Navbar,Inspector);
+    file_explorer_point_to_inspector(File_Explorer,Inspector);
     scene_explorer_point_to_inspector(Pan,Inspector);
     add_panel_neighbor(Navbar,Inspector,1);
     add_panel_neighbor(Viewport,Inspector,0);

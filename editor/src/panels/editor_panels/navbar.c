@@ -28,6 +28,7 @@ void navbar_button_start_scene_imple(panel_button* Self){
         change_update_state(0);
         return;
     }
+    save_scene(NULL,NULL);
     Self->Text="Pause";
     change_update_state(1);
     return;

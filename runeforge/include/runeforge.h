@@ -637,6 +637,7 @@ RUNEFORGE_API void remove_asset(size_t ID);
 RUNEFORGE_API application* runeforge_main(void);
 RUNEFORGE_API size_t load_game_asset(const char* Path,asset_type Type);
 RUNEFORGE_API void add_entity(entity* e);
+RUNEFORGE_API size_t get_asset_id_from_path(const char* Path);
 
 #endif
 

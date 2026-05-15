@@ -33,13 +33,6 @@ void create_new_folder(const char* path){
     #endif
     GAVEN_ASSERT(check_if_folder_exists(path),"COULD NOT CREATE LOG FOLDER");
 }
-void write_file(const char* Path,const char* Content){
-    FILE *f= NULL;
-    f=fopen(Path,"w");
-    GAVEN_ASSERT(f,"Couldnt create file in %s",Path);
-    fputs(Content,f);
-    fclose(f);
-}
 typedef struct background_panel_main_button_data{
     layer_registry* Registry;
     layer* Layer;
@@ -81,18 +74,6 @@ void cancle_create_project_impl(panel_button* Self){
     panel* P = Data->Panel;
     remove_panel_from_registry(P,P->Registry);
 }
-uint8_t get_editor_path(char* Buffer,size_t Size){
-    #ifdef _WIN32
-    DWORD len = GetModuleFileNameA(NULL,Buffer,(DWORD)Size);
-    if(len==0||len==Size)
-        return 0;
-    #else
-    size_t len=readlink("/proc/self/exe",buffer,size-1);
-    if(len==-1) return 0;
-    Buffer[len]='\0';
-    #endif
-    return 1;
-}
 void create_project_impl(panel_button* Self){
     background_panel_buttons_data* Data = Self->Button_Data;
     panel* P = Data->Panel;
@@ -131,7 +112,6 @@ void create_project_impl(panel_button* Self){
     snprintf(project_file,sizeof(project_file),"%s%s%s",project_dir,PATH_SEP,"project.asciiprj");
     char project_content[1024];
     snprintf(project_content,sizeof(project_content),"name=%s\nroot=%s\nmain_scene=assets%smain.jsonscn",Name,project_dir,PATH_SEP);
-
     write_file(project_file,project_content);
 
     char game_file[512];
@@ -155,7 +135,7 @@ void create_project_impl(panel_button* Self){
     write_file(game_header_file,game_header_content);
 
     char editor_dir[512];
-    GAVEN_ASSERT(get_editor_path(editor_dir,sizeof(editor_dir)),"Couldnt get editor path");
+    GAVEN_ASSERT(get_current_path(editor_dir,sizeof(editor_dir)),"Couldnt get editor path");
     char* last =strrchr(Path,PATH_SEP[0]);
     if(last) *last='\0';
     char* Last_Slash=NULL;

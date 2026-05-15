@@ -14,7 +14,8 @@ typedef struct inspector_ui{
 
 typedef struct inspector_element{
     panel_element Base;
-    entity* Selected;
+    void* Selected;
+    uint8_t Inspected_Type;//0 for entitities,1 for asset
     inspector_ui** Inspector_uis;
     inspector_ui* Editing;
     size_t Count;
@@ -57,6 +58,7 @@ void update_inspector_element(panel_element* Self){
     inspector_ui* Selected=I->Editing;
     if(Panel->Is_Dirty) I->Is_Dirty=1;
     if(Selected){
+        if(!Selected->Field) return;
         size_t len=strlen(Selected->Final_Text);
         if(is_key_just_pressed(RUNEFORGE_KEY_ENTER)){
             uint8_t success=0;
@@ -198,6 +200,29 @@ void add_inspector_ui(inspector_element* Element,char* Type_Text,char* Value_Tex
     IU->Field=Field;
     IU->Type=Type;
     Element->Inspector_uis[Element->Count++]=IU;
+}
+void inspect_asset(size_t Asset_ID,panel* Inspector_Panel,asset_type Type){
+    if(!Inspector_Panel||Inspector_Panel->Count<=0) return;
+    inspector_element* I=(inspector_element*)Inspector_Panel->Elements[0];
+    if(I->Selected){
+        for(size_t i=0;i<I->Count;i++){
+            inspector_ui* UI =I->Inspector_uis[i];
+            destroy_sprite(&UI->Text_Sprite);
+            free(UI);
+        }
+        I->Count=0;
+    }
+    if(Type==ASSET_TYPE_SPRITE){
+        I->Selected=NULL;
+    }
+    else{
+        I->Selected=NULL;
+    }
+    char type_buffer[128];
+    snprintf(type_buffer,128,"Asset ID: %zu",Asset_ID);
+    GAVEN_WARN("IDK");
+    add_inspector_ui(I,type_buffer,"",NULL,PROPERTY_TYPE_INT);
+
 }
 void inspect_entity(entity* Entity,panel* Inspector_Panel){
     if(!Inspector_Panel||Inspector_Panel->Count<=0) return;

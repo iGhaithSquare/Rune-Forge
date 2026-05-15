@@ -8,14 +8,18 @@
 #else
 #include <dlfcn.h>
 #endif
+static const char* project_file_path;
 uint8_t check_if_folder_exists(const char* path);
 void open_project(layer_registry* Registry,const char* Path){
+    project_file_path=strdup(Path);
     FILE* f =fopen(Path,"r");
     if(!f) return;
     char line[512];
     char project_root[512] ={0};
     char name[32] ={0};
     char main_scene_path[512] ={0};
+    int current_asset_type=0;
+    char current_asset_path[512];
     while(fgets(line,sizeof(line),f)){
         if(strncmp(line,"name=",5)==0){
             strcpy(name,line+5);
@@ -28,6 +32,11 @@ void open_project(layer_registry* Registry,const char* Path){
         else if(strncmp(line,"main_scene=",11)==0){
             strcpy(main_scene_path,line+11);
             main_scene_path[strcspn(main_scene_path,"\r\n")]=0;
+        }
+        else if(strncmp(line,"asset=",6)==0){
+            sscanf(line+6,"%d,%511[^\r\n]",&current_asset_type,current_asset_path);
+            GAVEN_WARN("%s",current_asset_path);
+            load_game_asset(current_asset_path,(asset_type)current_asset_type);
         }
     }
     fclose(f);
@@ -70,4 +79,36 @@ void open_project(layer_registry* Registry,const char* Path){
     set_main_scene(Full_Scene_Path);
     entity_registry* Reg =load_scene(Full_Scene_Path);
     add_layer(Registry,create_editor_layer(Reg));
+}
+
+void write_file(const char* Path,const char* Content){
+    FILE *f= NULL;
+    f=fopen(Path,"w");
+    GAVEN_ASSERT(f,"Couldnt create file in %s",Path);
+    fputs(Content,f);
+    fclose(f);
+}
+
+void append_file(const char* Path,const char* Content){
+    FILE *f= NULL;
+    f=fopen(Path,"a");
+    GAVEN_ASSERT(f,"Couldnt create file in %s",Path);
+    fputs(Content,f);
+    fclose(f);
+}
+
+uint8_t get_current_path(char* Buffer,size_t Size){
+    #ifdef _WIN32
+    DWORD len = GetModuleFileNameA(NULL,Buffer,(DWORD)Size);
+    if(len==0||len==Size)
+        return 0;
+    #else
+    size_t len=readlink("/proc/self/exe",buffer,size-1);
+    if(len==-1) return 0;
+    Buffer[len]='\0';
+    #endif
+    return 1;
+}
+const char* get_projecta_file(void){
+    return project_file_path;
 }

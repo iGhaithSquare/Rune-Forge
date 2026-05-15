@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include "../panel_button.h"
+#include "inspector.h"
+#include "../../editor.h"
+#include <stdio.h>
 #ifdef _WIN32
 #include <windows.h>
 #ifndef PATH_MAX
@@ -21,9 +24,12 @@ typedef struct file_node{
     size_t Cap;
     uint8_t Data; //Bit 0 for is directory, Bit 1 for is expanded
 }file_node;
+typedef struct file_explorer_element file_explorer_element;
 typedef struct file_explorer_button_data{
     file_node* Selected;
     asset_type Type;
+    size_t Data;
+    panel* Inspector;
 }file_explorer_button_data;
 typedef struct file_explorer_element{
     panel_element Base;
@@ -40,13 +46,23 @@ const char* get_file_extension(const char* Path){
 asset_type get_asset_type(const char* Path){
     const char* Extension = get_file_extension(Path);
     if(!Extension) return -1;
-    if(!strcmp(Extension,"jsons")) return ASSET_TYPE_SPRITE;
+    if(!strcmp(Extension,"txts")) return ASSET_TYPE_SPRITE;
     if(!strcmp(Extension,"jsonscn")) return ASSET_TYPE_SCENE;
     return -1;
 }
 void file_button_load_scene_impl(file_node* Node){
     unload_scene();
     load_scene(Node->File_Path);
+}
+void file_button_load_sprite_impl(file_explorer_button_data* Data){
+    const char* Path=Data->Selected->File_Path;
+    load_game_asset(Path,ASSET_TYPE_SPRITE);
+    char content[128];
+    snprintf(content,sizeof(content),"\nasset=%d,%s",ASSET_TYPE_SPRITE,Path);
+    append_file(get_projecta_file(),content);
+}
+void file_button_inspect_sprite_impl(file_explorer_button_data* Data){
+    inspect_asset(Data->Data,Data->Inspector,Data->Type);
 }
 void file_button_press_impl(panel_button* Self){
     if(get_state()&1) return;
@@ -55,6 +71,13 @@ void file_button_press_impl(panel_button* Self){
     case ASSET_TYPE_SCENE:
         file_button_load_scene_impl(Data->Selected);
         break;
+    case ASSET_TYPE_SPRITE:
+        if(Data->Data==-1){
+            file_button_load_sprite_impl(Data);
+        }
+        else{
+            file_button_inspect_sprite_impl(Data);
+        }
     default:
         break;
     }
@@ -90,6 +113,13 @@ void update_file_explorer_element(panel_element* Self){
                 switch(Data->Type){
                     case ASSET_TYPE_SCENE:
                         Button1->Text="Load Scene";
+                        break;
+                    case ASSET_TYPE_SPRITE:
+                        Data->Data=get_asset_id_from_path(Node->File_Path);
+                        if(Data->Data==-1)
+                            Button1->Text="Load Sprite";
+                        else
+                            Button1->Text="Inspect Sprite";
                         break;
                     default:
                         Button1->Text="FILE EXPLORER";
@@ -243,6 +273,7 @@ file_explorer_element* create_file_explorer_element(const char* Path, short Leng
     Element->Root=build_filenode_tree(Path,NULL,Length);
     Element->Selected=NULL;
     Element->Button1_Data=(file_explorer_button_data*)malloc(sizeof(file_explorer_button_data));
+    Element->Button1_Data->Inspector=NULL;
     init_panel_element_base(&Element->Base,0,0,update_file_explorer_element,render_file_explorer_element,destroy_file_explorer_element);
     return Element;
 }
@@ -264,4 +295,9 @@ panel* create_file_explorer(void){
     add_element_to_panel(File_Explorer,&E->Base);
     add_element_to_panel(File_Explorer,&Button->Base);
     return File_Explorer;
+}
+void file_explorer_point_to_inspector(panel* File_Explorer,panel* Inspector){
+    if(!File_Explorer||File_Explorer->Cap<=0) return;
+    file_explorer_element* fe = (file_explorer_element*)File_Explorer->Elements[0];
+    fe->Button1_Data->Inspector=Inspector;
 }
