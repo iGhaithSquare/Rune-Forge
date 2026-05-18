@@ -39,7 +39,11 @@ void open_project(layer_registry* Registry,const char* Path){
         }
         else if(strncmp(line,"asset=",6)==0){
             sscanf(line+6,"%d,%511[^\r\n]",&current_asset_type,current_asset_path);
-            load_game_asset(current_asset_path,(asset_type)current_asset_type);
+            char* Asset_Path =strdup(current_asset_path);
+            for(int i=0;Asset_Path[i];i++)
+                if(Asset_Path[i]=='\\')
+                    Asset_Path[i]='/';
+            load_game_asset(Asset_Path,(asset_type)current_asset_type);
         }
     }
     fclose(f);
