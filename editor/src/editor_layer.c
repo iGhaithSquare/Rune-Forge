@@ -5,11 +5,13 @@
 #include "panels/editor_panels/scene_explorer.h"
 #include "panels/editor_panels/inspector.h"
 #include "panels/editor_panels/navbar.h"
+#include "editor.h"
 typedef struct editor_layer_data{
     panel_registry* Panel_Registry;
 }editor_layer_data;
 void update_editor_layer(layer* self,void* ctx){
     editor_layer_data *Data=(editor_layer_data*)self->LayerData;
+    poll_dll();
     update_panels(Data->Panel_Registry);
 
 }

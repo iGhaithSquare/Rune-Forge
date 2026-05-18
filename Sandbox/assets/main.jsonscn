@@ -1,11 +1,4 @@
 {
 	"Scene":	"Main",
-	"Entities":	[{
-			"Type":	"Player",
-			"Name":	"Player",
-			"x":	0,
-			"y":	0,
-			"z":	0,
-			"spriteID":	0
-		}]
+	"Entities":	[]
 }

@@ -14,6 +14,7 @@ typedef struct inspector_ui{
 
 typedef struct inspector_element{
     panel_element Base;
+    uint8_t Has_Selection;
     void* Selected;
     uint8_t Inspected_Type;//0 for entitities,1 for asset
     inspector_ui** Inspector_uis;
@@ -178,6 +179,7 @@ inspector_element* create_inspector_element(void){
     Element->Count=0;
     Element->Inspector_uis=NULL;
     Element->Selected=NULL;
+    Element->Has_Selection=0;
     Element->Editing=NULL;
     Element->Is_Dirty=0;
     init_panel_element_base(&Element->Base,0,0,update_inspector_element,render_inspector_element,destroy_inspector_element);
@@ -204,7 +206,7 @@ void add_inspector_ui(inspector_element* Element,char* Type_Text,char* Value_Tex
 void inspect_asset(size_t Asset_ID,panel* Inspector_Panel,asset_type Type){
     if(!Inspector_Panel||Inspector_Panel->Count<=0) return;
     inspector_element* I=(inspector_element*)Inspector_Panel->Elements[0];
-    if(I->Selected){
+    if(I->Has_Selection){
         for(size_t i=0;i<I->Count;i++){
             inspector_ui* UI =I->Inspector_uis[i];
             destroy_sprite(&UI->Text_Sprite);
@@ -212,12 +214,7 @@ void inspect_asset(size_t Asset_ID,panel* Inspector_Panel,asset_type Type){
         }
         I->Count=0;
     }
-    if(Type==ASSET_TYPE_SPRITE){
-        I->Selected=NULL;
-    }
-    else{
-        I->Selected=NULL;
-    }
+    I->Has_Selection=1;
     char type_buffer[128];
     snprintf(type_buffer,128,"Asset ID: %zu",Asset_ID);
     GAVEN_WARN("IDK");
@@ -228,7 +225,7 @@ void inspect_entity(entity* Entity,panel* Inspector_Panel){
     if(!Inspector_Panel||Inspector_Panel->Count<=0) return;
     if(!Entity) return;
     inspector_element* I=(inspector_element*)Inspector_Panel->Elements[0];
-    if(I->Selected){
+    if(I->Has_Selection){
         for(size_t i=0;i<I->Count;i++){
             inspector_ui* UI =I->Inspector_uis[i];
             destroy_sprite(&UI->Text_Sprite);
@@ -237,6 +234,7 @@ void inspect_entity(entity* Entity,panel* Inspector_Panel){
         I->Count=0;
     }
     I->Selected=Entity;
+    I->Has_Selection=1;
     type_info *Info=Entity->Type;
     for(size_t i=0;i<Info->Property_Count;i++){
         property_info* P =&Info->Properties[i];

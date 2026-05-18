@@ -154,15 +154,19 @@ void create_project_impl(panel_button* Self){
 
     char cmake_file[512];
     snprintf(cmake_file,sizeof(cmake_file),"%s%s%s",project_dir,PATH_SEP,"CMakeLists.txt");
-    char cmake_content[512];
+    char cmake_content[1028];
     snprintf(cmake_content,sizeof(cmake_content),
     "cmake_minimum_required(VERSION 3.10)\n\n"
+    "set(ENG_DIR \"%s\")\n"
+    "set(PROJ_NAME \"%s\")\n"
     "file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS \"src/*.c\")\n"
-    "set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../bin/$<CONFIG>/)\n"
-    "add_library(%s SHARED ${SOURCES})\n"
-    "target_compile_definitions(%s PRIVATE GAME_BUILD_DLL)\n"
-    "target_link_libraries(%s \"%slibruneforge.dll\")\n"
-    "target_include_directories(%s PRIVATE \"%sinclude\")\n",Name,Name,Name,editor_dir,Name,editor_dir);
+    "set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../bin/)\n"
+    "add_library(${PROJ_NAME} SHARED ${SOURCES})\n"
+    "target_compile_definitions(${PROJ_NAME} PRIVATE GAME_BUILD_DLL)\n"
+    "target_link_libraries(${PROJ_NAME} \"${ENG_DIR}libruneforge.dll\")\n"
+    "target_link_libraries(${PROJ_NAME} \"${ENG_DIR}librunewall.dll\")\n"
+    "target_link_libraries(${PROJ_NAME} \"${ENG_DIR}libgaven.dll\")\n"
+    "target_include_directories(${PROJ_NAME} PRIVATE \"${ENG_DIR}include\")\n",editor_dir,Name);
 
     write_file(cmake_file,cmake_content);
     open_project(Data->Registry,project_file);

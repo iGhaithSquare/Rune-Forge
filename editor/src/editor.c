@@ -8,7 +8,11 @@
 #else
 #include <dlfcn.h>
 #endif
+
 static const char* project_file_path;
+static const char* project_root_path;
+static const char* project_name;
+static uint64_t dll_timestamp;
 uint8_t check_if_folder_exists(const char* path);
 void open_project(layer_registry* Registry,const char* Path){
     project_file_path=strdup(Path);
@@ -40,6 +44,7 @@ void open_project(layer_registry* Registry,const char* Path){
         }
     }
     fclose(f);
+    project_name=strdup(name);
     if (project_root[0]=='\0'||main_scene_path[0]=='\0')
         return;
     size_t Root_Len = strlen(project_root);
@@ -48,7 +53,7 @@ void open_project(layer_registry* Registry,const char* Path){
         snprintf(Full_Scene_Path,sizeof(Full_Scene_Path),"%s%s",project_root,main_scene_path);
     else
         snprintf(Full_Scene_Path,sizeof(Full_Scene_Path),"%s%s%s",project_root,PATH_SEP,main_scene_path);
-    
+    project_root_path=strdup(project_root);
     char build_dir[512];
     snprintf(build_dir,sizeof(build_dir),"%s%s%s",project_root,PATH_SEP,"build");
     if(!check_if_folder_exists(build_dir)){
@@ -62,19 +67,7 @@ void open_project(layer_registry* Registry,const char* Path){
 
     char dll_path[512];
     snprintf(dll_path,sizeof(dll_path),"%s%s%s%s%s%s%s",project_root,PATH_SEP,"bin",PATH_SEP,"lib",name,".dll");
-
-    void (*game_fn)(void) =NULL;
-    #ifdef _WIN32
-    HMODULE dll= LoadLibraryA(dll_path);
-    GAVEN_ASSERT(dll,"couldnt load %s.dll",name);
-    game_fn=(void*)GetProcAddress(dll,"game");
-    #else
-    void* dll= dlopen(dll_path,RTLD_NOW);
-    GAVEN_ASSERT(dll,"couldnt load %s.dll",name);
-    game_fn=dlsym(dll,"game");
-    #endif
-    GAVEN_ASSERT(game_fn,"Failed to open game function inside %s.dll",name);
-    game_fn();
+    poll_dll();
     init_input();
     set_main_scene(Full_Scene_Path);
     entity_registry* Reg =load_scene(Full_Scene_Path);
@@ -111,4 +104,55 @@ uint8_t get_current_path(char* Buffer,size_t Size){
 }
 const char* get_projecta_file(void){
     return project_file_path;
+}
+uint8_t get_dll_change(char *dll_path){
+    static uint64_t dll_timestamp = 0;
+    uint64_t current_timestamp;
+    #ifdef _WIN32
+    WIN32_FILE_ATTRIBUTE_DATA data;
+    if(!GetFileAttributesExA(dll_path,GetFileExInfoStandard,&data)){
+        return 0;
+    }
+    ULARGE_INTEGER t;
+    t.HighPart=data.ftLastWriteTime.dwHighDateTime;
+    t.LowPart=data.ftLastWriteTime.dwLowDateTime;
+    current_timestamp = (uint64_t)t.QuadPart;
+    #else
+    struct stat st;
+    GAVEN_ASSERT(stat(Path,&st),"Couldnt get file attributes %s",dll_path);
+    current_timestamp = (uint64_t)st.st_mtime;
+    #endif
+    if(dll_timestamp==current_timestamp){
+        return 0;
+    }
+    dll_timestamp=current_timestamp;
+    return 1;
+}
+void poll_dll(void){
+    char dll_path[512];
+    snprintf(dll_path,sizeof(dll_path),"%s%s%s%s%s%s%s",project_root_path,PATH_SEP,"bin",PATH_SEP,"lib",project_name,".dll");
+    void (*game_fn)(void) =NULL;
+    if(!get_dll_change(dll_path)){
+         return;
+    }
+    #ifdef _WIN32
+    HMODULE dll= LoadLibraryA(dll_path);
+    if(!dll){
+        return;
+    }
+    game_fn=(void*)GetProcAddress(dll,"game");
+    #else
+    void* dll= dlopen(dll_path,RTLD_NOW);
+    if(!dll){
+        return;
+    }
+    game_fn=dlsym(dll,"game");
+    #endif
+    GAVEN_ASSERT(game_fn,"Failed to open game function inside %s.dll",project_name);//s
+    game_fn();
+    #ifdef _WIN32
+    FreeLibrary(dll);
+    #else
+    dlclose(dll);
+    #endif
 }

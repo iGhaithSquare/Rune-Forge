@@ -3,7 +3,7 @@
 #include <string.h>
 
 typedef struct type_registry{
-    type_info** Type;
+    type_info** Types;
     size_t Count;
     size_t Cap;
 }type_registry;
@@ -11,7 +11,7 @@ static type_registry* g_types= NULL;
 type_info* TypeDB_Get(const char* name){
     if(!g_types) return NULL;   
     for (size_t i=0;i<g_types->Count;i++){
-        type_info *n=g_types->Type[i];
+        type_info *n=g_types->Types[i];
         if(strcmp(n->Name,name)==0)
             return n; 
     }
@@ -23,21 +23,27 @@ void TypeDB_Register(type_info* Type){
     if(g_types==NULL){
         g_types=(type_registry*)malloc(sizeof(type_registry));
         GAVEN_ASSERT(g_types,"Couldnt allocate memory to type registry");
-        g_types->Type=NULL;
+        g_types->Types=NULL;
         g_types->Cap=0;
         g_types->Count=0;
     }
     if(g_types->Count>=g_types->Cap){
         g_types->Cap=(g_types->Cap)?g_types->Cap*2:16;
-        type_info** temp =(type_info**)realloc(g_types->Type,sizeof(type_info*)*g_types->Cap);
+        type_info** temp =(type_info**)realloc(g_types->Types,sizeof(type_info*)*g_types->Cap);
         GAVEN_ASSERT(temp,"Couldnt allocate memory to type");
-        g_types->Type=temp;
+        g_types->Types=temp;
     }
-    g_types->Type[g_types->Count++]=Type;
+    size_t i;
+    for( i=0;i<g_types->Count;i++)
+        if(strcmp(g_types->Types[i]->Name,Type->Name)==0)
+            break;
+    if(i==g_types->Count)
+        g_types->Count++;
+    g_types->Types[i]=Type;
 }
 void Destroy_TypeDB(void){
     if(!g_types) return;
-    free(g_types->Type);
+    free(g_types->Types);
     free(g_types);
     g_types=NULL;
 }
@@ -52,5 +58,5 @@ entity* create_entity(const char* Type_Name,const char* Entity_Name){
 type_info** Get_Entity_Types(size_t* Count){
     if(!g_types) return NULL;
     *Count=g_types->Count;
-    return g_types->Type;
+    return g_types->Types;
 }
