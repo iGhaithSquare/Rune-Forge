@@ -12,4 +12,5 @@ void append_file(const char* Path,const char* Content);
 uint8_t get_current_path(char* Buffer,size_t Size);
 const char* get_projecta_file(void);
 void poll_dll(void);
+uint8_t file_exists(const char* Path);
 #endif

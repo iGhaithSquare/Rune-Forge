@@ -587,6 +587,7 @@ RUNEFORGE_API entity* create_entity(const char* Type_Name,const char* Entity_Nam
 RUNEFORGE_API void TypeDB_Register(type_info* Type);
 RUNEFORGE_API void Destroy_TypeDB(void);
 RUNEFORGE_API type_info** Get_Entity_Types(size_t* Count);
+RUNEFORGE_API void TypeDB_Clear(void);
 #endif
 #ifndef ENTITY_REGISTRY_H
 #define ENTITY_REGISTRY_H

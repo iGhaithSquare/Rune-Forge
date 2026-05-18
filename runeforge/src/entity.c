@@ -17,6 +17,10 @@ type_info* TypeDB_Get(const char* name){
     }
     return NULL;
 }
+void TypeDB_Clear(void){
+    if(!g_types||!g_types->Types) return;
+    g_types->Count=0;
+}
 void TypeDB_Register(type_info* Type){
     if(!Type||!Type->Name)
         return;
@@ -33,13 +37,7 @@ void TypeDB_Register(type_info* Type){
         GAVEN_ASSERT(temp,"Couldnt allocate memory to type");
         g_types->Types=temp;
     }
-    size_t i;
-    for( i=0;i<g_types->Count;i++)
-        if(strcmp(g_types->Types[i]->Name,Type->Name)==0)
-            break;
-    if(i==g_types->Count)
-        g_types->Count++;
-    g_types->Types[i]=Type;
+    g_types->Types[g_types->Count++]=Type;
 }
 void Destroy_TypeDB(void){
     if(!g_types) return;

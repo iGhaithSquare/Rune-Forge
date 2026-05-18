@@ -39,7 +39,6 @@ void open_project(layer_registry* Registry,const char* Path){
         }
         else if(strncmp(line,"asset=",6)==0){
             sscanf(line+6,"%d,%511[^\r\n]",&current_asset_type,current_asset_path);
-            GAVEN_WARN("%s",current_asset_path);
             load_game_asset(current_asset_path,(asset_type)current_asset_type);
         }
     }
@@ -105,54 +104,54 @@ uint8_t get_current_path(char* Buffer,size_t Size){
 const char* get_projecta_file(void){
     return project_file_path;
 }
-uint8_t get_dll_change(char *dll_path){
-    static uint64_t dll_timestamp = 0;
-    uint64_t current_timestamp;
-    #ifdef _WIN32
-    WIN32_FILE_ATTRIBUTE_DATA data;
-    if(!GetFileAttributesExA(dll_path,GetFileExInfoStandard,&data)){
-        return 0;
-    }
-    ULARGE_INTEGER t;
-    t.HighPart=data.ftLastWriteTime.dwHighDateTime;
-    t.LowPart=data.ftLastWriteTime.dwLowDateTime;
-    current_timestamp = (uint64_t)t.QuadPart;
-    #else
-    struct stat st;
-    GAVEN_ASSERT(stat(Path,&st),"Couldnt get file attributes %s",dll_path);
-    current_timestamp = (uint64_t)st.st_mtime;
-    #endif
-    if(dll_timestamp==current_timestamp){
-        return 0;
-    }
-    dll_timestamp=current_timestamp;
-    return 1;
-}
 void poll_dll(void){
+    char dll_old_path[512];
+    snprintf(dll_old_path,sizeof(dll_old_path),"%s%s%s%s%s%s%s",project_root_path,PATH_SEP,"bin",PATH_SEP,"lib",project_name,".dll");
     char dll_path[512];
-    snprintf(dll_path,sizeof(dll_path),"%s%s%s%s%s%s%s",project_root_path,PATH_SEP,"bin",PATH_SEP,"lib",project_name,".dll");
+    snprintf(dll_path,sizeof(dll_path),"%s%s%s%s%s%s%s",project_root_path,PATH_SEP,"bin",PATH_SEP,"Rlib",project_name,".dll");
     void (*game_fn)(void) =NULL;
-    if(!get_dll_change(dll_path)){
-         return;
-    }
-    #ifdef _WIN32
-    HMODULE dll= LoadLibraryA(dll_path);
-    if(!dll){
+    if(!file_exists(dll_old_path))
         return;
-    }
+    #ifdef _WIN32
+    Sleep(100);
+    HMODULE test_dll=NULL;
+    test_dll=LoadLibraryA(dll_old_path);
+    #else
+    usleep(100*1000);
+    void* test_dll=NULL;
+    test_dll = dlopen(dll_old_path,RTLD_NOW);
+    #endif
+    if(!test_dll)
+        return;
+    FreeLibrary(test_dll);
+    #ifdef _WIN32
+    static HMODULE dll=NULL;
+    if(dll)
+        FreeLibrary(dll);
+    #else
+    static void* dll=NULL;
+    if(dll)
+        dlclose(dll);
+    #endif
+    remove(dll_path);
+    rename(dll_old_path,dll_path);
+    #ifdef _WIN32
+    dll=LoadLibraryA(dll_path);
     game_fn=(void*)GetProcAddress(dll,"game");
     #else
-    void* dll= dlopen(dll_path,RTLD_NOW);
-    if(!dll){
-        return;
-    }
+    dll = dlopen(dll_path,RTLD_NOW);
     game_fn=dlsym(dll,"game");
     #endif
-    GAVEN_ASSERT(game_fn,"Failed to open game function inside %s.dll",project_name);//s
+    GAVEN_ASSERT(game_fn,"Failed to open game function inside %s.dll",project_name);
+    TypeDB_Clear();
     game_fn();
+}
+uint8_t file_exists(const char* Path){
     #ifdef _WIN32
-    FreeLibrary(dll);
+    DWORD attr=GetFileAttributesA(Path);
+    return (attr!=INVALID_FILE_ATTRIBUTES&&!(attr&FILE_ATTRIBUTE_DIRECTORY));
     #else
-    dlclose(dll);
+    struct stat buffer;
+    return (stat(Path,&buffer)==0);
     #endif
 }
