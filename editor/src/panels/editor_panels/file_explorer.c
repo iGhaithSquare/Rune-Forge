@@ -14,6 +14,7 @@
 #include <dirent.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <sys/inotify.h>
 #endif
 typedef struct file_node{
     char* File_Path;
@@ -34,9 +35,17 @@ typedef struct file_explorer_button_data{
 typedef struct file_explorer_element{
     panel_element Base;
     file_node* Root;
+    file_node* Current;
     file_node* Selected;
     sprite Back_Sprite;
     file_explorer_button_data* Button1_Data;
+    #ifdef _WIN32
+    HANDLE Watch_Handle;
+    OVERLAPPED Overlapped;
+    char Watch_Buffer[1];
+    #else
+    int Watch_FD;
+    #endif
 }file_explorer_element;
 const char* get_file_extension(const char* Path){
     const char* dot =strrchr(Path,'.');
@@ -50,102 +59,7 @@ asset_type get_asset_type(const char* Path){
     if(!strcmp(Extension,"jsonscn")) return ASSET_TYPE_SCENE;
     return -1;
 }
-void file_button_load_scene_impl(file_node* Node){
-    unload_scene();
-    load_scene(Node->File_Path);
-}
-void file_button_load_sprite_impl(file_explorer_button_data* Data){
-    const char* Path=Data->Selected->File_Path;
-    load_game_asset(Path,ASSET_TYPE_SPRITE);
-    char content[128];
-    snprintf(content,sizeof(content),"\nasset=%d,%s",ASSET_TYPE_SPRITE,Path);
-    append_file(get_projecta_file(),content);
-}
-void file_button_inspect_sprite_impl(file_explorer_button_data* Data){
-    inspect_asset(Data->Data,Data->Inspector,Data->Type);
-}
-void file_button_press_impl(panel_button* Self){
-    if(get_state()&1) return;
-    file_explorer_button_data* Data= (file_explorer_button_data*)Self->Button_Data;
-    switch (Data->Type){
-    case ASSET_TYPE_SCENE:
-        file_button_load_scene_impl(Data->Selected);
-        break;
-    case ASSET_TYPE_SPRITE:
-        if(Data->Data==-1){
-            file_button_load_sprite_impl(Data);
-        }
-        else{
-            file_button_inspect_sprite_impl(Data);
-        }
-    default:
-        break;
-    }
-}
-void update_file_explorer_element(panel_element* Self){
-    file_explorer_element* fe = (file_explorer_element*)Self;
-    panel* Panel = Self->Parent;
-    panel_button* Button1 = (panel_button*)Panel->Elements[1];
-    if(Panel->Is_Focused&&Panel->Is_Hovered){
-        if(is_key_just_pressed(RUNEFORGE_MOUSE_BUTTON_LEFT)){
-            short MX = get_mouse_X()-Panel->X;
-            short MY = get_mouse_Y()-Panel->Y;
-            int offset=1;
-            file_node* Node = NULL;
-            if(fe->Root->Parent)
-                offset=2;
-            if(MY-offset>=0&&MY-offset<(short)(fe->Root->Count)){
-                Node=fe->Root->Children[MY-offset];
-            }
-            if(offset==2&&MX>=3&&MY==1&&MX<fe->Back_Sprite.Width+3){
-                fe->Root=fe->Root->Parent;
-                fe->Selected=NULL;
-            }
-            else if (Node&&MX>=3&&MX<Node->Text_Sprite.Width+3){
-                if(fe->Selected==Node&&Node->Data&1){
-                    fe->Selected=NULL;
-                    fe->Root=Node;
-                }
-                fe->Selected = Node;
-                file_explorer_button_data* Data = (file_explorer_button_data*)Button1->Button_Data;
-                Data->Selected=Node;
-                Data->Type=get_asset_type(Node->File_Path);
-                switch(Data->Type){
-                    case ASSET_TYPE_SCENE:
-                        Button1->Text="Load Scene";
-                        break;
-                    case ASSET_TYPE_SPRITE:
-                        Data->Data=get_asset_id_from_path(Node->File_Path);
-                        if(Data->Data==-1)
-                            Button1->Text="Load Sprite";
-                        else
-                            Button1->Text="Inspect Sprite";
-                        break;
-                    default:
-                        Button1->Text="FILE EXPLORER";
-                }
-                Button1->Is_Dirty=1;
-            }
 
-        }
-        
-    }
-    else if (is_key_just_pressed(RUNEFORGE_MOUSE_BUTTON_LEFT)){
-        fe->Selected=NULL;
-    }
-}
-void render_file_explorer_element(panel_element* Self){
-    file_explorer_element* fe = (file_explorer_element*)Self;
-    int offset=1;
-    if(fe->Root->Parent){
-        draw_game_overlay_sprite(fe->Back_Sprite,3,1,1);
-        offset=2;
-    }
-    for (size_t i=0;i<fe->Root->Count;i++){
-        file_node *Node=fe->Root->Children[i];
-        draw_game_overlay_sprite(Node->Text_Sprite,3,i+offset,1);
-    }
-}
 void destroy_file_node(file_node* Node){
     for(size_t i=0;i<Node->Count;i++){
         destroy_file_node(Node->Children[i]);
@@ -176,6 +90,7 @@ file_node* create_filenode(const char* Name,const char* File_Path,short length,u
     file_node* node = calloc(1,sizeof(file_node));
     GAVEN_ASSERT(node,"Couldnt allocate memory to file node");
     node->Data=Is_directory;
+    node->File_Path=strdup(File_Path);
     size_t Name_Len =strlen(Name);
     if(Name_Len+2>(size_t)length)
         Name_Len=length-2;
@@ -184,11 +99,12 @@ file_node* create_filenode(const char* Name,const char* File_Path,short length,u
     GAVEN_ASSERT(buffer,"Couldnt allocate memory to string");    
     memcpy(buffer+1,Name,Name_Len);
     buffer[0]='|';
-    if(Is_directory)buffer[Name_Len+1]='/';
+    if(Is_directory){
+        buffer[Name_Len+1]='/';
+    }
     node->Text_Sprite=create_text(buffer,length);
     free(buffer);
     node->Children=NULL;
-    node->File_Path=strdup(File_Path);
     node->Cap=0;
     node->Count=0;
     node->Parent=NULL;
@@ -266,15 +182,148 @@ file_node* build_filenode_tree(const char* Path,file_node* Parent,short Length){
     return Root;
 }
 
+void file_button_load_scene_impl(file_node* Node){
+    unload_scene();
+    load_scene(Node->File_Path);
+}
+void file_button_load_sprite_impl(file_explorer_button_data* Data){
+    const char* Path=Data->Selected->File_Path;
+    load_game_asset(Path,ASSET_TYPE_SPRITE);
+    char content[128];
+    snprintf(content,sizeof(content),"\nasset=%d,%s",ASSET_TYPE_SPRITE,Path);
+    append_file(get_projecta_file(),content);
+}
+void file_button_inspect_sprite_impl(file_explorer_button_data* Data){
+    inspect_asset(Data->Data,Data->Inspector,Data->Type);
+}
+void file_button_press_impl(panel_button* Self){
+    if(get_state()&1) return;
+    file_explorer_button_data* Data= (file_explorer_button_data*)Self->Button_Data;
+    switch (Data->Type){
+    case ASSET_TYPE_SCENE:
+        file_button_load_scene_impl(Data->Selected);
+        break;
+    case ASSET_TYPE_SPRITE:
+        if(Data->Data==-1){
+            file_button_load_sprite_impl(Data);
+        }
+        else{
+            file_button_inspect_sprite_impl(Data);
+        }
+    default:
+        break;
+    }
+}
+
+void poll_root_node(file_explorer_element* FE){
+    if(!FE||!FE->Root) return;
+    size_t i;
+    #ifdef _WIN32
+    DWORD bytes=0;
+    if(!GetOverlappedResult(FE->Watch_Handle,&FE->Overlapped,&bytes,FALSE)){
+        return;
+    }
+    memset(&FE->Overlapped,0,sizeof(OVERLAPPED));
+    ReadDirectoryChangesW(FE->Watch_Handle,FE->Watch_Buffer,1,TRUE,FILE_NOTIFY_CHANGE_FILE_NAME|FILE_NOTIFY_CHANGE_DIR_NAME|FILE_NOTIFY_CHANGE_LAST_WRITE,NULL,&FE->Overlapped,NULL);
+    #else
+    char *buffer =malloc(sizeof(struct inoti));
+    ssize_t len =read(FE->Watch_FD,buffer,sizeof(buffer));
+    free(buffer);
+    if(len<=0)
+        return;
+    #endif
+    file_node* Root=FE->Root;
+    FE->Root=build_filenode_tree(Root->File_Path,NULL,74);
+    FE->Current=FE->Root;
+    FE->Selected=NULL;
+    FE->Button1_Data->Selected=NULL;
+    destroy_file_node(Root);
+}
+
+void update_file_explorer_element(panel_element* Self){
+    file_explorer_element* fe = (file_explorer_element*)Self;
+    panel* Panel = Self->Parent;
+    panel_button* Button1 = (panel_button*)Panel->Elements[1];
+    poll_root_node(fe);
+    if(Panel->Is_Focused&&Panel->Is_Hovered){
+        if(is_key_just_pressed(RUNEFORGE_MOUSE_BUTTON_LEFT)){
+            short MX = get_mouse_X()-Panel->X;
+            short MY = get_mouse_Y()-Panel->Y;
+            int offset=1;
+            file_node* Node = NULL;
+            if(fe->Current->Parent)
+                offset=2;
+            if(MY-offset>=0&&MY-offset<(short)(fe->Current->Count)){
+                Node=fe->Current->Children[MY-offset];
+            }
+            if(offset==2&&MX>=3&&MY==1&&MX<fe->Back_Sprite.Width+3){
+                fe->Current=fe->Current->Parent;
+                fe->Selected=NULL;
+            }
+            else if (Node&&MX>=3&&MX<Node->Text_Sprite.Width+3){
+                if(fe->Selected==Node&&Node->Data&1){
+                    fe->Selected=NULL;
+                    fe->Current=Node;
+                }
+                fe->Selected = Node;
+                file_explorer_button_data* Data = (file_explorer_button_data*)Button1->Button_Data;
+                Data->Selected=Node;
+                Data->Type=get_asset_type(Node->File_Path);
+                switch(Data->Type){
+                    case ASSET_TYPE_SCENE:
+                        Button1->Text="Load Scene";
+                        break;
+                    case ASSET_TYPE_SPRITE:
+                        Data->Data=get_asset_id_from_path(Node->File_Path);
+                        if(Data->Data==-1)
+                            Button1->Text="Load Sprite";
+                        else
+                            Button1->Text="Inspect Sprite";
+                        break;
+                    default:
+                        Button1->Text="FILE EXPLORER";
+                }
+                Button1->Is_Dirty=1;
+            }
+
+        }
+        
+    }
+    else if (is_key_just_pressed(RUNEFORGE_MOUSE_BUTTON_LEFT)){
+        fe->Selected=NULL;
+    }
+}
+void render_file_explorer_element(panel_element* Self){
+    file_explorer_element* fe = (file_explorer_element*)Self;
+    int offset=1;
+    if(fe->Current->Parent){
+        draw_game_overlay_sprite(fe->Back_Sprite,3,1,1);
+        offset=2;
+    }
+    for (size_t i=0;i<fe->Current->Count;i++){
+        file_node *Node=fe->Current->Children[i];
+        draw_game_overlay_sprite(Node->Text_Sprite,3,i+offset,1);
+    }
+}
 file_explorer_element* create_file_explorer_element(const char* Path, short Length){
+    
     file_explorer_element* Element =(file_explorer_element*)malloc(sizeof(file_explorer_element));
     GAVEN_ASSERT(Element,"Couldnt allocat enough memory to file explorer");
     Element->Back_Sprite=create_text("|->Return",9);
-    Element->Root=build_filenode_tree(Path,NULL,Length);
+    Element->Root=Element->Current=build_filenode_tree(Path,NULL,Length);
     Element->Selected=NULL;
     Element->Button1_Data=(file_explorer_button_data*)malloc(sizeof(file_explorer_button_data));
     Element->Button1_Data->Inspector=NULL;
     init_panel_element_base(&Element->Base,0,0,update_file_explorer_element,render_file_explorer_element,destroy_file_explorer_element);
+    #ifdef _WIN32
+    Element->Watch_Handle=CreateFileA(Element->Root->File_Path,FILE_LIST_DIRECTORY,FILE_SHARE_DELETE|FILE_SHARE_WRITE|FILE_SHARE_READ,NULL,OPEN_EXISTING,FILE_FLAG_BACKUP_SEMANTICS|FILE_FLAG_OVERLAPPED,NULL);
+    memset(&Element->Overlapped,0,sizeof(OVERLAPPED));
+    ReadDirectoryChangesW(Element->Watch_Handle,Element->Watch_Buffer,1,TRUE,FILE_NOTIFY_CHANGE_FILE_NAME|FILE_NOTIFY_CHANGE_DIR_NAME|FILE_NOTIFY_CHANGE_LAST_WRITE,NULL,&Element->Overlapped,NULL);
+    #else
+    Element->Watch_FD=inotify_init1(IN_NONBLOCKING);
+    inotify_add_watch(Element->Watch_FD,Element->Root->File_Path,IN_CREATE|IN_DELETE|IN_MODIFY|IN_MOVED_FROM|IN_MOVED_TO);
+    #endif
+    
     return Element;
 }
 panel* create_file_explorer(void){
@@ -291,6 +340,7 @@ panel* create_file_explorer(void){
     };
     panel *File_Explorer = create_panel(File_expo);
     file_explorer_element *E=create_file_explorer_element("assets/",74);
+
     panel_button *Button= create_panel_button(60,0,"FILE EXPLORER",20,E->Button1_Data,file_button_press_impl);
     add_element_to_panel(File_Explorer,&E->Base);
     add_element_to_panel(File_Explorer,&Button->Base);
