@@ -56,7 +56,7 @@ void add_panel_to_registry(panel* Panel,panel_registry* Registry){
         index=Registry->Count;
     }
     else{
-        for(int i=0;i<Registry->Count;i++){
+        for(size_t i=0;i<Registry->Count;i++){
             panel* Current_Pan= Registry->Panels[i];
             if(Panel->Data.Z_Index>Current_Pan->Data.Z_Index&&Current_Pan->Data.Z_Index!=-1)
                 index++;

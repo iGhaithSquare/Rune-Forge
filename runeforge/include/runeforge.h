@@ -609,6 +609,8 @@ RUNEFORGE_API void destroy_entity_registry(entity_registry* Self);
 RUNEFORGE_API void unload_entity_registry(entity_registry* Self);
 RUNEFORGE_API void serialize_entity_registry(const char* path,entity_registry* Entity_Registry);
 RUNEFORGE_API void deserialize_entity_registry(const char* path,entity_registry* Entity_Registry);
+RUNEFORGE_API entity* get_entity_from_entity_registry(entity_registry* Self,size_t ID);
+
 #endif
 
 #ifndef ASSET_TYPES_H
@@ -639,6 +641,7 @@ RUNEFORGE_API application* runeforge_main(void);
 RUNEFORGE_API size_t load_game_asset(const char* Path,asset_type Type);
 RUNEFORGE_API void add_entity(entity* e);
 RUNEFORGE_API size_t get_asset_id_from_path(const char* Path);
+RUNEFORGE_API entity* get_entity(size_t ID);
 
 #endif
 

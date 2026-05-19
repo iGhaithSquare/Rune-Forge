@@ -15,4 +15,5 @@ panel* create_popup_panel(const char* Name,short X,short Y,short Width,short Hei
     panel* Popup = create_panel(Data);
     Popup->X=X;
     Popup->Y=Y;
+    return Popup;
 }

@@ -40,6 +40,7 @@ void free_entity(entity_registry *Registry,entity *Entity){
         Entity->Type->Destroy(Entity);
     else
         free(Entity);
+    Entity=NULL;
 }
 void destroy_entity_registry(entity_registry* Self){
     for(size_t i=0;i<Self->Count;i++){
@@ -60,7 +61,7 @@ void unload_entity_registry(entity_registry* Self){
             Entity->Type->Destroy(Entity);
         else
             free(Entity);
-        Entity=NULL;
+        Self->Entities[i]=NULL;
     }
     Self->Count=0;
     Self->Version++;
@@ -72,6 +73,9 @@ void update_entities(entity_registry* Self,double deltaTime){
         if(E->Type->Update)
             E->Type->Update(E,deltaTime);
     }
+}
+entity* get_entity_from_entity_registry(entity_registry* Self,size_t ID){
+    return Self->Entities[ID];
 }
 void render_entities(entity_registry* Self){
     size_t i;
@@ -127,7 +131,10 @@ void deserialize_entity(cJSON* root, entity* Entity){
         switch(p->Type){
             case PROPERTY_TYPE_INT: *(int*)field=item->valueint; break;
             case PROPERTY_TYPE_FLOAT: *(float*)field=(float)item->valuedouble; break;
-            case PROPERTY_TYPE_STRING:  *(char**)field=strdup(item->valuestring); break;
+            case PROPERTY_TYPE_STRING:  char** str=(char**)field;
+                *str=malloc(256);
+                GAVEN_ASSERT(*str,"Couldnt allocate memory to property type %s",p->Name);
+                strncpy(*str,item->valuestring,sizeof(*str)); break;
             case PROPERTY_TYPE_DOUBLE: *(double*)field=item->valuedouble; break;
             case PROPERTY_TYPE_SIZET:   *(size_t*)field=(size_t)item->valuedouble; break;
             default: GAVEN_ASSERT(0,"Unsupported property type for deserialization");

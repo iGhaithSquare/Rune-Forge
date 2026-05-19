@@ -134,3 +134,6 @@ void remove_asset(size_t ID){
 size_t get_asset_id_from_path(const char* Path){
     return find_asset_from_asset_manager_with_path(Asset_Manager,Path);
 }
+entity* get_entity(size_t ID){
+    return get_entity_from_entity_registry(Entity_Registry,ID);
+}

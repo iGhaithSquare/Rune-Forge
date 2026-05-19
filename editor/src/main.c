@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "editor.h"
 #include "editor_menu_layer.h"
-void main(int argc, char** argv){
+int main(int argc, char** argv){
     short game_width = 120;
     short game_height = 34;
     set_window_size(game_width,game_height);
@@ -15,4 +15,5 @@ void main(int argc, char** argv){
     }
     run_application();
     destroy_application();
+    return 1;
 }

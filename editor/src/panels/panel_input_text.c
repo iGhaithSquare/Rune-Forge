@@ -15,7 +15,7 @@ void panel_input_text_render(panel_element* Self){
         memset(buffer,' ',(size_t) Text->Width*2);
         size_t Len =strlen(Text->Final_Text);
         if(Len){
-            if(Len>Text->Width-2)
+            if(Len+2>(size_t)(Text->Width))
                 memcpy(buffer+1,Text->Final_Text,Text->Width-2);
             else
                 memcpy(buffer+1,Text->Final_Text,Len);
@@ -90,7 +90,7 @@ void panel_input_text_update(panel_element *Self){
             return;
         }
         if(is_key_just_pressed(RUNEFORGE_KEY_TAB)){
-            if(len<255&&len<Text->Width-1){
+            if(len<255&&len<(size_t)(Text->Width-1)){
                 Text->Final_Text[len]=' ';
                 Text->Final_Text[len+1]='\0';
                 Text->Is_Dirty=1;
@@ -102,7 +102,7 @@ void panel_input_text_update(panel_element *Self){
         }
         size_t add_len=0;
         const char* c = get_text_input(&add_len);
-        if(add_len&&add_len+len<255&&add_len+len<Text->Width-1){
+        if(add_len&&add_len+len<255&&add_len+len<(size_t)(Text->Width-1)){
             memcpy(Text->Final_Text+len,c,add_len);
             Text->Final_Text[len+add_len]='\0';
             Text->Is_Dirty=1;

@@ -21,6 +21,7 @@ void navbar_button_save_scene_imple(panel_button* Self){
     save_scene(NULL,NULL);
 }
 void navbar_button_start_scene_imple(panel_button* Self){
+    navbar_data* Data=(navbar_data*)Self->Button_Data;
     uint8_t State = get_state();
     Self->Is_Dirty=1;
     if(State&1){
@@ -28,6 +29,7 @@ void navbar_button_start_scene_imple(panel_button* Self){
         change_update_state(0);
         return;
     }
+    uninspect_inspector_panel(Data->Inspector);
     save_scene(NULL,NULL);
     Self->Text="Pause";
     change_update_state(1);
@@ -92,7 +94,7 @@ panel* create_navbar(void){
     Navbar_Data->Button_Data=NULL;
     panel_button *P=create_panel_button(1,0,"Add Entity",14,Navbar_Data,navbar_show_add_entity_impl);
     panel_button *Save=create_panel_button(103,0,"Save Scene",14,Navbar_Data,navbar_button_save_scene_imple);
-    panel_button *Start=create_panel_button(55,0,"Start",9,NULL,navbar_button_start_scene_imple);
+    panel_button *Start=create_panel_button(55,0,"Start",9,Navbar_Data,navbar_button_start_scene_imple);
     add_element_to_panel(Navbar,&P->Base);
     add_element_to_panel(Navbar,&Save->Base);
     add_element_to_panel(Navbar,&Start->Base);

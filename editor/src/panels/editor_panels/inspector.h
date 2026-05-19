@@ -4,4 +4,5 @@
 panel* create_inspector(void);
 void inspect_entity(entity* Entity,panel* Inspector_Panel);
 void inspect_asset(size_t Asset_ID,panel* Inspector_Panel,asset_type Type);
+void uninspect_inspector_panel(panel* Inspector_Panel);
 #endif

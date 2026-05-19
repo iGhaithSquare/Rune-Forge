@@ -203,6 +203,20 @@ void add_inspector_ui(inspector_element* Element,char* Type_Text,char* Value_Tex
     IU->Type=Type;
     Element->Inspector_uis[Element->Count++]=IU;
 }
+void uninspect_inspector_panel(panel* Inspector_Panel){
+    if(!Inspector_Panel||Inspector_Panel->Count<=0) {GAVEN_WARN("FUCK"); return;}
+    inspector_element* I=(inspector_element*)Inspector_Panel->Elements[0];
+    if(I->Has_Selection){
+        for(size_t i=0;i<I->Count;i++){
+            inspector_ui* UI =I->Inspector_uis[i];
+            destroy_sprite(&UI->Text_Sprite);
+            free(UI);
+        }
+        I->Count=0;
+    }
+    I->Has_Selection=0;
+    I->Selected=NULL;
+}
 void inspect_asset(size_t Asset_ID,panel* Inspector_Panel,asset_type Type){
     if(!Inspector_Panel||Inspector_Panel->Count<=0) return;
     inspector_element* I=(inspector_element*)Inspector_Panel->Elements[0];
@@ -211,6 +225,7 @@ void inspect_asset(size_t Asset_ID,panel* Inspector_Panel,asset_type Type){
             inspector_ui* UI =I->Inspector_uis[i];
             destroy_sprite(&UI->Text_Sprite);
             free(UI);
+            I->Inspector_uis[i]=NULL;
         }
         I->Count=0;
     }
@@ -235,6 +250,9 @@ void inspect_entity(entity* Entity,panel* Inspector_Panel){
     }
     I->Selected=Entity;
     I->Has_Selection=1;
+    char buffer[128];
+    snprintf(buffer,sizeof(buffer),"ID: %zu",Entity->ID);
+    add_inspector_ui(I,buffer,"",NULL,-1);
     type_info *Info=Entity->Type;
     for(size_t i=0;i<Info->Property_Count;i++){
         property_info* P =&Info->Properties[i];
@@ -267,7 +285,6 @@ void inspect_entity(entity* Entity,panel* Inspector_Panel){
         add_inspector_ui(I,type_buffer,value_buffer,field,P->Type);
     }
 }
-
 panel* create_inspector(void){
     panel_data Inspect={
         .Name="Inspector",
