@@ -204,7 +204,6 @@ void add_inspector_ui(inspector_element* Element,char* Type_Text,char* Value_Tex
     Element->Inspector_uis[Element->Count++]=IU;
 }
 void uninspect_inspector_panel(panel* Inspector_Panel){
-    if(!Inspector_Panel||Inspector_Panel->Count<=0) {GAVEN_WARN("FUCK"); return;}
     inspector_element* I=(inspector_element*)Inspector_Panel->Elements[0];
     if(I->Has_Selection){
         for(size_t i=0;i<I->Count;i++){
@@ -232,7 +231,6 @@ void inspect_asset(size_t Asset_ID,panel* Inspector_Panel,asset_type Type){
     I->Has_Selection=1;
     char type_buffer[128];
     snprintf(type_buffer,128,"Asset ID: %zu",Asset_ID);
-    GAVEN_WARN("IDK");
     add_inspector_ui(I,type_buffer,"",NULL,PROPERTY_TYPE_INT);
 
 }

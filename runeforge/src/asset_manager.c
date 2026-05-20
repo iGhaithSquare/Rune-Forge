@@ -118,8 +118,10 @@ void remove_asset_from_asset_manager(asset_manager* Manager,size_t ID){
 }
 size_t find_asset_from_asset_manager_with_path(asset_manager* Manager,const char* Path){
     if(!Manager) return -1;
-    for(size_t i =0;i<Manager->Count;i++)
-        if(Manager->Assets[i].Path)
+    for(size_t i =0;i<Manager->Count;i++){
+        if(strcmp(Manager->Assets[i].Path,Path)==0)
             return i;
+
+    }
     return -1;
 }
