@@ -30,6 +30,7 @@ typedef  struct property_info{
     const char* Setter;
     void *Default_Value;
 } property_info;
+//todo make property arrays heterogeneous objects
 typedef struct type_info{
     const char* Name;
     const char* Parent;
@@ -42,9 +43,11 @@ typedef struct type_info{
     size_t Property_Count;
     unsigned Flags;
 }type_info;
+//todo one single typeinfo that handles all the property arrays confounded with the type
 struct entity{
     size_t ID;
     type_info *Type;
+    char* Type_Name;
     char *Name;
 };
 RUNEFORGE_API entity* create_entity(const char* Type_Name,const char* Entity_Name);
@@ -52,4 +55,6 @@ RUNEFORGE_API void TypeDB_Register(type_info* Type);
 RUNEFORGE_API void Destroy_TypeDB(void);
 RUNEFORGE_API type_info** Get_Entity_Types(size_t* Count);
 RUNEFORGE_API void TypeDB_Clear(void);
+RUNEFORGE_API type_info* TypeDB_Get(const char* name);
+//todo add entity type buckets, we want millions of entities at once without lag.
 #endif

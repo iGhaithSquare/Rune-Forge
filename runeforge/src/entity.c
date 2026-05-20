@@ -19,7 +19,10 @@ type_info* TypeDB_Get(const char* name){
 }
 void TypeDB_Clear(void){
     if(!g_types||!g_types->Types) return;
+    for(size_t i=0;i<g_types->Count;i++)
+        g_types->Types[i]=NULL;
     g_types->Count=0;
+
 }
 void TypeDB_Register(type_info* Type){
     if(!Type||!Type->Name)
@@ -47,9 +50,11 @@ void Destroy_TypeDB(void){
 }
 entity* create_entity(const char* Type_Name,const char* Entity_Name){
     type_info *type=TypeDB_Get(Type_Name);
+    if(!type) return NULL;
     entity *e = (entity*)calloc(1,type->Size);
     GAVEN_ASSERT(e,"Couldnt create entity of type %s",Type_Name);
     e->Type = type;
+    e->Type_Name= strdup(Type_Name);
     e->Name = Entity_Name?strdup(Entity_Name):strdup(Type_Name);
     return e;
 }

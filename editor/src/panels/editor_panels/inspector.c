@@ -26,6 +26,12 @@ typedef struct inspector_element{
 void update_inspector_element(panel_element* Self){
     inspector_element* I=(inspector_element*)Self;
     panel* Panel = I->Base.Parent;
+    if(I->Selected){
+        //todo add inspected types and switch through them
+        entity* E=(entity*)I->Selected;
+        if(!TypeDB_Get(E->Type_Name))
+            return;
+    }
     if(Panel->Is_Focused){
         if(is_key_just_pressed(RUNEFORGE_MOUSE_BUTTON_LEFT)){
             short MX = get_mouse_X()-Panel->X;

@@ -582,12 +582,14 @@ struct entity{
     size_t ID;
     type_info *Type;
     char *Name;
+    char *Type_Name;
 };
 RUNEFORGE_API entity* create_entity(const char* Type_Name,const char* Entity_Name);
 RUNEFORGE_API void TypeDB_Register(type_info* Type);
 RUNEFORGE_API void Destroy_TypeDB(void);
 RUNEFORGE_API type_info** Get_Entity_Types(size_t* Count);
 RUNEFORGE_API void TypeDB_Clear(void);
+RUNEFORGE_API type_info* TypeDB_Get(const char* name);
 #endif
 #ifndef ENTITY_REGISTRY_H
 #define ENTITY_REGISTRY_H

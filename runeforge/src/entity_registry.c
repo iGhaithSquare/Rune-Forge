@@ -14,6 +14,7 @@ entity_registry* create_entity_registry(void){
     return Registry;
 }
 void add_entity_to_registry(entity_registry *Registry,entity *Entity){
+    if(!Entity) return;
     if(Registry->Count>=Registry->Cap){
         Registry->Cap=(Registry->Cap?Registry->Cap*2:128);
         entity** temp=(entity**)realloc(Registry->Entities,sizeof(entity*)*Registry->Cap);
@@ -36,10 +37,13 @@ void free_entity(entity_registry *Registry,entity *Entity){
     Registry->Entities[Entity->ID]=Registry->Entities[Registry->Count];
     Registry->Entities[Entity->ID]->ID=Entity->ID;
     Registry->Entities[Registry->Count]=NULL;
-    if(Entity->Type->Destroy)
+    if(TypeDB_Get(Entity->Type_Name)&&Entity->Type->Destroy)
         Entity->Type->Destroy(Entity);
-    else
+    else{
         free(Entity);
+        free(Entity->Name);
+        free(Entity->Type_Name);
+    }
     Entity=NULL;
 }
 void destroy_entity_registry(entity_registry* Self){
@@ -70,6 +74,9 @@ void update_entities(entity_registry* Self,double deltaTime){
     size_t i;
     for(i=0;i<Self->Count;i++){
         entity* E = Self->Entities[i];
+        if(!TypeDB_Get(E->Type_Name)){
+            continue;
+        }
         if(E->Type->Update)
             E->Type->Update(E,deltaTime);
     }
@@ -79,13 +86,21 @@ entity* get_entity_from_entity_registry(entity_registry* Self,size_t ID){
 }
 void render_entities(entity_registry* Self){
     size_t i;
+    uint8_t Check=0;
     for(i=0;i<Self->Count;i++){
         entity* E = Self->Entities[i];
+        if(!TypeDB_Get(E->Type_Name)){
+            free_entity(Self,E);
+            Check=1;
+            E = Self->Entities[i];
+            if(!E) break;
+        }
         if(E->Type->Render)
             E->Type->Render(E);
     }
+    if(Check)
+        serialize_entity_registry(Self->Path,Self);
 }
-
 void serialize_entity(cJSON* root, entity* Entity){
     type_info *t =Entity->Type;
     cJSON_AddStringToObject(root,"Type",Entity->Type->Name);
@@ -176,8 +191,10 @@ void deserialize_entity_registry(const char* path,entity_registry* Entity_Regist
         cJSON* obj=cJSON_GetArrayItem(arr,i);
         const char* Type_Name=cJSON_GetObjectItem(obj,"Type")->valuestring;
         const char* Entity_Name=cJSON_GetObjectItem(obj,"Name")->valuestring;
-        entity *e=create_entity(Type_Name,Entity_Name);
-        deserialize_entity(obj,e);
-        add_entity_to_registry(Entity_Registry,e);
+        if(TypeDB_Get(Type_Name)){
+            entity *e=create_entity(Type_Name,Entity_Name);
+            deserialize_entity(obj,e);
+            add_entity_to_registry(Entity_Registry,e);
+        }
     }
 }

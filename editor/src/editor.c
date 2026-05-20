@@ -126,6 +126,7 @@ void poll_dll(void){
     #endif
     if(!test_dll)
         return;
+    TypeDB_Clear();
     FreeLibrary(test_dll);
     #ifdef _WIN32
     static HMODULE dll=NULL;
@@ -146,7 +147,6 @@ void poll_dll(void){
     game_fn=dlsym(dll,"game");
     #endif
     GAVEN_ASSERT(game_fn,"Failed to open game function inside %s.dll",project_name);
-    TypeDB_Clear();
     game_fn();
 }
 uint8_t file_exists(const char* Path){

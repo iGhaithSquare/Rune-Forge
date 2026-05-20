@@ -19,6 +19,7 @@ typedef struct scene_explorer_element{
     entity_registry* Registry;
 }scene_explorer_element;
 void add_entity_entity_to_scene_explorer(entity* Entity,scene_explorer_element* se){
+    if(!TypeDB_Get(Entity->Type_Name)) return;
     if(se->Count>=se->Cap){
         se->Cap=se->Cap?se->Cap*2:16;
         entity_node** temp= (entity_node**)realloc(se->Entities,sizeof(entity_node*)*se->Cap);
