@@ -23,7 +23,7 @@ void panel_text_render(panel_element* Self){
         else Text->Is_Dirty=2;
     }
     if(!Text->Is_Dirty)
-        draw_game_overlay_sprite(Text->Sprite,Self->X,Self->Y,1);
+        draw_game_overlay_sprite(Text->Sprite,Self->X,Self->Y,Self->Parent->Data.Z_Index+1);
 }
 void panel_text_update(panel_element *Self){
     panel_text* Text=(panel_text*)Self;

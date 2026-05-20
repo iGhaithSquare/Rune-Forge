@@ -29,7 +29,7 @@ void button_render(panel_element* Self){
     if(Button->Is_Dirty){
         short len = Button->Width-4;
         char* buffer= malloc( Button->Width+1);
-        memset(buffer,' ',(size_t) Button->Width);
+        memset(buffer,'`',(size_t) Button->Width);
         buffer[0]=buffer[ Button->Width-1]='|';
         char* temp =create_text_buffer( Button->Text,&len);
         if(temp){
@@ -41,7 +41,7 @@ void button_render(panel_element* Self){
         Button->Sprite=create_sprite(buffer,Button->Width,1);
         Button->Is_Dirty=0;
     }
-    draw_game_overlay_sprite(Button->Sprite,Self->X,Self->Y,1);
+    draw_game_overlay_sprite(Button->Sprite,Self->X,Self->Y,Self->Parent->Data.Z_Index+1);
 }
 void button_update(panel_element *Self){    
     panel_button* Button =(panel_button*)Self;

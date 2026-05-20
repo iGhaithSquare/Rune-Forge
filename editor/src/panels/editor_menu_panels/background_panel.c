@@ -15,24 +15,6 @@
 #include <unistd.h>
 #include <limits.h>
 #endif
-uint8_t check_if_folder_exists(const char* path){
-    #ifdef _WIN32
-    DWORD attrs = GetFileAttributesA(path);
-    return (attrs != INVALID_FILE_ATTRIBUTES)&&(attrs&FILE_ATTRIBUTE_DIRECTORY);
-    #else
-    struct stat info;
-    return (stat(path,&info)==0)&&(info.st_mode&S_IFDIR);
-    #endif
-}
-void create_new_folder(const char* path){
-    if(check_if_folder_exists(path))return;
-    #ifdef _WIN32
-    CreateDirectoryA(path,NULL);
-    #else
-    mkdir(path,0755);
-    #endif
-    GAVEN_ASSERT(check_if_folder_exists(path),"COULD NOT CREATE LOG FOLDER");
-}
 typedef struct background_panel_main_button_data{
     layer_registry* Registry;
     layer* Layer;
@@ -55,10 +37,11 @@ typedef struct background_panel_element{
 void render_background_panel_element(panel_element* Self){
     background_panel_element* be = (background_panel_element*)Self;
     draw_game_sprite(get_game_sprite(be->main_sprite_id),1,2,0);
-    draw_game_sprite(be->help_sprite_1,65,18,1);
-    draw_game_sprite(be->help_sprite_2,65,19,1);
-    draw_game_sprite(be->help_sprite_3,65,20,1);
-    draw_game_sprite(be->help_sprite_4,65,21,1);
+    short Z=Self->Parent->Data.Z_Index;
+    draw_game_sprite(be->help_sprite_1,65,18,Z+1);
+    draw_game_sprite(be->help_sprite_2,65,19,Z+1);
+    draw_game_sprite(be->help_sprite_3,65,20,Z+1);
+    draw_game_sprite(be->help_sprite_4,65,21,Z+1);
 }
 void destroy_background_panel_element(panel_element* Self){
     background_panel_element* be = (background_panel_element*)Self;

@@ -156,7 +156,7 @@ void render_inspector_element(panel_element* Self){
             UI->Text_Sprite=create_text(UI->Final_Text,I->Base.Parent->Data.Width-5);
             UI->Is_Dirty=0;
         }
-        draw_game_overlay_sprite(UI->Text_Sprite,2,2+i,1);
+        draw_game_overlay_sprite(UI->Text_Sprite,2,2+i,Self->Parent->Data.Z_Index+1);
     }
     I->Is_Dirty=0;
     return;

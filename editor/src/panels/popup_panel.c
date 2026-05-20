@@ -4,7 +4,7 @@ panel* create_popup_panel(const char* Name,short X,short Y,short Width,short Hei
     panel_data Data = {
         .Name=Name,
         .Anchor=0,
-        .Background_Char='`',
+        .Background_Char='~',
         .Height=Height,
         .Width=Width,
         .Is_Resizable=0,

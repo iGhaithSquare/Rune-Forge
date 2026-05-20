@@ -302,7 +302,7 @@ void render_file_explorer_element(panel_element* Self){
     }
     for (size_t i=0;i<fe->Current->Count;i++){
         file_node *Node=fe->Current->Children[i];
-        draw_game_overlay_sprite(Node->Text_Sprite,3,i+offset,1);
+        draw_game_overlay_sprite(Node->Text_Sprite,3,i+offset,Self->Parent->Data.Z_Index+1);
     }
 }
 file_explorer_element* create_file_explorer_element(const char* Path, short Length){

@@ -331,7 +331,7 @@ void render_panel(panel* Self){
         Self->Is_Dirty=0;
     }
     set_panel_offset(Self->X,Self->Y);
-    draw_game_overlay_sprite(Self->Background_Sprite,0,0,0);
+    draw_game_overlay_sprite(Self->Background_Sprite,0,0,Self->Data.Z_Index);
     for(size_t i=0;i<Self->Count;i++){
         panel_element* Element = Self->Elements[i];
         if(Element->On_Render) Element->On_Render(Element);

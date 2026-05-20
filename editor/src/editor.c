@@ -13,7 +13,6 @@ static const char* project_file_path;
 static const char* project_root_path;
 static const char* project_name;
 static uint64_t dll_timestamp;
-uint8_t check_if_folder_exists(const char* path);
 void open_project(layer_registry* Registry,const char* Path){
     project_file_path=strdup(Path);
     FILE* f =fopen(Path,"r");
@@ -99,7 +98,7 @@ uint8_t get_current_path(char* Buffer,size_t Size){
     if(len==0||len==Size)
         return 0;
     #else
-    size_t len=readlink("/proc/self/exe",buffer,size-1);
+    size_t len=readlink("/proc/self/exe",Buffer,size-1);
     if(len==-1) return 0;
     Buffer[len]='\0';
     #endif
@@ -158,4 +157,122 @@ uint8_t file_exists(const char* Path){
     struct stat buffer;
     return (stat(Path,&buffer)==0);
     #endif
+}
+void get_editor_path(char* Buffer,size_t Size){
+    #ifdef _WIN32
+    DWORD Len = GetModuleFileNameA(NULL,Buffer,(DWORD)Size);
+    if(Len==0||Len>=Size){
+        Buffer[0]='\0';
+        GAVEN_WARN("Couldnt get editor path");
+        return;
+    }
+    #else
+    ssize_t Len=readlink("/proc/self/exe",Buffer,Size-1);
+    
+    if(Len==-1||Len>=Size){
+        Buffer[0]='\0';
+        GAVEN_WARN("Couldnt get editor path");
+        return;
+    }
+    Buffer[Len]='\0';
+    #endif
+    char* last =strrchr(Buffer,PATH_SEP[0]);
+    if(last) *last='\0';
+}
+
+uint8_t check_if_folder_exists(const char* path){
+    #ifdef _WIN32
+    DWORD attrs = GetFileAttributesA(path);
+    return (attrs != INVALID_FILE_ATTRIBUTES)&&(attrs&FILE_ATTRIBUTE_DIRECTORY);
+    #else
+    struct stat info;
+    return (stat(path,&info)==0)&&(info.st_mode&S_IFDIR);
+    #endif
+}
+void create_new_folder(const char* path){
+    if(check_if_folder_exists(path))return;
+    #ifdef _WIN32
+    CreateDirectoryA(path,NULL);
+    #else
+    mkdir(path,0755);
+    #endif
+    GAVEN_ASSERT(check_if_folder_exists(path),"COULD NOT CREATE LOG FOLDER");
+}
+const char* get_project_name(void){
+    return project_name;
+}
+void copy_file_to_dir(const char* Source,const char* Dir){
+    const char* last =strrchr(Source,PATH_SEP[0]);
+    if(last) last++;
+    else last =Source;
+    char Destination[512];
+    snprintf(Destination,sizeof(Destination),"%s%s%s",Dir,PATH_SEP,last);
+    copy_file(Source,Destination);
+}
+
+void copy_file(const char* Source,const char* Destination){
+    FILE *src=NULL;
+    src=fopen(Source,"rb");
+    GAVEN_ASSERT(src,"Couldnt open file %s",Source);
+    FILE *dst= NULL;
+    dst=fopen(Destination,"wb");
+    GAVEN_ASSERT(dst,"Couldnt create file in %s",Destination);
+    char Buffer[8192];
+    size_t Read;
+    while(Read=fread(Buffer,1,sizeof(Buffer),src)){
+        fwrite(Buffer,1,Read,dst);
+    }
+    fclose(src);
+    fclose(dst);
+}
+void copy_dir_to_dir(const char* Source,const char* Destination){
+    if(!check_if_folder_exists(Destination)) create_new_folder(Destination);
+    #ifdef _WIN32
+    char pattern[1024];
+    snprintf(pattern,sizeof(pattern),"%s%s%s",Source,PATH_SEP,"*");
+    WIN32_FIND_DATAA data;
+    HANDLE hFind = FindFirstFileA(pattern,&data);
+    if(hFind==INVALID_HANDLE_VALUE)
+        return;
+    do{
+        if(strcmp(data.cFileName,".")==0||strcmp(data.cFileName,"..")==0)
+            continue;
+        char Src_Path[1024];
+        snprintf(Src_Path,sizeof(Src_Path),"%s%s%s",Source,PATH_SEP,data.cFileName);
+        char Dst_Path[1024];
+        snprintf(Dst_Path,sizeof(Dst_Path),"%s%s%s",Destination,PATH_SEP,data.cFileName);
+        if(data.dwFileAttributes&FILE_ATTRIBUTE_DIRECTORY){
+            copy_dir_to_dir(Src_Path,Dst_Path);
+        }
+        else{
+            copy_file(Src_Path,Dst_Path);
+        }
+
+    }while(FindNextFileA(hFind,&data));
+    FindClose(hFind);
+    #else
+    DIR* dir=opendir(Source);
+    GAVEN_ASSERT(dir,"Couldnt open the dir %s",Source);
+    struct dirent* e;
+    while((e=readdir(dir))!=NULL){
+        if(strcmp(e->d_name,".")==0||strcmp(e->d_name,"..")==0)
+            continue;
+        char Src_Path[1024];
+        snprintf(Src_Path,sizeof(Src_Path),"%s%s%s",Source,PATH_SEP,e->d_name);
+        char Dst_Path[1024];
+        snprintf(Dst_Path,sizeof(Dst_Path),"%s%s%s",Destination,PATH_SEP,e->d_name);
+        struct stat st;
+        if(stat(Src_Path,&st)==0&&S_ISDIR(st.st_mode)){
+            copy_dir_to_dir(Src_Path,Dst_Path);
+        }
+        else{
+            copy_file(Src_Path,Dst_Path);
+        }
+
+    };
+    closedir(dir);
+    #endif
+}
+const char* get_project_path(void){
+    return project_root_path;
 }

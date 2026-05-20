@@ -12,7 +12,7 @@ void panel_input_text_render(panel_element* Self){
     if(Text->Is_Dirty){
         destroy_sprite(&Text->Sprite);
         char* buffer= malloc( Text->Width*2+1);
-        memset(buffer,' ',(size_t) Text->Width*2);
+        memset(buffer,'`',(size_t) Text->Width*2);
         size_t Len =strlen(Text->Final_Text);
         if(Len){
             if(Len+2>(size_t)(Text->Width))
@@ -25,7 +25,7 @@ void panel_input_text_render(panel_element* Self){
         Text->Sprite=create_sprite(buffer,Text->Width,2);
         Text->Is_Dirty=0;
     }
-    draw_game_overlay_sprite(Text->Sprite,Self->X,Self->Y,1);
+    draw_game_overlay_sprite(Text->Sprite,Self->X,Self->Y,Self->Parent->Data.Z_Index+1);
 }
 void panel_input_text_update(panel_element *Self){
     panel_input_text* Text=(panel_input_text*)Self;

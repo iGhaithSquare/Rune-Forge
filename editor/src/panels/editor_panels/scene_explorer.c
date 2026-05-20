@@ -89,7 +89,7 @@ void render_scene_explorer_element(panel_element* Self){
             Node->Text_Sprite=create_text(Node->Entity->Name,se->Base.Parent->Data.Width-5);
             Node->Is_Dirty=0;
         }   
-        draw_game_overlay_sprite(Node->Text_Sprite,3,i+1,1);
+        draw_game_overlay_sprite(Node->Text_Sprite,3,i+1,Self->Parent->Data.Z_Index+1);
     }
     se->Is_Dirty=0;
 }
