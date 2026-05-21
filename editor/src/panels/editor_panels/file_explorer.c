@@ -3,7 +3,6 @@
 #include <string.h>
 #include "../panel_button.h"
 #include "inspector.h"
-#include "../../editor.h"
 #include <stdio.h>
 #ifdef _WIN32
 #include <windows.h>
@@ -31,6 +30,7 @@ typedef struct file_explorer_button_data{
     asset_type Type;
     size_t Data;
     panel* Inspector;
+    editor* Editor;
 }file_explorer_button_data;
 typedef struct file_explorer_element{
     panel_element Base;
@@ -218,7 +218,7 @@ void file_button_load_sprite_impl(panel_button* Self){
     char content[128];
     update_button_selected(Self);
     snprintf(content,sizeof(content),"\nasset=%d,%s",ASSET_TYPE_SPRITE,Path);
-    append_file(get_projecta_file(),content);
+    append_file(Data->Editor->project_file_path,content);
 }
 void file_button_inspect_sprite_impl(panel_button* Self){
     file_explorer_button_data* Data= (file_explorer_button_data*)Self->Button_Data;
@@ -318,7 +318,7 @@ void render_file_explorer_element(panel_element* Self){
         draw_game_overlay_sprite(Node->Text_Sprite,3,i+offset,Self->Parent->Data.Z_Index+1);
     }
 }
-file_explorer_element* create_file_explorer_element(const char* Path, short Length){
+file_explorer_element* create_file_explorer_element(editor* Editor,const char* Path, short Length){
     
     file_explorer_element* Element =(file_explorer_element*)malloc(sizeof(file_explorer_element));
     GAVEN_ASSERT(Element,"Couldnt allocat enough memory to file explorer");
@@ -327,6 +327,7 @@ file_explorer_element* create_file_explorer_element(const char* Path, short Leng
     Element->Selected=NULL;
     Element->Button1_Data=(file_explorer_button_data*)malloc(sizeof(file_explorer_button_data));
     Element->Button1_Data->Inspector=NULL;
+    Element->Button1_Data->Editor=Editor;
     init_panel_element_base(&Element->Base,0,0,update_file_explorer_element,render_file_explorer_element,destroy_file_explorer_element);
     #ifdef _WIN32
     Element->Watch_Handle=CreateFileA(Element->Root->File_Path,FILE_LIST_DIRECTORY,FILE_SHARE_DELETE|FILE_SHARE_WRITE|FILE_SHARE_READ,NULL,OPEN_EXISTING,FILE_FLAG_BACKUP_SEMANTICS|FILE_FLAG_OVERLAPPED,NULL);
@@ -339,7 +340,7 @@ file_explorer_element* create_file_explorer_element(const char* Path, short Leng
     
     return Element;
 }
-panel* create_file_explorer(void){
+panel* create_file_explorer(editor* Editor){
     panel_data File_expo={
         .Name="File Explorer",
         .Background_Char='\'',
@@ -353,8 +354,8 @@ panel* create_file_explorer(void){
     };
     panel *File_Explorer = create_panel(File_expo);
     char assets_dir[512];
-    snprintf(assets_dir,sizeof(assets_dir),"%s%s%s%s",get_project_path(),PATH_SEP,"assets",PATH_SEP);
-    file_explorer_element *E=create_file_explorer_element(assets_dir,74);
+    snprintf(assets_dir,sizeof(assets_dir),"%s%s%s%s",Editor->project_root_path,PATH_SEP,"assets",PATH_SEP);
+    file_explorer_element *E=create_file_explorer_element(Editor,assets_dir,74);
 
     panel_button *Button= create_panel_button(60,0,"FILE EXPLORER",20,E->Button1_Data,file_button_press_impl);
     add_element_to_panel(File_Explorer,&E->Base);

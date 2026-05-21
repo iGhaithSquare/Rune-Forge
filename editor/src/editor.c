@@ -8,13 +8,79 @@
 #else
 #include <dlfcn.h>
 #endif
-
-static const char* project_file_path;
-static const char* project_root_path;
-static const char* project_name;
-static uint64_t dll_timestamp;
-void open_project(layer_registry* Registry,const char* Path){
-    project_file_path=strdup(Path);
+editor* create_editor(layer_registry* Registry){
+    editor* Editor = (editor*)malloc(sizeof(editor));
+    Editor->Entity_Registry=NULL;
+    Editor->Layer_Registry=Registry;
+    return Editor;
+}
+void load_editor_cfg(editor* E){
+    E->CFG.Project_Count=0;
+    char editor_path[512];
+    get_editor_path(editor_path,sizeof(editor_path));
+    char editor_cfg_path[512];
+    snprintf(editor_cfg_path,sizeof(editor_cfg_path),"%s%s%s",editor_path,PATH_SEP,"editor.cfg");
+    if(!file_exists(editor_cfg_path))return;
+    FILE *f=fopen(editor_cfg_path,"r");
+    GAVEN_ASSERT(f,"Couldnt open exsisting editor file");
+    char line[512];
+    char current_prj_path[512];
+    while(fgets(line,sizeof(line),f)){
+        if(strncmp(line,"project=",8)==0){
+            sscanf(line+8,"%511[^\r\n]",E->CFG.Recent_Projects[E->CFG.Project_Count]);
+            if(file_exists(E->CFG.Recent_Projects[E->CFG.Project_Count])){
+                FILE *g=fopen(E->CFG.Recent_Projects[E->CFG.Project_Count],"r");
+                while(fgets(line,sizeof(line),g))
+                    if(strncmp(line,"name=",5)==0){
+                        strcpy(E->CFG.Recent_Project_Names[E->CFG.Project_Count],line+5);
+                        E->CFG.Recent_Project_Names[E->CFG.Project_Count][strcspn(E->CFG.Recent_Project_Names[E->CFG.Project_Count],"\r\n")]=0;
+                    }
+                fclose(g);
+                E->CFG.Project_Count++;
+                if(E->CFG.Project_Count==16)
+                    break;
+            }
+        }
+    }
+    fclose(f);
+}
+void save_editor_cfg(editor* E){
+    char editor_path[512];
+    get_editor_path(editor_path,sizeof(editor_path));
+    char editor_cfg_path[512];
+    snprintf(editor_cfg_path,sizeof(editor_cfg_path),"%s%s%s",editor_path,PATH_SEP,"editor.cfg");
+    FILE *f=fopen(editor_cfg_path,"w");
+    GAVEN_ASSERT(f,"Couldnt write to editor file %s",editor_cfg_path);
+    for(int i=0;i<E->CFG.Project_Count;i++){
+        GAVEN_WARN("testing saved: %s",E->CFG.Recent_Projects[i]);
+        fprintf(f,"project=%s\n",E->CFG.Recent_Projects[i]);
+    }
+    fclose(f);
+}
+void add_recent_project_to_recents(editor* Editor){
+    int Count=Editor->CFG.Project_Count;
+    int i;
+    for(i=0;i<Count;i++)
+        if(strcmp(Editor->CFG.Recent_Projects[i],Editor->project_file_path)==0){
+            break;
+        }
+    if(i!=Count){
+        memmove(&Editor->CFG.Recent_Projects[1],&Editor->CFG.Recent_Projects[0],(i)*sizeof(Editor->project_file_path));
+        memmove(&Editor->CFG.Recent_Project_Names[1],&Editor->CFG.Recent_Project_Names[0],(i)*sizeof(Editor->project_name));
+    }
+    else{
+        if(Count<16)
+            Editor->CFG.Project_Count++;
+        else Count--;
+        memmove(&Editor->CFG.Recent_Projects[1],&Editor->CFG.Recent_Projects[0],(Count)*sizeof(Editor->project_file_path));
+        memmove(&Editor->CFG.Recent_Project_Names[1],&Editor->CFG.Recent_Project_Names[0],(Count)*sizeof(Editor->project_name));
+    } 
+    snprintf(Editor->CFG.Recent_Projects[0],sizeof(Editor->project_file_path),"%s",Editor->project_file_path);
+    snprintf(Editor->CFG.Recent_Project_Names[0],sizeof(Editor->project_name),"%s",Editor->project_name);
+    save_editor_cfg(Editor);
+}
+void open_project(editor* Editor,const char* Path){
+    snprintf(Editor->project_file_path,sizeof(Editor->project_file_path),"%s",Path);
     FILE* f =fopen(Path,"r");
     if(!f) return;
     char line[512];
@@ -38,7 +104,9 @@ void open_project(layer_registry* Registry,const char* Path){
         }
         else if(strncmp(line,"asset=",6)==0){
             sscanf(line+6,"%d,%511[^\r\n]",&current_asset_type,current_asset_path);
-            char* Asset_Path =strdup(current_asset_path);
+            char asset_path_to_load[512];
+            snprintf(asset_path_to_load,sizeof(asset_path_to_load),"%s%s%s",project_root,PATH_SEP,current_asset_path);
+            char* Asset_Path =strdup(asset_path_to_load);
             for(int i=0;Asset_Path[i];i++)
                 if(Asset_Path[i]=='\\')
                     Asset_Path[i]='/';
@@ -46,7 +114,7 @@ void open_project(layer_registry* Registry,const char* Path){
         }
     }
     fclose(f);
-    project_name=strdup(name);
+    snprintf(Editor->project_name,sizeof(Editor->project_name),"%s",name);
     if (project_root[0]=='\0'||main_scene_path[0]=='\0')
         return;
     size_t Root_Len = strlen(project_root);
@@ -55,7 +123,7 @@ void open_project(layer_registry* Registry,const char* Path){
         snprintf(Full_Scene_Path,sizeof(Full_Scene_Path),"%s%s",project_root,main_scene_path);
     else
         snprintf(Full_Scene_Path,sizeof(Full_Scene_Path),"%s%s%s",project_root,PATH_SEP,main_scene_path);
-    project_root_path=strdup(project_root);
+    snprintf(Editor->project_root_path,sizeof(Editor->project_root_path),"%s",project_root);
     char build_dir[512];
     snprintf(build_dir,sizeof(build_dir),"%s%s%s",project_root,PATH_SEP,"build");
     if(!check_if_folder_exists(build_dir)){
@@ -66,14 +134,12 @@ void open_project(layer_registry* Registry,const char* Path){
     char cmake_build_cmd[1024];
     snprintf(cmake_build_cmd,sizeof(cmake_build_cmd),"cmake --build \"%s\" --config Debug",build_dir);
     system(cmake_build_cmd);
-
-    char dll_path[512];
-    snprintf(dll_path,sizeof(dll_path),"%s%s%s%s%s%s%s",project_root,PATH_SEP,"bin",PATH_SEP,"lib",name,".dll");
-    poll_dll();
+    poll_dll(Editor);
+    add_recent_project_to_recents(Editor);
     init_input();
     set_main_scene(Full_Scene_Path);
-    entity_registry* Reg =load_scene(Full_Scene_Path);
-    add_layer(Registry,create_editor_layer(Reg));
+    Editor->Entity_Registry =load_scene(Full_Scene_Path);
+    add_layer(Editor->Layer_Registry,create_editor_layer(Editor));
 }
 
 void write_file(const char* Path,const char* Content){
@@ -104,14 +170,11 @@ uint8_t get_current_path(char* Buffer,size_t Size){
     #endif
     return 1;
 }
-const char* get_projecta_file(void){
-    return project_file_path;
-}
-void poll_dll(void){
+void poll_dll(editor* Editor){
     char dll_old_path[512];
-    snprintf(dll_old_path,sizeof(dll_old_path),"%s%s%s%s%s%s%s",project_root_path,PATH_SEP,"bin",PATH_SEP,"lib",project_name,".dll");
+    snprintf(dll_old_path,sizeof(dll_old_path),"%s%s%s%s%s%s%s",Editor->project_root_path,PATH_SEP,"bin",PATH_SEP,"lib",Editor->project_name,".dll");
     char dll_path[512];
-    snprintf(dll_path,sizeof(dll_path),"%s%s%s%s%s%s%s",project_root_path,PATH_SEP,"bin",PATH_SEP,"Rlib",project_name,".dll");
+    snprintf(dll_path,sizeof(dll_path),"%s%s%s%s%s%s%s",Editor->project_root_path,PATH_SEP,"bin",PATH_SEP,"Rlib",Editor->project_name,".dll");
     void (*game_fn)(void) =NULL;
     if(!file_exists(dll_old_path))
         return;
@@ -146,7 +209,7 @@ void poll_dll(void){
     dll = dlopen(dll_path,RTLD_NOW);
     game_fn=dlsym(dll,"game");
     #endif
-    GAVEN_ASSERT(game_fn,"Failed to open game function inside %s.dll",project_name);
+    GAVEN_ASSERT(game_fn,"Failed to open game function inside %s",dll_path);
     game_fn();
 }
 uint8_t file_exists(const char* Path){
@@ -197,9 +260,6 @@ void create_new_folder(const char* path){
     mkdir(path,0755);
     #endif
     GAVEN_ASSERT(check_if_folder_exists(path),"COULD NOT CREATE LOG FOLDER");
-}
-const char* get_project_name(void){
-    return project_name;
 }
 void copy_file_to_dir(const char* Source,const char* Dir){
     const char* last =strrchr(Source,PATH_SEP[0]);
@@ -272,7 +332,4 @@ void copy_dir_to_dir(const char* Source,const char* Destination){
     };
     closedir(dir);
     #endif
-}
-const char* get_project_path(void){
-    return project_root_path;
 }

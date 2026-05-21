@@ -6,7 +6,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include "../../editor.h"
 #ifdef _WIN32
 #include <windows.h>
 #else
@@ -18,17 +17,24 @@
 typedef struct background_panel_main_button_data{
     layer_registry* Registry;
     layer* Layer;
+    editor* Editor;
 }background_panel_main_button_data;
+typedef struct background_panel_recent_project_data{
+    layer_registry* Registry;
+    layer* Layer;
+    char* Path;
+    editor* Editor;
+}background_panel_recent_project_data;
 typedef struct background_panel_buttons_data{
     layer_registry* Registry;
     layer* Layer;
     panel* Panel;
     panel_input_text* Input_Name_Field;
     panel_input_text* Input_Path_Field;
+    editor* Editor;
 }background_panel_buttons_data;
 typedef struct background_panel_element{
     panel_element Base;
-    size_t main_sprite_id;
     sprite help_sprite_1;
     sprite help_sprite_2;
     sprite help_sprite_3;
@@ -36,12 +42,11 @@ typedef struct background_panel_element{
 } background_panel_element;
 void render_background_panel_element(panel_element* Self){
     background_panel_element* be = (background_panel_element*)Self;
-    draw_game_sprite(get_game_sprite(be->main_sprite_id),1,2,0);
     short Z=Self->Parent->Data.Z_Index;
-    draw_game_sprite(be->help_sprite_1,65,18,Z+1);
-    draw_game_sprite(be->help_sprite_2,65,19,Z+1);
-    draw_game_sprite(be->help_sprite_3,65,20,Z+1);
-    draw_game_sprite(be->help_sprite_4,65,21,Z+1);
+    draw_game_sprite(be->help_sprite_1,41,3,Z+1);
+    draw_game_sprite(be->help_sprite_2,39,4,Z+1);
+    draw_game_sprite(be->help_sprite_3,37,5,Z+1);
+    draw_game_sprite(be->help_sprite_4,40,6,Z+1);
 }
 void destroy_background_panel_element(panel_element* Self){
     background_panel_element* be = (background_panel_element*)Self;
@@ -49,7 +54,6 @@ void destroy_background_panel_element(panel_element* Self){
     destroy_sprite(&be->help_sprite_2);
     destroy_sprite(&be->help_sprite_3);
     destroy_sprite(&be->help_sprite_4);
-    remove_asset(be->main_sprite_id);
     free(Self);
 }
 void cancle_create_project_impl(panel_button* Self){
@@ -58,6 +62,7 @@ void cancle_create_project_impl(panel_button* Self){
     remove_panel_from_registry(P,P->Registry);
 }
 void create_project_impl(panel_button* Self){
+    //todo rework the ui system
     background_panel_buttons_data* Data = Self->Button_Data;
     panel* P = Data->Panel;
     const char* Name = Data->Input_Name_Field->Real_Text;
@@ -152,8 +157,13 @@ void create_project_impl(panel_button* Self){
     "target_include_directories(${PROJ_NAME} PRIVATE \"${ENG_DIR}include\")\n",editor_dir,Name);
 
     write_file(cmake_file,cmake_content);
-    open_project(Data->Registry,project_file);
+    open_project(Data->Editor,project_file);
     remove_panel_from_registry(P,P->Registry);
+    remove_layer(Data->Registry,Data->Layer);
+}
+void open_recent_project_impl(panel_button* Self){
+    background_panel_recent_project_data* Data= (background_panel_recent_project_data*)Self->Button_Data;
+    open_project(Data->Editor,Data->Path);
     remove_layer(Data->Registry,Data->Layer);
 }
 void background_panel_show_create_project(panel_button* Self){
@@ -168,6 +178,7 @@ void background_panel_show_create_project(panel_button* Self){
     Data->Input_Path_Field=Input_Path_Field;
     Data->Registry=Main_Data->Registry;
     Data->Layer=Main_Data->Layer;
+    Data->Editor=Main_Data->Editor;
     panel_button* Create_Project = create_panel_button(24,9,"Create Project",18,Data,create_project_impl);
     panel_button* Cancle_Create_Project = create_panel_button(64,9,"Cancle Creating",19,Data,cancle_create_project_impl);
     panel_text* Input_Name = create_panel_text("Name:",36,2,101);
@@ -183,7 +194,6 @@ void background_panel_show_create_project(panel_button* Self){
 background_panel_element* create_background_panel_element(void){
     background_panel_element* Element =(background_panel_element*)malloc(sizeof(background_panel_element));
     GAVEN_ASSERT(Element,"Couldnt allocat enough memory to Inspector");
-    Element->main_sprite_id=load_game_asset("Runeforge.txt",ASSET_TYPE_SPRITE);
     Element->help_sprite_1=create_text("To open a project in runeforge editor",37);
     Element->help_sprite_2 = create_text("you need to right click and press open with",43);
     Element->help_sprite_3 = create_text("choose another app -> choose an app from your pc",48);
@@ -191,7 +201,7 @@ background_panel_element* create_background_panel_element(void){
     init_panel_element_base(&Element->Base,0,0,NULL,render_background_panel_element,destroy_background_panel_element);
     return Element;
 }
-panel* create_background_panel(layer_registry* Registry,layer* Layer){
+panel* create_background_panel(editor* Editor,layer* Layer){
     panel_data p={
         .Name="Background Panel",
         .Background_Char=' ',
@@ -207,8 +217,18 @@ panel* create_background_panel(layer_registry* Registry,layer* Layer){
     background_panel_element *E=create_background_panel_element();
     add_element_to_panel(Background,&E->Base);
     background_panel_main_button_data* Main_Button_Data=(background_panel_main_button_data*)malloc(sizeof(background_panel_main_button_data));
-    Main_Button_Data->Registry=Registry;
+    Main_Button_Data->Registry=Editor->Layer_Registry;
     Main_Button_Data->Layer=Layer;
+    Main_Button_Data->Editor=Editor;
+    for(int i=0;i<Editor->CFG.Project_Count;i++){
+        background_panel_recent_project_data* Data= (background_panel_recent_project_data*)malloc(sizeof(background_panel_recent_project_data));
+        Data->Editor=Editor;
+        Data->Layer=Layer;
+        Data->Registry=Editor->Layer_Registry;
+        Data->Path=Editor->CFG.Recent_Projects[i];
+        panel_button* Button =create_panel_button(42,9+i,Editor->CFG.Recent_Project_Names[i],36,Data,open_recent_project_impl);
+        add_element_to_panel(Background,&Button->Base);
+    }
     panel_button* Create = create_panel_button(95,0,"Create New Project",22,Main_Button_Data,background_panel_show_create_project);
     add_element_to_panel(Background,&Create->Base);
     return Background;

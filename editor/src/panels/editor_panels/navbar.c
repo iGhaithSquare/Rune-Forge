@@ -7,11 +7,11 @@
 #include "scene_explorer.h"
 #include "../popup_panel.h"
 #include "inspector.h"
-#include "../../editor.h"
 #include <stdio.h>
 typedef struct navbar_export_buttons_data{
     panel* Panel;
     panel_input_text* Input_Path_Field;
+    editor* Editor;
 }navbar_export_buttons_data;
 typedef struct add_entity_button_data{
     panel* Inspector;
@@ -23,6 +23,7 @@ typedef struct navbar_data{
     add_entity_button_data* Button_Data;
     size_t Cap;
     uint8_t State;
+    editor* Editor;
 } navbar_data;
 void navbar_button_save_scene_imple(panel_button* Self){
     if(get_state()&1) return;
@@ -73,8 +74,9 @@ void navbar_export_impl(panel_button* Self){
         memcpy(Path+Path_Len,PATH_SEP,strlen(PATH_SEP));
         Path[strlen(PATH_SEP)+Path_Len]='\0';
     }
-    const char *prj_name = get_project_name();
-    const char *prj_path = get_project_path();
+    editor* Editor=Data->Editor;
+    const char *prj_name = Editor->project_name;
+    const char *prj_path = Editor->project_root_path;
     char export_dir[512];
     snprintf(export_dir,sizeof(export_dir),"%s%s%s%s",Path,PATH_SEP,"bin_",prj_name);
     create_new_folder(export_dir);
@@ -99,7 +101,7 @@ void navbar_export_impl(panel_button* Self){
     snprintf(prj_asset_dir,sizeof(prj_asset_dir),"%s%s%s",export_dir,PATH_SEP,"assets");
     copy_dir_to_dir(asset_dir,prj_asset_dir);
 
-    const char *project_file=get_projecta_file();
+    const char *project_file=Editor->project_file_path;
     char prj_cfg_file[512];
     snprintf(prj_cfg_file,sizeof(prj_cfg_file),"%s%s%s",export_dir,PATH_SEP,"prj.cfg");
     copy_file(project_file,prj_cfg_file);
@@ -157,10 +159,12 @@ void navbar_show_add_entity_impl(panel_button* Self){
 void navbar_show_export_impl(panel_button* Self){
     panel* P=create_popup_panel("Export",7,10,110,6);
     navbar_export_buttons_data* Data = (navbar_export_buttons_data*)malloc(sizeof(navbar_export_buttons_data));
+    navbar_data* Main_Button_Data =(navbar_data*)Self->Button_Data;
     Data->Panel=P;
     panel_registry* Reg=Self->Base.Parent->Registry;
     panel_input_text* Input_Export_Path = create_panel_input_text(12,2,97);
     Data->Input_Path_Field=Input_Export_Path;
+    Data->Editor=Main_Button_Data->Editor;
     panel_button* Create_Project = create_panel_button(24,4,"Export Project",18,Data,navbar_export_impl);
     panel_button* Cancle_Create_Project = create_panel_button(64,4,"Cancle Exporting",20,Data,navbar_cancle_popup_panel);
     panel_text* Input_Export = create_panel_text("Export To:",1,2,100);
@@ -177,7 +181,7 @@ void navbar_add_inspector(panel* Self,panel* Inspector){
     navbar_data *Data = (navbar_data*)Button->Button_Data;
     Data->Inspector=Inspector;
 }
-panel* create_navbar(){
+panel* create_navbar(editor* Editor){
     panel_data Top={
         .Name="Navbar",
         .Background_Char=',',
@@ -194,10 +198,11 @@ panel* create_navbar(){
     GAVEN_ASSERT(Navbar_Data,"Couldnt create navbar");
     Navbar_Data->Cap=0;
     Navbar_Data->Button_Data=NULL;
+    Navbar_Data->Editor=Editor;
     panel_button *P=create_panel_button(1,0,"Add Entity",14,Navbar_Data,navbar_show_add_entity_impl);
     panel_button *Save=create_panel_button(103,0,"Save Scene",14,Navbar_Data,navbar_button_save_scene_imple);
     panel_button *Start=create_panel_button(55,0,"Start",9,Navbar_Data,navbar_button_start_scene_imple);
-    panel_button *Export=create_panel_button(93,0,"Export",10,NULL,navbar_show_export_impl);
+    panel_button *Export=create_panel_button(93,0,"Export",10,Navbar_Data,navbar_show_export_impl);
     add_element_to_panel(Navbar,&P->Base);
     add_element_to_panel(Navbar,&Save->Base);
     add_element_to_panel(Navbar,&Start->Base);
