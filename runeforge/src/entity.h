@@ -37,6 +37,7 @@ typedef struct type_info{
     size_t Size;
     void (*Create)(entity* Self);
     void (*Update)(entity* Self,double Delta_Time);
+    void (*OnEvent)(entity* Self,event* Event);
     void (*Render)(entity* Self); 
     void (*Destroy)(entity* Self);
     property_info *Properties;

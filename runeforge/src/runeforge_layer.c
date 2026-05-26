@@ -12,6 +12,8 @@ static entity_registry* Entity_Registry=NULL;
 static short width=80;
 static short height=24;
 static char* Scene_Path;
+static short offsetX;
+static short offsetY;
 uint8_t State=0;
 void set_main_scene(const char *path){
     main_scene=path;
@@ -55,6 +57,15 @@ void main_layer_rendering_callback(layer* self,void *ctx){
 void main_layer_rendering_end_callback(layer* self,void *ctx){
     runewall_end_render_frame(Renderer);
 }
+void main_layer_rendering_overlay_end_callback(layer* self,void *ctx){
+    runewall_end_overlay_render_frame(Renderer);
+}
+
+void main_layer_on_event(layer* self, event* Event){
+    if(State&1)
+        entities_on_event(Entity_Registry,Event);
+}
+
 layer* create_main_layer(const char *name){
     layer* main_layer = calloc(1,sizeof(layer));
     main_layer->Name=name;
@@ -62,7 +73,9 @@ layer* create_main_layer(const char *name){
     bind_layer_phase(main_layer,layer_phase_render_begin,main_layer_rendering_start_callback);
     bind_layer_phase(main_layer,layer_phase_render,main_layer_rendering_callback);
     bind_layer_phase(main_layer,layer_phase_render_end,main_layer_rendering_end_callback);
+    bind_layer_phase(main_layer,layer_phase_render_overlay_end,main_layer_rendering_overlay_end_callback);
     bind_layer_phase(main_layer,layer_phase_Update,main_update_layer);
+    main_layer->OnEvent=main_layer_on_event;
     main_layer->OnDettach=main_layer_ondetach;
     Asset_Manager=create_asset_manager();
     Entity_Registry=create_entity_registry();
@@ -87,6 +100,8 @@ void add_entity(entity* e){
     add_entity_to_registry(Entity_Registry,e);
 }
 void set_panel_offset(short X,short Y){
+    offsetX=X;
+    offsetY=Y;
     set_renderer_offset(Renderer,X,Y);
 }
 application* runeforge_main(void){
@@ -100,6 +115,7 @@ application* runeforge_main(void){
     layer* main_layer = create_main_layer("Main Layer");
     Renderer = create_runewall(width,height);
     add_layer(app->Layer_Registry,main_layer);
+    set_runewall_resizable(Renderer,0);
     return app;
 }
 entity_registry* load_scene(const char* path){
@@ -136,4 +152,10 @@ size_t get_asset_id_from_path(const char* Path){
 }
 entity* get_entity(size_t ID){
     return get_entity_from_entity_registry(Entity_Registry,ID);
+}
+short get_relative_mouse_x(void){
+    return get_mouse_X()-offsetX;
+}
+short get_relative_mouse_y(void){
+    return get_mouse_Y()-offsetY;
 }

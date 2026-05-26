@@ -22,4 +22,6 @@ RUNEFORGE_API size_t load_game_asset(const char* Path,asset_type Type);
 RUNEFORGE_API void add_entity(entity* e);
 RUNEFORGE_API size_t get_asset_id_from_path(const char* Path);
 RUNEFORGE_API entity* get_entity(size_t ID);
+RUNEFORGE_API short get_relative_mouse_x(void);
+RUNEFORGE_API short get_relative_mouse_y(void);
 #endif

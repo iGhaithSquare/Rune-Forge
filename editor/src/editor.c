@@ -104,9 +104,7 @@ void open_project(editor* Editor,const char* Path){
         }
         else if(strncmp(line,"asset=",6)==0){
             sscanf(line+6,"%d,%511[^\r\n]",&current_asset_type,current_asset_path);
-            char asset_path_to_load[512];
-            snprintf(asset_path_to_load,sizeof(asset_path_to_load),"%s%s%s",project_root,PATH_SEP,current_asset_path);
-            char* Asset_Path =strdup(asset_path_to_load);
+            char* Asset_Path =strdup(current_asset_path);
             for(int i=0;Asset_Path[i];i++)
                 if(Asset_Path[i]=='\\')
                     Asset_Path[i]='/';

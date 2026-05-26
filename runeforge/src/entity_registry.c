@@ -81,6 +81,17 @@ void update_entities(entity_registry* Self,double deltaTime){
             E->Type->Update(E,deltaTime);
     }
 }
+void entities_on_event(entity_registry* Self,event *Event){
+    size_t i;
+    for(i=0;i<Self->Count;i++){
+        entity* E = Self->Entities[i];
+        if(!TypeDB_Get(E->Type_Name)){
+            continue;
+        }
+        if(E->Type->OnEvent)
+            E->Type->OnEvent(E,Event);
+    }
+}
 entity* get_entity_from_entity_registry(entity_registry* Self,size_t ID){
     return Self->Entities[ID];
 }

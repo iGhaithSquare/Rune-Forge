@@ -446,12 +446,13 @@ RUNEFORGE_API http_connection *connect_http_client(http* client,char address[],u
 RUNEFORGE_API void poll_http(http* server);
 RUNEFORGE_API void destroy_http_server(http* server);
 
-inline static void send_http_request_json(http_connection* Connection,http_method Method,cJSON* Body_JSON, const char* Path,const char* Headers);
+RUNEFORGE_API void send_http_request_json(http_connection* Connection,http_method Method,cJSON* Body_JSON, const char* Path,const char* Headers);
 RUNEFORGE_API void send_http_request(http_connection* Connection,http_method Method,char* Body, const char* Path,const char* Headers);
 
 
-inline static void send_http_response_json(http_connection* Connection,cJSON *Body_JSON, int Status_Code, const char* Status_Text,const char* Headers);
+RUNEFORGE_API void send_http_response_json(http_connection* Connection,cJSON *Body_JSON, int Status_Code, const char* Status_Text,const char* Headers);
 RUNEFORGE_API void send_http_response(http_connection* Connection,const char *Body, int Status_Code, const char* Status_Text,const char* Headers);
+RUNEFORGE_API http_connection* get_http_connection(http* server,size_t id);
 
 #endif
 #ifndef LAYER_H
@@ -572,6 +573,7 @@ typedef struct type_info{
     size_t Size;
     void (*Create)(entity* Self);
     void (*Update)(entity* Self,double Delta_Time);
+    void (*OnEvent)(entity* Self,event* Event);
     void (*Render)(entity* Self); 
     void (*Destroy)(entity* Self);
     property_info *Properties;
@@ -644,6 +646,8 @@ RUNEFORGE_API size_t load_game_asset(const char* Path,asset_type Type);
 RUNEFORGE_API void add_entity(entity* e);
 RUNEFORGE_API size_t get_asset_id_from_path(const char* Path);
 RUNEFORGE_API entity* get_entity(size_t ID);
+RUNEFORGE_API short get_relative_mouse_x(void);
+RUNEFORGE_API short get_relative_mouse_y(void);
 
 #endif
 
