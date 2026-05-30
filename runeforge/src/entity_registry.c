@@ -6,111 +6,40 @@
 entity_registry* create_entity_registry(void){
     entity_registry *Registry = (entity_registry *)malloc(sizeof(entity_registry));
     GAVEN_ASSERT(Registry,"Failed to allocate memory to entities registry");
-    Registry->Cap=0;
-    Registry->Count=0;
-    Registry->Entities=NULL;
+    Registry->Root=create_entity(NULL,"Entity","Root");
     Registry->Version=0;
-    Registry->Name=NULL;
     return Registry;
 }
 void add_entity_to_registry(entity_registry *Registry,entity *Entity){
-    if(!Entity) return;
-    if(Registry->Count>=Registry->Cap){
-        Registry->Cap=(Registry->Cap?Registry->Cap*2:128);
-        entity** temp=(entity**)realloc(Registry->Entities,sizeof(entity*)*Registry->Cap);
-        GAVEN_ASSERT(temp,"Failed to allocate memory to entities registry");
-        Registry->Entities=temp;
-    }
-    if(Entity->Type->Create)
-        Entity->Type->Create(Entity);
-    Entity->ID=Registry->Count;
-    Registry->Entities[Registry->Count++]=Entity;
+    add_entity_child(Registry->Root,Entity);
     Registry->Version++;
 }
 void free_entity(entity_registry *Registry,entity *Entity){
-    if(Entity->ID>=Registry->Count){
-        GAVEN_WARN("Entity is not in registry");
-        return;
-    }
-    Registry->Count--;
+    free_child(Registry->Root,Entity);
     Registry->Version++;
-    Registry->Entities[Entity->ID]=Registry->Entities[Registry->Count];
-    Registry->Entities[Entity->ID]->ID=Entity->ID;
-    Registry->Entities[Registry->Count]=NULL;
-    if(TypeDB_Get(Entity->Type_Name)&&Entity->Type->Destroy)
-        Entity->Type->Destroy(Entity);
-    else{
-        free(Entity);
-        free(Entity->Name);
-        free(Entity->Type_Name);
-    }
-    Entity=NULL;
 }
 void destroy_entity_registry(entity_registry* Self){
-    for(size_t i=0;i<Self->Count;i++){
-        entity *Entity = Self->Entities[i];
-        if(Entity->Type->Destroy)
-            Entity->Type->Destroy(Entity);
-        else
-            free(Entity);
-    }
-    free(Self->Entities);
+    free_child(NULL,Self->Root);
     free(Self);
     Self=NULL;
 }
 void unload_entity_registry(entity_registry* Self){
-    for(size_t i=0;i<Self->Count;i++){
-        entity* Entity = Self->Entities[i];
-        if(Entity->Type->Destroy)
-            Entity->Type->Destroy(Entity);
-        else
-            free(Entity);
-        Self->Entities[i]=NULL;
-    }
-    Self->Count=0;
+    free_child(NULL,Self->Root);
+    Self->Root=create_entity(NULL,"Entity","Root");
     Self->Version++;
 }
 void update_entities(entity_registry* Self,double deltaTime){
-    size_t i;
-    for(i=0;i<Self->Count;i++){
-        entity* E = Self->Entities[i];
-        if(!TypeDB_Get(E->Type_Name)){
-            continue;
-        }
-        if(E->Type->Update)
-            E->Type->Update(E,deltaTime);
-    }
+    update_entity(Self->Root,deltaTime);
 }
 void entities_on_event(entity_registry* Self,event *Event){
-    size_t i;
-    for(i=0;i<Self->Count;i++){
-        entity* E = Self->Entities[i];
-        if(!TypeDB_Get(E->Type_Name)){
-            continue;
-        }
-        if(E->Type->OnEvent)
-            E->Type->OnEvent(E,Event);
-    }
-}
-entity* get_entity_from_entity_registry(entity_registry* Self,size_t ID){
-    return Self->Entities[ID];
+    entity_on_event(Self->Root,Event);
 }
 void render_entities(entity_registry* Self){
-    size_t i;
-    uint8_t Check=0;
-    for(i=0;i<Self->Count;i++){
-        entity* E = Self->Entities[i];
-        if(!TypeDB_Get(E->Type_Name)){
-            free_entity(Self,E);
-            Check=1;
-            E = Self->Entities[i];
-            if(!E) break;
-        }
-        if(E->Type->Render)
-            E->Type->Render(E);
-    }
-    if(Check)
+    if(render_entity(Self->Root)){
+        Self->Version++;
         serialize_entity_registry(Self->Path,Self);
+
+    }
 }
 void serialize_entity(cJSON* root, entity* Entity){
     type_info *t =Entity->Type;
@@ -128,44 +57,88 @@ void serialize_entity(cJSON* root, entity* Entity){
             default: GAVEN_ASSERT(0,"Unsupported property type for serialization");
         }
     }
+    cJSON* Children=cJSON_CreateArray();
+    for(size_t i=0;i<Entity->Count;i++){
+        cJSON* Child=cJSON_CreateObject();
+        serialize_entity(Child,Entity->Children[i]);
+        cJSON_AddItemToArray(Children,Child);
+    }
+    cJSON_AddItemToObject(root,"Children",Children);
 }
 void serialize_entity_registry(const char* path,entity_registry* Entity_Registry){
     FILE *f = fopen(path,"w");
     GAVEN_ASSERT(f,"Failed to open file %s",path);
     cJSON* root = cJSON_CreateObject();
-    cJSON_AddStringToObject(root,"Scene",Entity_Registry->Name);
-    cJSON* arr= cJSON_CreateArray();
-    for (size_t i=0;i< Entity_Registry->Count;i++){
-        cJSON* obj=cJSON_CreateObject();
-        serialize_entity(obj,Entity_Registry->Entities[i]);
-        cJSON_AddItemToArray(arr,obj);
-    }
-    cJSON_AddItemToObject(root,"Entities",arr); 
+    cJSON* obj=cJSON_CreateObject();
+    serialize_entity(obj,Entity_Registry->Root);
+    cJSON_AddItemToObject(root,"Root",obj); 
     char* json_string = cJSON_Print(root);
     fputs(json_string,f);
     fclose(f);
     free(json_string);
     cJSON_Delete(root);
 }
-void deserialize_entity(cJSON* root, entity* Entity){
-    type_info *t =Entity->Type;
+entity* deserialize_entity(cJSON* root, entity* Parent){
+    cJSON* type_item =cJSON_GetObjectItem(root,"Type");
+    cJSON* name_item =cJSON_GetObjectItem(root,"Name");
+    if(!type_item||!name_item) return NULL;
+    entity* E=create_entity(Parent,type_item->valuestring,name_item->valuestring);
+    type_info *t =E->Type;
     for(size_t i=0;i<t->Property_Count;i++){
         property_info* p=&t->Properties[i];
         cJSON* item = cJSON_GetObjectItem(root,p->Name);
         if(!item) continue;
-        void *field=(char*)Entity+p->Usage;
+        void *field=(char*)E+p->Usage;
         switch(p->Type){
             case PROPERTY_TYPE_INT: *(int*)field=item->valueint; break;
             case PROPERTY_TYPE_FLOAT: *(float*)field=(float)item->valuedouble; break;
             case PROPERTY_TYPE_STRING:  char** str=(char**)field;
                 *str=malloc(256);
                 GAVEN_ASSERT(*str,"Couldnt allocate memory to property type %s",p->Name);
-                strncpy(*str,item->valuestring,sizeof(*str)); break;
+                strncpy(*str,item->valuestring,256); break;
             case PROPERTY_TYPE_DOUBLE: *(double*)field=item->valuedouble; break;
             case PROPERTY_TYPE_SIZET:   *(size_t*)field=(size_t)item->valuedouble; break;
             default: GAVEN_ASSERT(0,"Unsupported property type for deserialization");
         }
     }
+    cJSON* children =cJSON_GetObjectItem(root,"Children");
+    if (children&&cJSON_IsArray(children)){
+        int child_count=cJSON_GetArraySize(children);
+        for (int i =0;i<child_count;i++){
+            cJSON* Child=cJSON_GetArrayItem(children,i);
+            deserialize_entity(Child,E);
+        }
+    }
+    return E;
+}
+entity* deserialize_sub_registry(const char* path){
+    FILE *f = fopen(path,"r");
+    GAVEN_ASSERT(f,"Failed to open file %s",path);
+    size_t cap=0;
+    size_t size=0;
+    char* buffer=NULL;
+    size_t n=0;
+    do{
+        size+=n;
+        if(size>=cap){
+            cap=(cap?cap*2:4096);
+            char* temp = (char*)realloc(buffer,cap);
+            GAVEN_ASSERT(temp,"Failed to allocate memory to read file %s",path);
+            buffer=temp;
+        }
+    }while((n=fread(buffer+size,1,cap-size,f))>0);
+    fclose(f);
+    if(size>=cap){
+        cap+=1;
+        char* temp = (char*)realloc(buffer,cap);
+        GAVEN_ASSERT(temp,"Failed to allocate memory to read file %s",path);
+        buffer=temp;
+    }
+    buffer[size]='\0';
+    cJSON *root=cJSON_Parse(buffer);
+    free(buffer);
+    cJSON* obj=cJSON_GetObjectItem(root,"Root");
+    return deserialize_entity(obj,NULL);
 }
 void deserialize_entity_registry(const char* path,entity_registry* Entity_Registry){
     FILE *f = fopen(path,"r");
@@ -193,19 +166,7 @@ void deserialize_entity_registry(const char* path,entity_registry* Entity_Regist
     buffer[size]='\0';
     cJSON *root=cJSON_Parse(buffer);
     free(buffer);
-    cJSON* item = cJSON_GetObjectItem(root,"Scene");
-    if(Entity_Registry->Name) free(Entity_Registry->Name);
-    Entity_Registry->Name=strdup(item->valuestring);
-    cJSON* arr=cJSON_GetObjectItem(root,"Entities");
-    int count=cJSON_GetArraySize(arr);
-    for(size_t i=0;i<count;i++){
-        cJSON* obj=cJSON_GetArrayItem(arr,i);
-        const char* Type_Name=cJSON_GetObjectItem(obj,"Type")->valuestring;
-        const char* Entity_Name=cJSON_GetObjectItem(obj,"Name")->valuestring;
-        if(TypeDB_Get(Type_Name)){
-            entity *e=create_entity(Type_Name,Entity_Name);
-            deserialize_entity(obj,e);
-            add_entity_to_registry(Entity_Registry,e);
-        }
-    }
+    cJSON* obj=cJSON_GetObjectItem(root,"Root");
+    Entity_Registry->Root=deserialize_entity(obj,NULL);
+    GAVEN_INFO("Root count: %d",Entity_Registry->Root->Count);
 }

@@ -21,11 +21,14 @@ void destroy_panel_registry(panel_registry* Self){
     }
     if(Self->Panels) free(Self->Panels);
     free(Self);
+    Self=NULL;
 }
 
 panel* create_panel(panel_data Data){
-    GAVEN_ASSERT(Data.Min_Width>=5,"Pannel minimum width should be atleast 5");
-    GAVEN_ASSERT(Data.Min_Height>=1,"Pannel minimum height should be atleast 1");
+    if(Data.Is_Resizable){
+        GAVEN_ASSERT(Data.Min_Width>=5,"Pannel minimum width should be atleast 5");
+        GAVEN_ASSERT(Data.Min_Height>=1,"Pannel minimum height should be atleast 1");
+    }
 
     GAVEN_ASSERT(Data.Min_Width<=Data.Width,"Pannel minimum width should be smaller than or equal to width");
     GAVEN_ASSERT(Data.Min_Height<=Data.Height,"Pannel minimum height should be smaller than or equal to height");
@@ -41,6 +44,7 @@ panel* create_panel(panel_data Data){
     Panel->Elements= (panel_element**)malloc(sizeof(panel_element*)*Panel->Cap);
     Panel->X=40;
     Panel->Y=0;
+    Panel->Remove=0;
     GAVEN_ASSERT(Panel->Elements,"Couldnt allocate memory to panel");
     return Panel;
 }
@@ -83,6 +87,8 @@ void add_panel_to_registry(panel* Panel,panel_registry* Registry){
 }
 void remove_panel_from_registry(panel* Panel,panel_registry* Registry){
     if(!Panel) return;
+    if(Registry->Hovered==Panel) Registry->Hovered=NULL;
+    if(Registry->Focused==Panel) Registry->Focused=NULL;
     size_t ID=Panel->ID;
     destroy_sprite(&Panel->Background_Sprite);
     free(Panel);
@@ -243,6 +249,7 @@ void update_panel(panel* Self){
     short mouse_Y = get_mouse_Y();
     short end_X = Self->X+Data->Width;
     short end_Y = Self->Y+Data->Height;
+    panel_registry* Registry=Self->Registry;
     if(Self->Is_Resizing){
         if(is_key_just_released(RUNEFORGE_MOUSE_BUTTON_LEFT)){
             Self->Is_Resizing=0;
@@ -281,11 +288,10 @@ void update_panel(panel* Self){
             }
         }
     }
-    if(mouse_X>=Self->X&&mouse_Y>=Self->Y&&mouse_X<=end_X&&mouse_Y<=end_Y){
-        Self->Is_Hovered=1;
-        if(is_key_just_pressed(RUNEFORGE_MOUSE_BUTTON_LEFT)){
-            
-            Self->Is_Focused=1;
+    if(mouse_X>=Self->X&&mouse_Y>=Self->Y&&mouse_X<end_X&&mouse_Y<end_Y){
+        Registry->Hovered=Self;
+        if(is_key_just_pressed(RUNEFORGE_MOUSE_BUTTON_LEFT)||is_key_just_pressed(RUNEFORGE_MOUSE_BUTTON_RIGHT)){
+            Registry->Focused=Self;
             if(Data->Is_Resizable==1&&!Self->Is_Resizing){
                 if(!(Data->Anchor&1)&&mouse_X>end_X-2)
                     Self->Is_Resizing|=1;
@@ -298,13 +304,8 @@ void update_panel(panel* Self){
             }
         }
     }
-    else{
-        Self->Is_Hovered=0;
-        if(is_key_just_pressed(RUNEFORGE_MOUSE_BUTTON_LEFT)){
-            Self->Is_Focused=0;
-        }
-    }
-    
+}
+void update_panel_elements(panel* Self){
     for(size_t i=0;i<Self->Count;i++){
         panel_element* Element = Self->Elements[i];
         GAVEN_ASSERT(Element,"Element not found");
@@ -313,8 +314,18 @@ void update_panel(panel* Self){
     }
 }
 void update_panels(panel_registry* Registry){
-    for(size_t i =0;i<Registry->Count;i++)
-        update_panel(Registry->Panels[i]);
+    for(size_t i =0;i<Registry->Count;i++){
+        panel *P=Registry->Panels[i];
+        update_panel(P);
+        if(P->Remove) {
+            remove_panel_from_registry(P,Registry);
+            i--;
+        }
+    }
+    for(size_t i=0;i<Registry->Count;i++){
+        panel *P=Registry->Panels[i];
+        update_panel_elements(P);
+    }
 }
 
 void render_panel(panel* Self){

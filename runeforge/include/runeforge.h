@@ -491,6 +491,7 @@ struct layer{
     void (*OnDettach)(layer* self);
     void (*OnEvent)(layer* self, event* Event);
     void* LayerData;
+    uint8_t Destroy;
 };
 RUNEFORGE_API void add_layer(layer_registry* Layer_Registry, layer* Layer);
 RUNEFORGE_API void bind_layer_phase(layer* Layer, layer_phase Phase, void (*Callback)(layer* self,void* phase_ctx));
@@ -550,7 +551,6 @@ create_layer_phase(render_end,8);
 #ifndef ENTITY_H
 #define ENTITY_H
 
-
 typedef struct entity entity;
 typedef enum {
     PROPERTY_TYPE_INT,
@@ -567,9 +567,10 @@ typedef  struct property_info{
     const char* Setter;
     void *Default_Value;
 } property_info;
+//todo make property arrays heterogeneous objects
 typedef struct type_info{
     const char* Name;
-    const char* Parent;
+    char* Parent;
     size_t Size;
     void (*Create)(entity* Self);
     void (*Update)(entity* Self,double Delta_Time);
@@ -580,41 +581,30 @@ typedef struct type_info{
     size_t Property_Count;
     unsigned Flags;
 }type_info;
+//todo one single typeinfo that handles all the property arrays confounded with the type
 struct entity{
     size_t ID;
     type_info *Type;
+    char* Type_Name;
     char *Name;
-    char *Type_Name;
+    entity** Children;
+    size_t Count;
+    size_t Cap;
+    entity* Parent;
 };
-RUNEFORGE_API entity* create_entity(const char* Type_Name,const char* Entity_Name);
+RUNEFORGE_API entity* create_entity(entity* Parent,const char* Type_Name,const char* Entity_Name);
+RUNEFORGE_API void add_entity_child(entity* Parent,entity* Child);
+RUNEFORGE_API void free_child(entity *Parent,entity *Entity);
+RUNEFORGE_API void update_entity(entity * Self,double deltaTime);
+RUNEFORGE_API void entity_on_event(entity* Self,event *Event);
+RUNEFORGE_API uint8_t render_entity(entity* Self);
+RUNEFORGE_API entity* get_child(entity* Self,size_t id);
 RUNEFORGE_API void TypeDB_Register(type_info* Type);
 RUNEFORGE_API void Destroy_TypeDB(void);
 RUNEFORGE_API type_info** Get_Entity_Types(size_t* Count);
 RUNEFORGE_API void TypeDB_Clear(void);
 RUNEFORGE_API type_info* TypeDB_Get(const char* name);
-#endif
-#ifndef ENTITY_REGISTRY_H
-#define ENTITY_REGISTRY_H
-typedef struct entity_registry entity_registry;
-struct entity_registry{
-    entity **Entities;
-    size_t Count;
-    size_t Cap;
-    const char* Path;
-    char* Name;
-    size_t Version;
-};
-RUNEFORGE_API entity_registry* create_entity_registry(void);
-RUNEFORGE_API void add_entity_to_registry(entity_registry *Registry,entity *Entity);
-RUNEFORGE_API void update_entities(entity_registry* Self,double deltaTime);
-RUNEFORGE_API void render_entities(entity_registry* Self);
-RUNEFORGE_API void free_entity(entity_registry *Registry,entity *Entity);
-RUNEFORGE_API void destroy_entity_registry(entity_registry* Self);
-RUNEFORGE_API void unload_entity_registry(entity_registry* Self);
-RUNEFORGE_API void serialize_entity_registry(const char* path,entity_registry* Entity_Registry);
-RUNEFORGE_API void deserialize_entity_registry(const char* path,entity_registry* Entity_Registry);
-RUNEFORGE_API entity* get_entity_from_entity_registry(entity_registry* Self,size_t ID);
-
+//todo add entity type buckets, we want millions of entities at once without lag.
 #endif
 
 #ifndef ASSET_TYPES_H
@@ -624,7 +614,25 @@ typedef enum asset_type {
     ASSET_TYPE_SCENE
 }asset_type;
 #endif
-
+#ifndef ENTITY_REGISTRY_H
+#define ENTITY_REGISTRY_H
+typedef struct entity_registry entity_registry;
+struct entity_registry{
+    entity* Root;
+    char* Path;
+    size_t Version;
+};
+void entities_on_event(entity_registry* Self,event* Event);
+RUNEFORGE_API entity_registry* create_entity_registry(void);
+RUNEFORGE_API void add_entity_to_registry(entity_registry *Registry,entity *Entity);
+RUNEFORGE_API void update_entities(entity_registry* Self,double deltaTime);
+RUNEFORGE_API void render_entities(entity_registry* Self);
+RUNEFORGE_API void free_entity(entity_registry *Registry,entity *Entity);
+RUNEFORGE_API void destroy_entity_registry(entity_registry* Self);
+RUNEFORGE_API void unload_entity_registry(entity_registry* Self);
+RUNEFORGE_API void serialize_entity_registry(const char* path,entity_registry* Entity_Registry);
+RUNEFORGE_API void deserialize_entity_registry(const char* path,entity_registry* Entity_Registry);
+#endif
 #ifndef RUNEFORGELAYER_H
 #define RUNEFORGELAYER_H
 RUNEFORGE_API void set_main_scene(const char *path);
@@ -636,7 +644,7 @@ RUNEFORGE_API sprite get_game_sprite(size_t id);
 RUNEFORGE_API short get_window_width(void);
 RUNEFORGE_API short get_window_height(void);
 RUNEFORGE_API entity_registry* load_scene(const char* path);
-RUNEFORGE_API void save_scene(const char* Path,const char* Name);
+RUNEFORGE_API void save_scene(char* Path);
 RUNEFORGE_API void unload_scene(void);
 RUNEFORGE_API void change_update_state(uint8_t new_state);
 RUNEFORGE_API uint8_t get_state(void);
@@ -645,10 +653,9 @@ RUNEFORGE_API application* runeforge_main(void);
 RUNEFORGE_API size_t load_game_asset(const char* Path,asset_type Type);
 RUNEFORGE_API void add_entity(entity* e);
 RUNEFORGE_API size_t get_asset_id_from_path(const char* Path);
-RUNEFORGE_API entity* get_entity(size_t ID);
 RUNEFORGE_API short get_relative_mouse_x(void);
 RUNEFORGE_API short get_relative_mouse_y(void);
-
+RUNEFORGE_API entity* create_entity_in_registery(const char* Type_Name,const char* Entity_Name);
 #endif
 
 
@@ -818,4 +825,8 @@ RUNEFORGE_API void init_input(void);
 RUNEFORGE_API void input_polling(void);
 #endif
 create_layer_phase(Update,2);
+#endif
+#ifndef REGISTER_TYPE_H
+#define REGISTER_TYPE_H
+RUNEFORGE_API void register_types(void);
 #endif

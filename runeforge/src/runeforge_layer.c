@@ -5,6 +5,7 @@
 #include "input.h"
 #include <string.h>
 #include <stdlib.h>
+#include "register_type.h"
 static const char* main_scene=NULL;
 static renderer* Renderer=NULL;
 static asset_manager* Asset_Manager=NULL;
@@ -78,7 +79,9 @@ layer* create_main_layer(const char *name){
     main_layer->OnEvent=main_layer_on_event;
     main_layer->OnDettach=main_layer_ondetach;
     Asset_Manager=create_asset_manager();
-    Entity_Registry=create_entity_registry();
+    
+
+    
     main_layer->LayerData=NULL;
     return main_layer;
 }
@@ -113,20 +116,20 @@ application* runeforge_main(void){
     init_input();
     /* Create main layer */
     layer* main_layer = create_main_layer("Main Layer");
+    register_types();
+    Entity_Registry=create_entity_registry();
     Renderer = create_runewall(width,height);
     add_layer(app->Layer_Registry,main_layer);
     set_runewall_resizable(Renderer,0);
     return app;
 }
 entity_registry* load_scene(const char* path){
-    GAVEN_ASSERT(Entity_Registry->Count<=0,"Entity registry already contains a scene, unload it before loading");
     Entity_Registry->Path=strdup(path);
     deserialize_entity_registry(path,Entity_Registry);
     Scene_Path=Entity_Registry->Path;
     return Entity_Registry;
 }
-void save_scene(const char* Path,const char* Name){
-    if(Name!=NULL) Entity_Registry->Name=strdup(Name);
+void save_scene(char* Path){
     if(Path!=NULL) Entity_Registry->Path=Path;
     serialize_entity_registry(Entity_Registry->Path,Entity_Registry);
 }
@@ -150,12 +153,13 @@ void remove_asset(size_t ID){
 size_t get_asset_id_from_path(const char* Path){
     return find_asset_from_asset_manager_with_path(Asset_Manager,Path);
 }
-entity* get_entity(size_t ID){
-    return get_entity_from_entity_registry(Entity_Registry,ID);
-}
 short get_relative_mouse_x(void){
     return get_mouse_X()-offsetX;
 }
 short get_relative_mouse_y(void){
     return get_mouse_Y()-offsetY;
+}
+entity* create_entity_in_registery(const char* Type_Name,const char* Entity_Name){
+    Entity_Registry->Version++;
+    return create_entity(Entity_Registry->Root,Type_Name,Entity_Name);
 }

@@ -272,7 +272,7 @@ void update_file_explorer_element(panel_element* Self){
     panel* Panel = Self->Parent;
     panel_button* Button1 = (panel_button*)Panel->Elements[1];
     poll_root_node(fe);
-    if(Panel->Is_Focused&&Panel->Is_Hovered){
+    if(Panel==Panel->Registry->Focused&&Panel==Panel->Registry->Hovered){
         if(is_key_just_pressed(RUNEFORGE_MOUSE_BUTTON_LEFT)){
             short MX = get_mouse_X()-Panel->X;
             short MY = get_mouse_Y()-Panel->Y;

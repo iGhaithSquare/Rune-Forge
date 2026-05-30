@@ -59,7 +59,7 @@ void destroy_background_panel_element(panel_element* Self){
 void cancle_create_project_impl(panel_button* Self){
     background_panel_buttons_data* Data = Self->Button_Data;
     panel* P = Data->Panel;
-    remove_panel_from_registry(P,P->Registry);
+    P->Remove=1;
 }
 void create_project_impl(panel_button* Self){
     //todo rework the ui system
@@ -68,7 +68,7 @@ void create_project_impl(panel_button* Self){
     const char* Name = Data->Input_Name_Field->Real_Text;
     const char* Path_Old = Data->Input_Path_Field->Real_Text;
     if(!Name||!Path_Old||!strlen(Name)||!strlen(Path_Old)){
-        remove_panel_from_registry(P,P->Registry);
+        P->Remove=1;
         return;
     }
     size_t Path_Len = strlen(Path_Old);
@@ -90,12 +90,14 @@ void create_project_impl(panel_button* Self){
     create_new_folder(src_dir);
     create_new_folder(asset_dir);
 
+
     char scene_file[512];
     snprintf(scene_file,sizeof(scene_file),"%s%s%s",asset_dir,PATH_SEP,"main.jsonscn");
-    char scene_content[1024];
-    snprintf(scene_content,sizeof(scene_content),"{\n\"Scene\":\"Main\",\n\"Entities\":	[]\n}");
-    write_file(scene_file,scene_content);
+    entity_registry* Scene=create_entity_registry();
+    serialize_entity_registry(scene_file,Scene);
+    destroy_entity_registry(Scene);
 
+    
     char project_file[512];
     snprintf(project_file,sizeof(project_file),"%s%s%s",project_dir,PATH_SEP,"project.asciiprj");
     char project_content[1024];
@@ -158,13 +160,14 @@ void create_project_impl(panel_button* Self){
 
     write_file(cmake_file,cmake_content);
     open_project(Data->Editor,project_file);
-    remove_panel_from_registry(P,P->Registry);
-    remove_layer(Data->Registry,Data->Layer);
+    P->Remove=1;
+    Data->Layer->Destroy =1;
+    //todo find the myseteroius editor crash.   
 }
 void open_recent_project_impl(panel_button* Self){
     background_panel_recent_project_data* Data= (background_panel_recent_project_data*)Self->Button_Data;
     open_project(Data->Editor,Data->Path);
-    remove_layer(Data->Registry,Data->Layer);
+    Data->Layer->Destroy =1;
 }
 void background_panel_show_create_project(panel_button* Self){
     panel* P=create_popup_panel("Create Project",5,10,110,12);

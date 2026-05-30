@@ -30,7 +30,7 @@ void panel_input_text_render(panel_element* Self){
 void panel_input_text_update(panel_element *Self){
     panel_input_text* Text=(panel_input_text*)Self;
     panel* Panel = Text->Base.Parent;
-    if(Panel->Is_Focused){
+    if(Panel==Panel->Registry->Focused){
         if(is_key_just_pressed(RUNEFORGE_MOUSE_BUTTON_LEFT)){
             short MX = get_mouse_X()-Panel->X;
             short MY = get_mouse_Y()-Panel->Y;

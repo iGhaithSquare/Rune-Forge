@@ -52,7 +52,6 @@ void save_editor_cfg(editor* E){
     FILE *f=fopen(editor_cfg_path,"w");
     GAVEN_ASSERT(f,"Couldnt write to editor file %s",editor_cfg_path);
     for(int i=0;i<E->CFG.Project_Count;i++){
-        GAVEN_WARN("testing saved: %s",E->CFG.Recent_Projects[i]);
         fprintf(f,"project=%s\n",E->CFG.Recent_Projects[i]);
     }
     fclose(f);
@@ -188,6 +187,7 @@ void poll_dll(editor* Editor){
     if(!test_dll)
         return;
     TypeDB_Clear();
+    register_types();
     FreeLibrary(test_dll);
     #ifdef _WIN32
     static HMODULE dll=NULL;

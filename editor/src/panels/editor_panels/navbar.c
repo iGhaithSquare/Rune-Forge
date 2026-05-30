@@ -13,21 +13,16 @@ typedef struct navbar_export_buttons_data{
     panel_input_text* Input_Path_Field;
     editor* Editor;
 }navbar_export_buttons_data;
-typedef struct add_entity_button_data{
-    panel* Inspector;
-    type_info* Type;
-}add_entity_button_data;
 typedef struct navbar_data{
     panel* Parent;
     panel* Inspector;
-    add_entity_button_data* Button_Data;
     size_t Cap;
     uint8_t State;
     editor* Editor;
 } navbar_data;
 void navbar_button_save_scene_imple(panel_button* Self){
     if(get_state()&1) return;
-    save_scene(NULL,NULL);
+    save_scene(NULL);
 }
 void navbar_button_start_scene_imple(panel_button* Self){
     navbar_data* Data=(navbar_data*)Self->Button_Data;
@@ -39,23 +34,15 @@ void navbar_button_start_scene_imple(panel_button* Self){
         return;
     }
     uninspect_inspector_panel(Data->Inspector);
-    save_scene(NULL,NULL);
+    save_scene(NULL);
     Self->Text="Pause";
     change_update_state(1);
     return;
 }
-void navbar_add_entity_impl(panel_button* Self){
-    add_entity_button_data *Data=(add_entity_button_data*)Self->Button_Data;
-    entity *e =create_entity(Data->Type->Name,NULL);
-    add_entity(e);
-    if(Data->Inspector) inspect_entity(e,Data->Inspector);
-    panel* P=Self->Base.Parent;
-    remove_panel_from_registry(P,P->Registry);
-}
 void navbar_cancle_popup_panel(panel_button* Self){
     navbar_export_buttons_data *Data=(navbar_export_buttons_data*)Self->Button_Data;
     panel* P=Self->Base.Parent;
-    remove_panel_from_registry(P,P->Registry);
+    P->Remove=1;
 }
 void navbar_export_impl(panel_button* Self){
     navbar_export_buttons_data *Data=(navbar_export_buttons_data*)Self->Button_Data;
@@ -63,7 +50,7 @@ void navbar_export_impl(panel_button* Self){
     
     const char* Path_Old = Data->Input_Path_Field->Real_Text;
     if(!Path_Old||!strlen(Path_Old)){
-        remove_panel_from_registry(P,P->Registry);
+        P->Remove=1;
         return;
     }
     size_t Path_Len = strlen(Path_Old);
@@ -125,36 +112,7 @@ void navbar_export_impl(panel_button* Self){
     copy_file_to_dir(runeforgedll_file,export_dir);
     copy_file_to_dir(runewalldll_file,export_dir);
     copy_file_to_dir(gavendll_file,export_dir);
-    remove_panel_from_registry(P,P->Registry);
-}
-void navbar_show_add_entity_impl(panel_button* Self){
-    size_t Count=0;
-    type_info** types= Get_Entity_Types(&Count);
-    if(!Count) {
-        GAVEN_WARN("COULDNT FIND ANY ENTITY TYPES");
-        return;
-    }
-    navbar_data *Data=(navbar_data*)Self->Button_Data;
-    if(Count>=Data->Cap){
-        Data->Cap=Data->Cap?Data->Cap*2:16;
-        add_entity_button_data* temp = (add_entity_button_data*)realloc(Data->Button_Data,Data->Cap*sizeof(add_entity_button_data));
-        GAVEN_ASSERT(temp,"Couldnt allocate enough memory to button data");
-        Data->Button_Data=temp;
-    }
-    panel* P=create_popup_panel("Add Entity",30,2,50,30);
-    panel_registry* Reg = Self->Base.Parent->Registry;
-    for(size_t i=0;i<Count;i++){
-        add_entity_button_data* Button_Data = &Data->Button_Data[i];
-        Button_Data->Type=types[i];
-        Button_Data->Inspector=Data->Inspector;
-        panel_button* B=create_panel_button(1,i+1,types[i]->Name,48,Button_Data,navbar_add_entity_impl);
-        add_element_to_panel(P,&B->Base);
-    }
-    navbar_export_buttons_data* CData = (navbar_export_buttons_data*)malloc(sizeof(navbar_export_buttons_data));
-    CData->Panel=P;
-    panel_button* Button = create_panel_button(20,28,"Cancle",10,CData,navbar_cancle_popup_panel);
-    add_element_to_panel(P,&Button->Base);
-    add_panel_to_registry(P,Reg);
+    P->Remove=1;
 }
 void navbar_show_export_impl(panel_button* Self){
     panel* P=create_popup_panel("Export",7,10,110,6);
@@ -197,13 +155,10 @@ panel* create_navbar(editor* Editor){
     navbar_data* Navbar_Data= (navbar_data*)malloc(sizeof(navbar_data));
     GAVEN_ASSERT(Navbar_Data,"Couldnt create navbar");
     Navbar_Data->Cap=0;
-    Navbar_Data->Button_Data=NULL;
     Navbar_Data->Editor=Editor;
-    panel_button *P=create_panel_button(1,0,"Add Entity",14,Navbar_Data,navbar_show_add_entity_impl);
     panel_button *Save=create_panel_button(103,0,"Save Scene",14,Navbar_Data,navbar_button_save_scene_imple);
     panel_button *Start=create_panel_button(55,0,"Start",9,Navbar_Data,navbar_button_start_scene_imple);
     panel_button *Export=create_panel_button(93,0,"Export",10,Navbar_Data,navbar_show_export_impl);
-    add_element_to_panel(Navbar,&P->Base);
     add_element_to_panel(Navbar,&Save->Base);
     add_element_to_panel(Navbar,&Start->Base);
     add_element_to_panel(Navbar,&Export->Base);

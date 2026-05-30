@@ -32,7 +32,7 @@ void update_inspector_element(panel_element* Self){
         if(!TypeDB_Get(E->Type_Name))
             return;
     }
-    if(Panel->Is_Focused){
+    if(Panel==Panel->Registry->Focused){
         if(is_key_just_pressed(RUNEFORGE_MOUSE_BUTTON_LEFT)){
             short MX = get_mouse_X()-Panel->X;
             short MY = get_mouse_Y()-Panel->Y;

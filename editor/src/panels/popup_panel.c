@@ -1,5 +1,4 @@
 #include "popup_panel.h"
-#include "panel_button.h"
 panel* create_popup_panel(const char* Name,short X,short Y,short Width,short Height){
     panel_data Data = {
         .Name=Name,

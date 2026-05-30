@@ -31,14 +31,15 @@ typedef struct panel_registry{
     panel** Panels;
     size_t Count;
     size_t Cap;
+    panel* Focused;
+    panel* Hovered;
 }panel_registry;
 struct panel{
     panel_data Data;
     size_t ID;
-    uint8_t Is_Hovered;
-    uint8_t Is_Focused;
     uint8_t Is_Resizing;
     uint8_t Is_Dirty;
+    uint8_t Remove;
     char *Background_String;
     sprite Background_Sprite;
     panel_neighbors Panel_Neighbors;
@@ -55,7 +56,6 @@ panel* create_panel(panel_data Data);
 /* Direction: 0 for right,1 for bottom 2 for left, 3 for top*/
 uint8_t add_panel_neighbor(panel* Panel,panel* Neighbor,uint8_t direction);
 void add_panel_to_registry(panel* Panel,panel_registry* Registry);
-void remove_panel_from_registry(panel* Panel,panel_registry* Registry);
 void update_panels(panel_registry* Registry);
 void render_panels(panel_registry* Registry);
 void add_element_to_panel(panel* Panel,panel_element* Element);

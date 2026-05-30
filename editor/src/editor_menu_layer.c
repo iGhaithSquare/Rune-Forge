@@ -6,7 +6,8 @@ typedef struct editor_layer_menu_data{
 }editor_layer_menu_data;
 void update_editor_menu_layer(layer* self,void* ctx){
     editor_layer_menu_data *Data=(editor_layer_menu_data*)self->LayerData;
-    update_panels(Data->Panel_Registry);
+    if(Data->Panel_Registry)
+        update_panels(Data->Panel_Registry);
 }
 void render_editor_menu_layer(layer* self,void* ctx){
     editor_layer_menu_data *Data=(editor_layer_menu_data*)self->LayerData;
