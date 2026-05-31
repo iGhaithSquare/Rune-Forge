@@ -15,6 +15,7 @@
 #include <unistd.h>
 #include <sys/inotify.h>
 #endif
+static char asset_dir[512];
 typedef struct file_node{
     char* File_Path;
     sprite Text_Sprite;
@@ -207,9 +208,11 @@ void update_button_selected(panel_button *Button){
     }
     Button->Is_Dirty=1;
 }
-void file_button_load_scene_impl(file_node* Node){
+void file_button_load_scene_impl(panel_button* Self){
+    file_explorer_button_data* Data= (file_explorer_button_data*)Self->Button_Data;
+    uninspect_inspector_panel(Data->Inspector);
     unload_scene();
-    load_scene(Node->File_Path);
+    load_scene(Data->Selected->File_Path);
 }
 void file_button_load_sprite_impl(panel_button* Self){
     file_explorer_button_data* Data= (file_explorer_button_data*)Self->Button_Data;
@@ -229,7 +232,7 @@ void file_button_press_impl(panel_button* Self){
     file_explorer_button_data* Data= (file_explorer_button_data*)Self->Button_Data;
     switch (Data->Type){
     case ASSET_TYPE_SCENE:
-        file_button_load_scene_impl(Data->Selected);
+        file_button_load_scene_impl(Self);
         break;
     case ASSET_TYPE_SPRITE:
         if(Data->Data==-1){
@@ -353,9 +356,8 @@ panel* create_file_explorer(editor* Editor){
         .Z_Index=0
     };
     panel *File_Explorer = create_panel(File_expo);
-    char assets_dir[512];
-    snprintf(assets_dir,sizeof(assets_dir),"%s%s%s%s",Editor->project_root_path,PATH_SEP,"assets",PATH_SEP);
-    file_explorer_element *E=create_file_explorer_element(Editor,assets_dir,74);
+    snprintf(asset_dir,sizeof(asset_dir),"%s%s%s%s",Editor->project_root_path,PATH_SEP,"assets",PATH_SEP);
+    file_explorer_element *E=create_file_explorer_element(Editor,asset_dir,74);
 
     panel_button *Button= create_panel_button(60,0,"FILE EXPLORER",20,E->Button1_Data,file_button_press_impl);
     add_element_to_panel(File_Explorer,&E->Base);
@@ -366,4 +368,7 @@ void file_explorer_point_to_inspector(panel* File_Explorer,panel* Inspector){
     if(!File_Explorer||File_Explorer->Cap<=0) return;
     file_explorer_element* fe = (file_explorer_element*)File_Explorer->Elements[0];
     fe->Button1_Data->Inspector=Inspector;
+}
+const char* get_asset_dir(void){
+    return asset_dir;
 }

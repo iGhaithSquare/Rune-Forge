@@ -1,0 +1,11 @@
+{
+	"Root":	{
+		"Type":	"Entity",
+		"Name":	"Entity",
+		"Children":	[{
+				"Type":	"Entity",
+				"Name":	"Entity",
+				"Children":	[]
+			}]
+	}
+}

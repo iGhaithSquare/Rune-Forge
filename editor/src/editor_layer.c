@@ -14,7 +14,8 @@ void update_editor_layer(layer* self,void* ctx){
     editor_layer_data *Data=(editor_layer_data*)self->LayerData;
     poll_dll(Data->Editor);
     update_panels(Data->Panel_Registry);
-
+    if(is_key_just_pressed(RUNEFORGE_KEY_ESCAPE))
+        GAVEN_ASSERT(0,"HAHAHA");
 }
 void render_editor_layer(layer* self,void* ctx){
     editor_layer_data *Data=(editor_layer_data*)self->LayerData;

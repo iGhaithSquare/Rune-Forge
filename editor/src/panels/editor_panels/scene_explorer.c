@@ -5,7 +5,14 @@
 #include "../context_panel.h"
 #include "../panel_button.h"
 #include "../popup_panel.h"
+#include "../panel_input_text.h"
+#include "../panel_text.h"
+#include "file_explorer.h"
 #include <stdio.h>
+typedef struct scene_expo_make_scene{
+    entity* Selected;
+    panel_input_text* Path;
+}scene_expo_make_scene;
 typedef struct entity_node{
     sprite Text_Sprite;
     entity* Entity;
@@ -90,6 +97,43 @@ void scene_explorer_add_child_impl(panel_button* Self){
     add_panel_to_registry(P,Reg);
     Panel->Remove=1;
 }
+void cancel_scene_explorer_make_scene(panel_button* Self){
+    Self->Base.Parent->Remove=1;
+}
+void save_scene_explorer_make_scene(panel_button* Self){
+    scene_expo_make_scene* Data= (scene_expo_make_scene*)Self->Button_Data;
+    entity_registry* E=create_entity_registry();
+    free_child(NULL,E->Root);
+    E->Root=Data->Selected;
+    char scene_file[512];
+    snprintf(scene_file,sizeof(scene_file),"%s%s%s",get_asset_dir(),PATH_SEP,Data->Path->Real_Text);
+    serialize_entity_registry(scene_file,E);
+    E->Root=NULL;
+    destroy_entity_registry(E);
+    unload_scene();
+    load_scene(scene_file);
+    Self->Base.Parent->Remove=1;
+}
+void scene_explorer_show_make_scene_impl(panel_button* Self){
+    scene_explorer_element* E=(scene_explorer_element*)Self->Button_Data;
+    panel* Panel=Self->Base.Parent;
+    panel* P=create_popup_panel("Make Scene",7,10,110,6);
+    scene_expo_make_scene* Make_Scene= (scene_expo_make_scene*)malloc(sizeof(scene_expo_make_scene));
+    panel_text* Input_Export = create_panel_text("Save To:",1,2,100);
+    panel_input_text* Input_Path_Field =create_panel_input_text(10,2,99);
+    Make_Scene->Path=Input_Path_Field;
+    Make_Scene->Selected=E->Selected_Right->Entity;
+    panel_button* Save_Project = create_panel_button(24,4,"Save Project",18,Make_Scene,save_scene_explorer_make_scene);
+    panel_button* Cancle_Save_Project = create_panel_button(64,4,"Cancle Saving",20,Make_Scene,cancel_scene_explorer_make_scene);
+    panel_registry* Reg = Self->Base.Parent->Registry;
+    add_element_to_panel(P,&Input_Export->Base);
+    add_element_to_panel(P,&Input_Path_Field->Base);
+    add_element_to_panel(P,&Save_Project->Base);
+    add_element_to_panel(P,&Cancle_Save_Project->Base);
+    add_panel_to_registry(P,Reg);
+    uninspect_inspector_panel(E->Inspector);
+    Panel->Remove=1;
+}
 void add_entity_entity_to_scene_explorer(entity* Entity,scene_explorer_element* se,int depth){
     if(!TypeDB_Get(Entity->Type_Name)) return;
     if(se->Count>=se->Cap){
@@ -151,11 +195,13 @@ void update_scene_explorer_element(panel_element* Self){
             }
             if (Node&&MX>=3&&MX<Node->Text_Sprite.Width+3){
                 se->Selected_Right=Node;
-                panel* P=create_context_panel("Entity Context",16,2);
-                panel_button* B2=create_panel_button(1,0,"Add_Child",14,se,scene_explorer_add_child_impl);
-                panel_button* B1=create_panel_button(1,1,"Delete",14,se,scene_explorer_delete_button_impl);
+                panel* P=create_context_panel("Entity Context",17,3);
+                panel_button* B1=create_panel_button(1,0,"Add_Child",14,se,scene_explorer_add_child_impl);
+                panel_button* B2=create_panel_button(1,1,"Make_Scene",15,se,scene_explorer_show_make_scene_impl);
+                panel_button* B3=create_panel_button(1,2,"Delete",14,se,scene_explorer_delete_button_impl);
                 add_element_to_panel(P,&B1->Base);
                 add_element_to_panel(P,&B2->Base);
+                add_element_to_panel(P,&B3->Base);
                 add_panel_to_registry(P,Panel->Registry);
             }
             else{
@@ -178,7 +224,8 @@ void update_scene_explorer_element(panel_element* Self){
         }
         se->Count=0;
         entity* Root=Registry->Root;
-        add_child_entity_to_scene_explorer(Root,se,0);
+        add_entity_entity_to_scene_explorer(Root,se,0);
+        add_child_entity_to_scene_explorer(Root,se,1);
         se->Version=Registry->Version;
     }
     if(Panel->Is_Dirty)

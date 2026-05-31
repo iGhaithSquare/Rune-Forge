@@ -4,4 +4,5 @@
 #include "../../editor.h"
 panel* create_file_explorer(editor* Editor);
 void file_explorer_point_to_inspector(panel* File_Explorer,panel* Inspector);
+const char* get_asset_dir(void);
 #endif

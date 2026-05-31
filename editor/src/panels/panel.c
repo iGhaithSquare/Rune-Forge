@@ -91,6 +91,14 @@ void remove_panel_from_registry(panel* Panel,panel_registry* Registry){
     if(Registry->Focused==Panel) Registry->Focused=NULL;
     size_t ID=Panel->ID;
     destroy_sprite(&Panel->Background_Sprite);
+    for(size_t i=0;i<Panel->Count;i++){
+        panel_element* E=Panel->Elements[i];
+        if(E->On_Destroy)
+            E->On_Destroy(E);
+        else{
+            free(E);
+        }
+    }
     free(Panel);
     Registry->Count--;
     memmove(&Registry->Panels[ID],&Registry->Panels[ID+1],sizeof(panel*)*(Registry->Count-ID));
@@ -291,7 +299,8 @@ void update_panel(panel* Self){
     if(mouse_X>=Self->X&&mouse_Y>=Self->Y&&mouse_X<end_X&&mouse_Y<end_Y){
         Registry->Hovered=Self;
         if(is_key_just_pressed(RUNEFORGE_MOUSE_BUTTON_LEFT)||is_key_just_pressed(RUNEFORGE_MOUSE_BUTTON_RIGHT)){
-            Registry->Focused=Self;
+            if(Self->Data.Z_Index!=-1)
+                Registry->Focused=Self;
             if(Data->Is_Resizable==1&&!Self->Is_Resizing){
                 if(!(Data->Anchor&1)&&mouse_X>end_X-2)
                     Self->Is_Resizing|=1;

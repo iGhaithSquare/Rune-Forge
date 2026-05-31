@@ -79,6 +79,8 @@ void add_entity_child(entity* Parent,entity* Child){
 }
 
 void free_child(entity *Parent,entity *Entity){
+    if(!Entity)
+        return;
     if(Parent){
         if(Entity->ID>=Parent->Count){
             GAVEN_WARN("Entity is not in registry");
