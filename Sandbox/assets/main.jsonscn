@@ -2,17 +2,21 @@
 	"Root":	{
 		"Type":	"Entity",
 		"Name":	"Root",
+		"Path":	"",
 		"Children":	[{
 				"Type":	"Entity",
 				"Name":	"Entity",
+				"Path":	"",
 				"Children":	[{
 						"Type":	"Entity",
 						"Name":	"Entity",
-						"Children":	[{
-								"Type":	"Entity",
-								"Name":	"Entity",
-								"Children":	[]
-							}]
+						"Path":	"C:\\dev\\Visual Studio Code\\Rune-Forge\\\\Sandbox\\assets\\ASAS.jsonscn",
+						"Children":	[]
+					}, {
+						"Type":	"Entity",
+						"Name":	"Entity",
+						"Path":	"",
+						"Children":	[]
 					}]
 			}]
 	}

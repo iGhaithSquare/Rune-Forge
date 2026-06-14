@@ -1,7 +1,7 @@
 #include "entity.h"
 #include <stdlib.h>
 #include <string.h>
-
+#include <stdio.h>
 typedef struct type_registry{
     type_info** Types;
     size_t Count;
@@ -48,10 +48,43 @@ void Destroy_TypeDB(void){
     free(g_types);
     g_types=NULL;
 }
-entity* create_entity(entity* Parent,const char* Type_Name,const char* Entity_Name){
+
+void deserialize_into_entity(const char* path,entity* Entity){
+    FILE *f = fopen(path,"r");
+    GAVEN_ASSERT(f,"Failed to open file %s",path);
+    size_t cap=0;
+    size_t size=0;
+    char* buffer=NULL;
+    size_t n=0;
+    do{
+        size+=n;
+        if(size>=cap){
+            cap=(cap?cap*2:4096);
+            char* temp = (char*)realloc(buffer,cap);
+            GAVEN_ASSERT(temp,"Failed to allocate memory to read file %s",path);
+            buffer=temp;
+        }
+    }while((n=fread(buffer+size,1,cap-size,f))>0);
+    fclose(f);
+    if(size>=cap){
+        cap+=1;
+        char* temp = (char*)realloc(buffer,cap);
+        GAVEN_ASSERT(temp,"Failed to allocate memory to read file %s",path);
+        buffer=temp;
+    }
+    buffer[size]='\0';
+    cJSON *root=cJSON_Parse(buffer);
+    GAVEN_ASSERT(root,"Couldnt deserialize for some reason");
+    free(buffer);
+    cJSON* obj=cJSON_GetObjectItem(root,"Root");
+    deserialize_entity(obj,Entity);
+    cJSON_Delete(root);
+}
+//todo guard against infinite recursion
+entity* create_entity(entity* Parent,const char* Type_Name,const char* Entity_Name,char* Path){
     type_info *type=TypeDB_Get(Type_Name);
     if(!type) return NULL;
-    entity *e = (entity*)calloc(1,type->Size);
+    entity *e =(entity*)calloc(1,type->Size);
     e->Children=NULL;
     e->Count=0;
     e->Cap=0;
@@ -59,6 +92,9 @@ entity* create_entity(entity* Parent,const char* Type_Name,const char* Entity_Na
     e->Type = type;
     e->Type_Name= strdup(Type_Name);
     e->Name = Entity_Name?strdup(Entity_Name):strdup(Type_Name);
+    e->Path=Path;
+    if (Path)
+        deserialize_into_entity(Path,e);
     add_entity_child(Parent,e);
     return e;
 }
@@ -97,7 +133,8 @@ void free_child(entity *Parent,entity *Entity){
         }
         free(Entity->Children);
     }
-
+    if(Entity->Path)
+        free(Entity->Path);
     free(Entity->Name);
     
     if(TypeDB_Get(Entity->Type_Name)&&Entity->Type->Destroy){
@@ -196,4 +233,39 @@ type_info** Get_Entity_Types(size_t* Count){
 entity* get_child(entity* Self,size_t id){
     if(id>=Self->Count) return NULL;
     return Self->Children[id];
+}
+entity* deserialize_entity(cJSON* root, entity* Parent){
+    cJSON* type_item =cJSON_GetObjectItem(root,"Type");
+    cJSON* name_item =cJSON_GetObjectItem(root,"Name");
+    cJSON* path_item =cJSON_GetObjectItem(root,"Path");
+    if(!type_item||!name_item||!path_item) return NULL;
+    char* Path =path_item->valuestring[0]?strdup(path_item->valuestring):NULL;
+    entity* E=create_entity(Parent,type_item->valuestring,name_item->valuestring,Path);
+    type_info *t =E->Type;
+    for(size_t i=0;i<t->Property_Count;i++){
+        property_info* p=&t->Properties[i];
+        cJSON* item = cJSON_GetObjectItem(root,p->Name);
+        if(!item) continue;
+        void *field=(char*)E+p->Usage;
+        switch(p->Type){
+            case PROPERTY_TYPE_INT: *(int*)field=item->valueint; break;
+            case PROPERTY_TYPE_FLOAT: *(float*)field=(float)item->valuedouble; break;
+            case PROPERTY_TYPE_STRING:  char** str=(char**)field;
+                *str=malloc(256);
+                GAVEN_ASSERT(*str,"Couldnt allocate memory to property type %s",p->Name);
+                strncpy(*str,item->valuestring,256); break;
+            case PROPERTY_TYPE_DOUBLE: *(double*)field=item->valuedouble; break;
+            case PROPERTY_TYPE_SIZET:   *(size_t*)field=(size_t)item->valuedouble; break;
+            default: GAVEN_ASSERT(0,"Unsupported property type for deserialization");
+        }
+    }
+    cJSON* children =cJSON_GetObjectItem(root,"Children");
+    if (children&&cJSON_IsArray(children)){
+        int child_count=cJSON_GetArraySize(children);
+        for (int i =0;i<child_count;i++){
+            cJSON* Child=cJSON_GetArrayItem(children,i);
+            deserialize_entity(Child,E);
+        }
+    }
+    return E;
 }

@@ -265,7 +265,7 @@ void inspect_entity(entity* Entity,panel* Inspector_Panel){
         char type_buffer[128];
         switch (P->Type){
         case PROPERTY_TYPE_STRING:
-            snprintf(value_buffer,128,"%s",*(char**)field?*(char**)field:"");
+            snprintf(value_buffer,128,"%s",*(char**)field?*(char**)field:NULL);
             break;
         case PROPERTY_TYPE_INT:
             snprintf(value_buffer,128,"%d",*(int*)field);

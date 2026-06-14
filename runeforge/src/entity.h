@@ -50,12 +50,13 @@ struct entity{
     type_info *Type;
     char* Type_Name;
     char *Name;
+    char *Path;
     entity** Children;
     size_t Count;
     size_t Cap;
     entity* Parent;
 };
-RUNEFORGE_API entity* create_entity(entity* Parent,const char* Type_Name,const char* Entity_Name);
+RUNEFORGE_API entity* create_entity(entity* Parent,const char* Type_Name,const char* Entity_Name,char *Path);
 RUNEFORGE_API void add_entity_child(entity* Parent,entity* Child);
 RUNEFORGE_API void free_child(entity *Parent,entity *Entity);
 RUNEFORGE_API void update_entity(entity * Self,double deltaTime);
@@ -67,5 +68,7 @@ RUNEFORGE_API void Destroy_TypeDB(void);
 RUNEFORGE_API type_info** Get_Entity_Types(size_t* Count);
 RUNEFORGE_API void TypeDB_Clear(void);
 RUNEFORGE_API type_info* TypeDB_Get(const char* name);
+RUNEFORGE_API entity* deserialize_sub_registry(const char* path);
+RUNEFORGE_API entity* deserialize_entity(cJSON* root, entity* Parent);
 //todo add entity type buckets, we want millions of entities at once without lag.
 #endif

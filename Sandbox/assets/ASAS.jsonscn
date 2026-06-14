@@ -2,9 +2,11 @@
 	"Root":	{
 		"Type":	"Entity",
 		"Name":	"Entity",
+		"Path":	"",
 		"Children":	[{
 				"Type":	"Entity",
 				"Name":	"Entity",
+				"Path":	"",
 				"Children":	[]
 			}]
 	}

@@ -18,4 +18,5 @@ RUNEFORGE_API void destroy_entity_registry(entity_registry* Self);
 RUNEFORGE_API void unload_entity_registry(entity_registry* Self);
 RUNEFORGE_API void serialize_entity_registry(const char* path,entity_registry* Entity_Registry);
 RUNEFORGE_API void deserialize_entity_registry(const char* path,entity_registry* Entity_Registry);
+
 #endif

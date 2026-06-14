@@ -13,6 +13,11 @@ typedef struct scene_expo_make_scene{
     entity* Selected;
     panel_input_text* Path;
 }scene_expo_make_scene;
+typedef struct scene_expo_rename{
+    entity* Selected;
+    panel_input_text* Path;
+    entity_registry* Reg;
+}scene_expo_rename;
 typedef struct entity_node{
     sprite Text_Sprite;
     entity* Entity;
@@ -46,7 +51,6 @@ void scene_explorer_delete_button_impl(panel_button* Self){
     }
     E->Selected=NULL;
     entity* Entity=E->Selected_Right->Entity;
-    GAVEN_WARN("Deleting child of name %s of pointer%p of parent of name %s of pointer %p",Entity->Name,Entity,Entity->Parent->Name,Entity->Parent);
     free_child(Entity->Parent,Entity);
     E->Selected_Right=NULL;
     E->Registry->Version++;
@@ -55,7 +59,7 @@ void scene_explorer_delete_button_impl(panel_button* Self){
 }
 void scene_add_child_impl(panel_button* Self){
     scene_add_entity_button *Data=(scene_add_entity_button*)Self->Button_Data;
-    entity *e =create_entity(Data->Selected,Data->Type->Name,NULL);
+    entity *e =create_entity(Data->Selected,Data->Type->Name,NULL,NULL);
     if(Data->Inspector) inspect_entity(e,Data->Inspector);
     Data->Reg->Version++;
     panel* P=Self->Base.Parent;
@@ -103,16 +107,76 @@ void cancel_scene_explorer_make_scene(panel_button* Self){
 void save_scene_explorer_make_scene(panel_button* Self){
     scene_expo_make_scene* Data= (scene_expo_make_scene*)Self->Button_Data;
     entity_registry* E=create_entity_registry();
+    entity* Ent=Data->Selected;
     free_child(NULL,E->Root);
-    E->Root=Data->Selected;
+    E->Root=Ent;
     char scene_file[512];
-    snprintf(scene_file,sizeof(scene_file),"%s%s%s",get_asset_dir(),PATH_SEP,Data->Path->Real_Text);
+    snprintf(scene_file,sizeof(scene_file),"%s%s%s",get_asset_dir(),Data->Path->Real_Text,".jsonscn");
     serialize_entity_registry(scene_file,E);
     E->Root=NULL;
+    Ent->Path =strdup(scene_file);
     destroy_entity_registry(E);
+    save_scene(NULL);
     unload_scene();
     load_scene(scene_file);
     Self->Base.Parent->Remove=1;
+}
+
+void rename_entity_scene_explorer(panel_button* Self){
+    scene_expo_rename* Data= (scene_expo_rename*)Self->Button_Data;
+    Data->Selected->Name=Data->Path->Real_Text;
+    Self->Base.Parent->Remove=1;
+    Data->Reg->Version++;
+}
+
+void scene_explorer_show_rename_entity_impl(panel_button* Self){
+    scene_explorer_element* E=(scene_explorer_element*)Self->Button_Data;
+    panel* Panel=Self->Base.Parent;
+    panel* P=create_popup_panel("Rename Entity",7,10,110,6);
+    scene_expo_rename* Rename= (scene_expo_rename*)malloc(sizeof(scene_expo_make_scene));
+    panel_text* Input_Export = create_panel_text("Rename To:",1,2,99);
+    panel_input_text* Input_Path_Field =create_panel_input_text(12,2,97);
+    entity *Entity=E->Selected_Right->Entity;
+    snprintf(Input_Path_Field->Final_Text,sizeof(Input_Path_Field->Final_Text),"%s",Entity->Name);
+    Rename->Path=Input_Path_Field;
+    Rename->Selected=Entity;
+    Rename->Reg=E->Registry;
+    panel_button* Save_Project = create_panel_button(24,4,"Rename",18,Rename,rename_entity_scene_explorer);
+    panel_button* Cancle_Save_Project = create_panel_button(64,4,"Cancle",20,Rename,cancel_scene_explorer_make_scene);
+    panel_registry* Reg = Self->Base.Parent->Registry;
+    add_element_to_panel(P,&Input_Export->Base);
+    add_element_to_panel(P,&Input_Path_Field->Base);
+    add_element_to_panel(P,&Save_Project->Base);
+    add_element_to_panel(P,&Cancle_Save_Project->Base);
+    add_panel_to_registry(P,Reg);
+    uninspect_inspector_panel(E->Inspector);
+    Panel->Remove=1;
+}
+
+void scene_add_subscene_as_child_impl(panel_button* Self){
+    panel* P=Self->Base.Parent;
+    P->Remove=1;
+    return;
+}
+void scene_explorer_add_subscene_impl(panel_button* Self){
+    scene_explorer_element* E=(scene_explorer_element*)Self->Button_Data;
+    panel* Panel=Self->Base.Parent;
+    panel* P=create_popup_panel("Add Scene",7,10,110,6);
+    scene_expo_make_scene* Add_Scene= (scene_expo_make_scene*)malloc(sizeof(scene_expo_make_scene));
+    panel_text* Input_Export = create_panel_text("Add From:",1,2,99);
+    panel_input_text* Input_Path_Field =create_panel_input_text(11,2,98);
+    Add_Scene->Path=Input_Path_Field;
+    Add_Scene->Selected=E->Selected_Right->Entity;
+    panel_button* Load_Project = create_panel_button(24,4,"Add Scene",18,Add_Scene,scene_add_subscene_as_child_impl);
+    panel_button* Cancle_Loading_Project = create_panel_button(64,4,"Cancle Loading",20,Add_Scene,scene_cancle_popup_panel);
+    panel_registry* Reg = Self->Base.Parent->Registry;
+    add_element_to_panel(P,&Input_Export->Base);
+    add_element_to_panel(P,&Input_Path_Field->Base);
+    add_element_to_panel(P,&Load_Project->Base);
+    add_element_to_panel(P,&Cancle_Loading_Project->Base);
+    add_panel_to_registry(P,Reg);
+    uninspect_inspector_panel(E->Inspector);
+    Panel->Remove=1;
 }
 void scene_explorer_show_make_scene_impl(panel_button* Self){
     scene_explorer_element* E=(scene_explorer_element*)Self->Button_Data;
@@ -159,7 +223,7 @@ void add_child_entity_to_scene_explorer(entity* Entity,scene_explorer_element* s
     for(size_t i=0;i<Entity->Count;i++){
         entity* e=Entity->Children[i];
         add_entity_entity_to_scene_explorer(e,se,depth);
-        if(e->Count)
+        if(e->Count&&!e->Path)
             add_child_entity_to_scene_explorer(e,se,depth+1);
 
     }
@@ -193,15 +257,28 @@ void update_scene_explorer_element(panel_element* Self){
             if(MY-offset>=0&&MY-offset<(short)(se->Count)){
                 Node=se->Entities[MY-offset];
             }
-            if (Node&&MX>=3&&MX<Node->Text_Sprite.Width+3){
+            if (Node&&Node->Entity!=se->Registry->Root&&MX>=3&&MX<Node->Text_Sprite.Width+3){
+                panel_button *B1,*B2,*B3,*B4,*B5;
+                int Count=0;
                 se->Selected_Right=Node;
-                panel* P=create_context_panel("Entity Context",17,3);
-                panel_button* B1=create_panel_button(1,0,"Add_Child",14,se,scene_explorer_add_child_impl);
-                panel_button* B2=create_panel_button(1,1,"Make_Scene",15,se,scene_explorer_show_make_scene_impl);
-                panel_button* B3=create_panel_button(1,2,"Delete",14,se,scene_explorer_delete_button_impl);
+                B1=create_panel_button(1,Count++,"Rename",11,se,scene_explorer_show_rename_entity_impl);
+                if(!se->Selected_Right->Entity->Path){
+                    B2=create_panel_button(1,Count++,"Add_Child",14,se,scene_explorer_add_child_impl);
+                    //B3=create_panel_button(1,Count++,"Add_Subscene",17,se,scene_explorer_add_subscene_impl);
+                    B4=create_panel_button(1,Count++,"Make_Scene",15,se,scene_explorer_show_make_scene_impl);
+                }
+                else{
+                    //add_another_button;
+                }
+                B5=create_panel_button(1,Count++,"Delete",14,se,scene_explorer_delete_button_impl);
+                panel* P=create_context_panel("Entity Context",17,Count);
                 add_element_to_panel(P,&B1->Base);
-                add_element_to_panel(P,&B2->Base);
-                add_element_to_panel(P,&B3->Base);
+                add_element_to_panel(P,&B5->Base);
+                if(!se->Selected_Right->Entity->Path){
+                    add_element_to_panel(P,&B2->Base);
+                    //add_element_to_panel(P,&B3->Base);
+                    add_element_to_panel(P,&B4->Base);
+                }
                 add_panel_to_registry(P,Panel->Registry);
             }
             else{
@@ -240,7 +317,10 @@ void render_scene_explorer_element(panel_element* Self){
             char Name[128];
             if(Node->depth>0&&Node->depth+1<sizeof(Name)){
                 memset(Name,'-',Node->depth);
-                snprintf(Name+Node->depth,sizeof(Name)-Node->depth,">%s",Node->Entity->Name);
+                if(Node->Entity->Path)
+                    snprintf(Name+Node->depth,sizeof(Name)-Node->depth,"><%s",Node->Entity->Name);
+                else
+                    snprintf(Name+Node->depth,sizeof(Name)-Node->depth,">%s",Node->Entity->Name);
             }
             else{
                 snprintf(Name,sizeof(Name),"%s",Node->Entity->Name);

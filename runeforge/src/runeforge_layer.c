@@ -161,5 +161,5 @@ short get_relative_mouse_y(void){
 }
 entity* create_entity_in_registery(const char* Type_Name,const char* Entity_Name){
     Entity_Registry->Version++;
-    return create_entity(Entity_Registry->Root,Type_Name,Entity_Name);
+    return create_entity(Entity_Registry->Root,Type_Name,Entity_Name,NULL);
 }
