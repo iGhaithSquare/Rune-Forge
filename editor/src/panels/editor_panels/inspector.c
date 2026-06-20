@@ -257,36 +257,45 @@ void inspect_entity(entity* Entity,panel* Inspector_Panel){
     char buffer[128];
     snprintf(buffer,sizeof(buffer),"ID: %zu",Entity->ID);
     add_inspector_ui(I,buffer,"",NULL,-1);
+    add_inspector_ui(I,"","",NULL,-1);
     type_info *Info=Entity->Type;
-    for(size_t i=0;i<Info->Property_Count;i++){
-        property_info* P =&Info->Properties[i];
-        void *field=(char*)Entity+P->Usage;
-        char value_buffer[128];
-        char type_buffer[128];
-        switch (P->Type){
-        case PROPERTY_TYPE_STRING:
-            snprintf(value_buffer,128,"%s",*(char**)field?*(char**)field:NULL);
-            break;
-        case PROPERTY_TYPE_INT:
-            snprintf(value_buffer,128,"%d",*(int*)field);
-            break;
-        case PROPERTY_TYPE_FLOAT:
-            snprintf(value_buffer,128,"%f",*(float*)field);
-            break;
-        
-        case PROPERTY_TYPE_DOUBLE:
-            snprintf(value_buffer,128,"%f",*(double*)field);
-            break;
-        case PROPERTY_TYPE_SIZET:
-            snprintf(value_buffer,128,"%zu",*(size_t*)field);
-            break;
-        default:
-            GAVEN_WARN("Type doesnt exist %d",P->Type);
-            continue;
-            break;
+    while(Info){
+        snprintf(buffer,sizeof(buffer),"%s",Info->Name);
+        add_inspector_ui(I,buffer,"",NULL,-1);
+        for(size_t i=0;i<Info->Property_Count;i++){
+            property_info* P =&Info->Properties[i];
+            void *field=(char*)Entity+P->Usage;
+            char value_buffer[128];
+            char type_buffer[128];
+            switch (P->Type){
+            case PROPERTY_TYPE_STRING:
+                snprintf(value_buffer,128,"%s",*(char**)field?*(char**)field:"");
+                break;
+            case PROPERTY_TYPE_INT:
+                snprintf(value_buffer,128,"%d",*(int*)field);
+                break;
+            case PROPERTY_TYPE_FLOAT:
+                snprintf(value_buffer,128,"%f",*(float*)field);
+                break;
+            
+            case PROPERTY_TYPE_DOUBLE:
+                snprintf(value_buffer,128,"%f",*(double*)field);
+                break;
+            case PROPERTY_TYPE_SIZET:
+                snprintf(value_buffer,128,"%zu",*(size_t*)field);
+                break;
+            default:
+                GAVEN_WARN("Type doesnt exist %d",P->Type);
+                continue;
+                break;
+            }
+            snprintf(type_buffer,128,"%s",P->Name);
+            add_inspector_ui(I,type_buffer,value_buffer,field,P->Type);
         }
-        snprintf(type_buffer,128,"%s",P->Name);
-        add_inspector_ui(I,type_buffer,value_buffer,field,P->Type);
+        add_inspector_ui(I,"","",NULL,-1);
+        if(!Info->Parent)
+            break;
+        Info=TypeDB_Get(Info->Parent);
     }
 }
 panel* create_inspector(void){

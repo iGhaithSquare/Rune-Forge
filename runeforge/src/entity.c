@@ -157,8 +157,6 @@ void update_entity(entity * Self,double deltaTime){
         }
         type_info* Type=E->Type;
         if(!Type) continue;
-        if(Type->Update)
-            Type->Update(E,deltaTime);
         char* TypeName =Type->Parent;
         while(TypeName){
             type_info* Parent=TypeDB_Get(TypeName);
@@ -168,6 +166,8 @@ void update_entity(entity * Self,double deltaTime){
                 Parent->Update(E,deltaTime);
             TypeName=Parent->Parent;
         }
+        if(Type->Update)
+            Type->Update(E,deltaTime);
         update_entity(E,deltaTime);
     }
 }
@@ -181,8 +181,6 @@ void entity_on_event(entity* Self,event *Event){
         }
         type_info* Type=E->Type;
         if(!Type) continue;
-        if(Type->OnEvent)
-            Type->OnEvent(E,Event);
         char* TypeName =Type->Parent;
         while(TypeName){
             type_info* Parent=TypeDB_Get(TypeName);
@@ -192,6 +190,8 @@ void entity_on_event(entity* Self,event *Event){
                 Parent->OnEvent(E,Event);
             TypeName=Parent->Parent;
         }
+        if(Type->OnEvent)
+            Type->OnEvent(E,Event);
         entity_on_event(E,Event);
     }
 }
@@ -209,8 +209,6 @@ uint8_t render_entity(entity* Self){
         }
         type_info* Type=E->Type;
         if(!Type) continue;
-        if(Type->Render)
-            Type->Render(E);
         
         char* TypeName =Type->Parent;
         while(TypeName){
@@ -221,6 +219,8 @@ uint8_t render_entity(entity* Self){
                 Parent->Render(E);
             TypeName=Parent->Parent;
         }
+        if(Type->Render)
+            Type->Render(E);
         Check = render_entity(E);
     }
     return Check;
@@ -242,22 +242,27 @@ entity* deserialize_entity(cJSON* root, entity* Parent){
     char* Path =path_item->valuestring[0]?strdup(path_item->valuestring):NULL;
     entity* E=create_entity(Parent,type_item->valuestring,name_item->valuestring,Path);
     type_info *t =E->Type;
-    for(size_t i=0;i<t->Property_Count;i++){
-        property_info* p=&t->Properties[i];
-        cJSON* item = cJSON_GetObjectItem(root,p->Name);
-        if(!item) continue;
-        void *field=(char*)E+p->Usage;
-        switch(p->Type){
-            case PROPERTY_TYPE_INT: *(int*)field=item->valueint; break;
-            case PROPERTY_TYPE_FLOAT: *(float*)field=(float)item->valuedouble; break;
-            case PROPERTY_TYPE_STRING:  char** str=(char**)field;
-                *str=malloc(256);
-                GAVEN_ASSERT(*str,"Couldnt allocate memory to property type %s",p->Name);
-                strncpy(*str,item->valuestring,256); break;
-            case PROPERTY_TYPE_DOUBLE: *(double*)field=item->valuedouble; break;
-            case PROPERTY_TYPE_SIZET:   *(size_t*)field=(size_t)item->valuedouble; break;
-            default: GAVEN_ASSERT(0,"Unsupported property type for deserialization");
-        }
+    while(t){
+        for(size_t i=0;i<t->Property_Count;i++){
+            property_info* p=&t->Properties[i];
+            cJSON* item = cJSON_GetObjectItem(root,p->Name);
+            if(!item) continue;
+            void *field=(char*)E+p->Usage;
+            switch(p->Type){
+                case PROPERTY_TYPE_INT: *(int*)field=item->valueint; break;
+                case PROPERTY_TYPE_FLOAT: *(float*)field=(float)item->valuedouble; break;
+                case PROPERTY_TYPE_STRING:  char** str=(char**)field;
+                    *str=malloc(256);
+                    GAVEN_ASSERT(*str,"Couldnt allocate memory to property type %s",p->Name);
+                    strncpy(*str,item->valuestring,256); break;
+                case PROPERTY_TYPE_DOUBLE: *(double*)field=item->valuedouble; break;
+                case PROPERTY_TYPE_SIZET:   *(size_t*)field=(size_t)item->valuedouble; break;
+                default: GAVEN_ASSERT(0,"Unsupported property type for deserialization");
+            }
+        }    
+        if(!t->Parent)
+            break;
+        t=TypeDB_Get(t->Parent);
     }
     cJSON* children =cJSON_GetObjectItem(root,"Children");
     if (children&&cJSON_IsArray(children)){

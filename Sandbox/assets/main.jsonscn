@@ -18,6 +18,15 @@
 						"Path":	"",
 						"Children":	[]
 					}]
+			}, {
+				"Type":	"Sprite",
+				"Name":	"Sprite",
+				"Path":	"",
+				"Sprite":	1,
+				"X":	10,
+				"Y":	12,
+				"Z":	0,
+				"Children":	[]
 			}]
 	}
 }

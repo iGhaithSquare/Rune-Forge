@@ -46,19 +46,23 @@ void serialize_entity(cJSON* root, entity* Entity){
     cJSON_AddStringToObject(root,"Type",Entity->Type->Name);
     cJSON_AddStringToObject(root,"Name",Entity->Name);
     cJSON_AddStringToObject(root,"Path",Entity->Path?Entity->Path:"");
-    for(size_t i=0;i<t->Property_Count;i++){
-        property_info* p =&t->Properties[i];
-        void *field=(char*)Entity+p->Usage;
-        switch(p->Type){
-            case PROPERTY_TYPE_INT: cJSON_AddNumberToObject(root,p->Name,(double)*(int*)field); break;
-            case PROPERTY_TYPE_FLOAT: cJSON_AddNumberToObject(root,p->Name,(double)*(float*)field);break;
-            case PROPERTY_TYPE_STRING:  cJSON_AddStringToObject(root,p->Name,*(char**)field);break;
-            case PROPERTY_TYPE_DOUBLE: cJSON_AddNumberToObject(root,p->Name,*(double *)field);break;
-            case PROPERTY_TYPE_SIZET:   cJSON_AddNumberToObject(root,p->Name,(double)*(size_t*)field); break;
-            default: GAVEN_ASSERT(0,"Unsupported property type for serialization");
+    while(t){
+        for(size_t i=0;i<t->Property_Count;i++){
+            property_info* p =&t->Properties[i];
+            void *field=(char*)Entity+p->Usage;
+            switch(p->Type){
+                case PROPERTY_TYPE_INT: cJSON_AddNumberToObject(root,p->Name,(double)*(int*)field); break;
+                case PROPERTY_TYPE_FLOAT: cJSON_AddNumberToObject(root,p->Name,(double)*(float*)field);break;
+                case PROPERTY_TYPE_STRING:  cJSON_AddStringToObject(root,p->Name,*(char**)field);break;
+                case PROPERTY_TYPE_DOUBLE: cJSON_AddNumberToObject(root,p->Name,*(double *)field);break;
+                case PROPERTY_TYPE_SIZET:   cJSON_AddNumberToObject(root,p->Name,(double)*(size_t*)field); break;
+                default: GAVEN_ASSERT(0,"Unsupported property type for serialization");
+            }
         }
+        if(!t->Parent)
+            break;
+        t=TypeDB_Get(t->Parent);
     }
-    
     cJSON* Children=cJSON_CreateArray();
     
     if(!Entity->Path)

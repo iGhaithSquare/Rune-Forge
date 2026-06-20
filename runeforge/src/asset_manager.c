@@ -16,11 +16,18 @@ struct asset_manager{
     size_t Cap;
 };
 asset* get_asset(asset_manager *Asset_Manager,size_t id){
-    GAVEN_ASSERT(id<Asset_Manager->Count,"Couldnt find asset of id %d",id);
-    return &Asset_Manager->Assets[id];
+    if (id<=0) return NULL;
+    if(id>Asset_Manager->Count){
+        GAVEN_WARN("Couldnt find asset of id %d",id);
+        return NULL;
+    }
+    return &Asset_Manager->Assets[id-1];
 }
 sprite get_sprite(asset_manager *Asset_Manager,size_t id){
-    return get_asset(Asset_Manager,id)->data.Sprite;
+    asset* A= get_asset(Asset_Manager,id);
+    if(!A)
+        return (sprite){0};
+    return A->data.Sprite;
 }
 const char* get_scene_path(asset_manager *Asset_Manager,size_t id){
     return get_asset(Asset_Manager,id)->Path;
@@ -38,8 +45,8 @@ size_t add_sprite(asset_manager *Asset_Manager,sprite Sprite,const char *Path){
         .type= ASSET_TYPE_SPRITE,
         .Path= Path
     };
-    Asset_Manager->Assets[Asset_Manager->Count]=Asset;
-    return Asset_Manager->Count++;
+    Asset_Manager->Assets[Asset_Manager->Count++]=Asset;
+    return Asset_Manager->Count;
 }
 size_t add_path(asset_manager *Asset_Manager,const char* Path){
     asset Asset = {
@@ -47,8 +54,8 @@ size_t add_path(asset_manager *Asset_Manager,const char* Path){
         .Path=Path,
         .type= ASSET_TYPE_SCENE
     };
-    Asset_Manager->Assets[Asset_Manager->Count]=Asset;
-    return Asset_Manager->Count++;
+    Asset_Manager->Assets[Asset_Manager->Count++]=Asset;
+    return Asset_Manager->Count;
 }
 size_t add_sprite_from_file(asset_manager *Asset_Manager,const char* Path){
     short width,y;
@@ -120,7 +127,7 @@ size_t find_asset_from_asset_manager_with_path(asset_manager* Manager,const char
     if(!Manager) return -1;
     for(size_t i =0;i<Manager->Count;i++){
         if(strcmp(Manager->Assets[i].Path,Path)==0)
-            return i;
+            return i+1;
 
     }
     return -1;
