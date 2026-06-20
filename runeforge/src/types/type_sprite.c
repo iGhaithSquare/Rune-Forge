@@ -1,5 +1,5 @@
 #include "type_sprite.h"
-void sprite_render(entity* self){    
+void type_sprite_render(entity* self){    
     type_sprite* Sprite=(type_sprite*)self;
     sprite S=get_game_sprite(Sprite->SpriteID);
     if(S.Data)
@@ -10,12 +10,13 @@ static property_info Sprite_Props[] = {
 };
 type_info Type_Sprite = {
     .Name= "Sprite",
-    .Parent= "Entity2D",
+    .Parent= &Type_Entity2D,
     .Size=sizeof(type_sprite),
     .Create= NULL,
     .Destroy=NULL,
+    .Poll=NULL,
     .Update= NULL,
-    .Render=sprite_render,
+    .Render=type_sprite_render,
     .OnEvent=NULL,
     .Properties=Sprite_Props,
     .Property_Count=1,

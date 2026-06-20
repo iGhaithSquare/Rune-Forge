@@ -148,6 +148,32 @@ void free_child(entity *Parent,entity *Entity){
     Entity=NULL;
 }
 
+
+uint8_t poll_entity(entity* Self){
+    size_t i;
+    uint8_t Check=0;
+    for(i=0;i<Self->Count;i++){
+        entity* E = Self->Children[i];
+        if(!TypeDB_Get(E->Type_Name)){
+            free_child(Self,E);
+            Check=1;
+            E = Self->Children[i];
+            if(!E) break;
+        }
+        type_info* Type=E->Type;
+        if(!Type) continue;
+        type_info* Parent_Type=Type->Parent;
+        while(Parent_Type){
+            if(Parent_Type->Poll)
+                Parent_Type->Poll(E);
+            Parent_Type=Parent_Type->Parent;
+        };
+        if(Type->Poll)
+            Type->Poll(E);
+        Check |= poll_entity(E);
+    }
+    return Check;
+}
 void update_entity(entity * Self,double deltaTime){
     size_t i;
     for(i=0;i<Self->Count;i++){
@@ -157,15 +183,12 @@ void update_entity(entity * Self,double deltaTime){
         }
         type_info* Type=E->Type;
         if(!Type) continue;
-        char* TypeName =Type->Parent;
-        while(TypeName){
-            type_info* Parent=TypeDB_Get(TypeName);
-            if(Parent==NULL)
-                break;
-            if(Parent->Update)
-                Parent->Update(E,deltaTime);
-            TypeName=Parent->Parent;
-        }
+        type_info* Parent_Type=Type->Parent;
+        while(Parent_Type){
+            if(Parent_Type->Update)
+                Parent_Type->Update(E,deltaTime);
+            Parent_Type=Parent_Type->Parent;
+        };
         if(Type->Update)
             Type->Update(E,deltaTime);
         update_entity(E,deltaTime);
@@ -181,49 +204,36 @@ void entity_on_event(entity* Self,event *Event){
         }
         type_info* Type=E->Type;
         if(!Type) continue;
-        char* TypeName =Type->Parent;
-        while(TypeName){
-            type_info* Parent=TypeDB_Get(TypeName);
-            if(Parent==NULL)
-                break;
-            if(Parent->OnEvent)
-                Parent->OnEvent(E,Event);
-            TypeName=Parent->Parent;
-        }
+        type_info* Parent_Type=Type->Parent;
+        while(Parent_Type){
+            if(Parent_Type->OnEvent)
+                Parent_Type->OnEvent(E,Event);
+            Parent_Type=Parent_Type->Parent;
+        } 
         if(Type->OnEvent)
             Type->OnEvent(E,Event);
         entity_on_event(E,Event);
     }
 }
-
-uint8_t render_entity(entity* Self){
+void render_entity(entity* Self){
     size_t i;
-    uint8_t Check=0;
     for(i=0;i<Self->Count;i++){
         entity* E = Self->Children[i];
         if(!TypeDB_Get(E->Type_Name)){
-            free_child(Self,E);
-            Check=1;
-            E = Self->Children[i];
-            if(!E) break;
+            continue;
         }
         type_info* Type=E->Type;
         if(!Type) continue;
-        
-        char* TypeName =Type->Parent;
-        while(TypeName){
-            type_info* Parent=TypeDB_Get(TypeName);
-            if(Parent==NULL)
-                break;
-            if(Parent->Render)
-                Parent->Render(E);
-            TypeName=Parent->Parent;
+        type_info* Parent_Type=Type->Parent;
+        while(Parent_Type){
+            if(Parent_Type->Render)
+                Parent_Type->Render(E);
+            Parent_Type=Parent_Type->Parent;
         }
         if(Type->Render)
             Type->Render(E);
-        Check = render_entity(E);
+        render_entity(E);
     }
-    return Check;
 }
 type_info** Get_Entity_Types(size_t* Count){
     if(!g_types) return NULL;
@@ -259,10 +269,8 @@ entity* deserialize_entity(cJSON* root, entity* Parent){
                 case PROPERTY_TYPE_SIZET:   *(size_t*)field=(size_t)item->valuedouble; break;
                 default: GAVEN_ASSERT(0,"Unsupported property type for deserialization");
             }
-        }    
-        if(!t->Parent)
-            break;
-        t=TypeDB_Get(t->Parent);
+        }
+        t=t->Parent;
     }
     cJSON* children =cJSON_GetObjectItem(root,"Children");
     if (children&&cJSON_IsArray(children)){

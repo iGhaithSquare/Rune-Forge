@@ -8,6 +8,7 @@ type_info Type_Entity = {
     .Size=sizeof(type_entity),
     .Create= NULL,
     .Destroy=NULL,
+    .Poll=NULL,
     .Update= NULL,
     .Render=NULL,
     .OnEvent=NULL,

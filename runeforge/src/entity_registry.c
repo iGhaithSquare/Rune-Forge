@@ -28,6 +28,13 @@ void unload_entity_registry(entity_registry* Self){
     Self->Root=create_entity(NULL,"Entity","Root",NULL);
     Self->Version++;
 }
+void poll_entities(entity_registry* Self){
+    if(poll_entity(Self->Root)){
+        Self->Version++;
+        serialize_entity_registry(Self->Path,Self);
+
+    }
+}
 void update_entities(entity_registry* Self,double deltaTime){
     update_entity(Self->Root,deltaTime);
 }
@@ -35,11 +42,7 @@ void entities_on_event(entity_registry* Self,event *Event){
     entity_on_event(Self->Root,Event);
 }
 void render_entities(entity_registry* Self){
-    if(render_entity(Self->Root)){
-        Self->Version++;
-        serialize_entity_registry(Self->Path,Self);
-
-    }
+    render_entity(Self->Root);
 }
 void serialize_entity(cJSON* root, entity* Entity){
     type_info *t =Entity->Type;
@@ -59,9 +62,7 @@ void serialize_entity(cJSON* root, entity* Entity){
                 default: GAVEN_ASSERT(0,"Unsupported property type for serialization");
             }
         }
-        if(!t->Parent)
-            break;
-        t=TypeDB_Get(t->Parent);
+        t=t->Parent;
     }
     cJSON* Children=cJSON_CreateArray();
     

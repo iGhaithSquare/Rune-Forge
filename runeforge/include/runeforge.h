@@ -550,7 +550,6 @@ create_layer_phase(render_end,8);
 #endif
 #ifndef ENTITY_H
 #define ENTITY_H
-
 typedef struct entity entity;
 typedef enum {
     PROPERTY_TYPE_INT,
@@ -570,9 +569,10 @@ typedef  struct property_info{
 //todo make property arrays heterogeneous objects
 typedef struct type_info{
     const char* Name;
-    char* Parent;
+    struct type_info* Parent;
     size_t Size;
     void (*Create)(entity* Self);
+    void (*Poll)(entity* Self);
     void (*Update)(entity* Self,double Delta_Time);
     void (*OnEvent)(entity* Self,event* Event);
     void (*Render)(entity* Self); 
@@ -596,9 +596,10 @@ struct entity{
 RUNEFORGE_API entity* create_entity(entity* Parent,const char* Type_Name,const char* Entity_Name,char *Path);
 RUNEFORGE_API void add_entity_child(entity* Parent,entity* Child);
 RUNEFORGE_API void free_child(entity *Parent,entity *Entity);
+RUNEFORGE_API uint8_t poll_entity(entity * Self);
 RUNEFORGE_API void update_entity(entity * Self,double deltaTime);
 RUNEFORGE_API void entity_on_event(entity* Self,event *Event);
-RUNEFORGE_API uint8_t render_entity(entity* Self);
+RUNEFORGE_API void render_entity(entity* Self);
 RUNEFORGE_API entity* get_child(entity* Self,size_t id);
 RUNEFORGE_API void TypeDB_Register(type_info* Type);
 RUNEFORGE_API void Destroy_TypeDB(void);
@@ -618,6 +619,7 @@ typedef enum asset_type {
 #endif
 #ifndef ENTITY_REGISTRY_H
 #define ENTITY_REGISTRY_H
+
 typedef struct entity_registry entity_registry;
 struct entity_registry{
     entity* Root;
@@ -627,6 +629,7 @@ struct entity_registry{
 void entities_on_event(entity_registry* Self,event* Event);
 RUNEFORGE_API entity_registry* create_entity_registry(void);
 RUNEFORGE_API void add_entity_to_registry(entity_registry *Registry,entity *Entity);
+RUNEFORGE_API void poll_entities(entity_registry* Self);
 RUNEFORGE_API void update_entities(entity_registry* Self,double deltaTime);
 RUNEFORGE_API void render_entities(entity_registry* Self);
 RUNEFORGE_API void free_entity(entity_registry *Registry,entity *Entity);

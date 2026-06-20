@@ -40,6 +40,7 @@ void main_layer_ondetach(layer* self){
 void main_layer_polling_callback(layer* self,void* ctx){
     input_polling();
     poll_delta_time();
+    poll_entities(Entity_Registry);
     return;
 }
 

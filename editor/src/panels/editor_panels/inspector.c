@@ -295,7 +295,7 @@ void inspect_entity(entity* Entity,panel* Inspector_Panel){
         add_inspector_ui(I,"","",NULL,-1);
         if(!Info->Parent)
             break;
-        Info=TypeDB_Get(Info->Parent);
+        Info=Info->Parent;
     }
 }
 panel* create_inspector(void){

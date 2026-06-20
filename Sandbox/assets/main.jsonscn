@@ -4,18 +4,20 @@
 		"Name":	"Root",
 		"Path":	"",
 		"Children":	[{
-				"Type":	"Entity",
-				"Name":	"Entity",
+				"Type":	"Entity2D",
+				"Name":	"Entity2D",
 				"Path":	"",
+				"X":	12,
+				"Y":	0,
+				"Z":	0,
 				"Children":	[{
-						"Type":	"Entity",
-						"Name":	"Entity",
-						"Path":	"C:\\dev\\Visual Studio Code\\Rune-Forge\\\\Sandbox\\assets\\ASAS.jsonscn",
-						"Children":	[]
-					}, {
-						"Type":	"Entity",
-						"Name":	"Entity",
+						"Type":	"Sprite",
+						"Name":	"Sprite",
 						"Path":	"",
+						"Sprite":	1,
+						"X":	0,
+						"Y":	0,
+						"Z":	0,
 						"Children":	[]
 					}]
 			}, {
@@ -23,10 +25,19 @@
 				"Name":	"Sprite",
 				"Path":	"",
 				"Sprite":	1,
-				"X":	10,
-				"Y":	12,
+				"X":	15,
+				"Y":	0,
 				"Z":	0,
-				"Children":	[]
+				"Children":	[{
+						"Type":	"Sprite",
+						"Name":	"Sprite",
+						"Path":	"",
+						"Sprite":	1,
+						"X":	1,
+						"Y":	0,
+						"Z":	1,
+						"Children":	[]
+					}]
 			}]
 	}
 }
