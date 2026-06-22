@@ -27,7 +27,7 @@
 				"Sprite":	1,
 				"X":	15,
 				"Y":	0,
-				"Z":	0,
+				"Z":	2,
 				"Children":	[{
 						"Type":	"Sprite",
 						"Name":	"Sprite",

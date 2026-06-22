@@ -148,11 +148,11 @@ void change_update_state(uint8_t new_state){
 uint8_t get_state(void){
     return State;
 }
-void remove_asset(size_t ID){
-    remove_asset_from_asset_manager(Asset_Manager,ID);
+void remove_asset(size_t ID,asset_type Type){
+    remove_asset_from_asset_manager(Asset_Manager,Type,ID);
 }
-size_t get_asset_id_from_path(const char* Path){
-    return find_asset_from_asset_manager_with_path(Asset_Manager,Path);
+size_t get_asset_id_from_path(const char* Path,asset_type Type){
+    return find_asset_from_asset_manager_with_path(Asset_Manager,Type,Path);
 }
 short get_relative_mouse_x(void){
     return get_mouse_X()-offsetX;

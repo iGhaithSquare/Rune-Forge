@@ -197,7 +197,7 @@ void update_button_selected(panel_button *Button){
             Button->Text="Load Scene";
             break;
         case ASSET_TYPE_SPRITE:
-            Data->Data=get_asset_id_from_path(Data->Selected->File_Path);
+            Data->Data=get_asset_id_from_path(Data->Selected->File_Path,ASSET_TYPE_SPRITE);
             if(Data->Data==-1)
                 Button->Text="Load Sprite";
             else

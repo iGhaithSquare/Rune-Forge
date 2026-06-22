@@ -616,6 +616,7 @@ typedef enum asset_type {
     ASSET_TYPE_SPRITE,
     ASSET_TYPE_SCENE
 }asset_type;
+#define ASSET_TYPE_COUNT 2
 #endif
 #ifndef ENTITY_REGISTRY_H
 #define ENTITY_REGISTRY_H
@@ -654,11 +655,11 @@ RUNEFORGE_API void save_scene(char* Path);
 RUNEFORGE_API void unload_scene(void);
 RUNEFORGE_API void change_update_state(uint8_t new_state);
 RUNEFORGE_API uint8_t get_state(void);
-RUNEFORGE_API void remove_asset(size_t ID);
+RUNEFORGE_API void remove_asset(size_t ID,asset_type Type);
 RUNEFORGE_API application* runeforge_main(void);
 RUNEFORGE_API size_t load_game_asset(const char* Path,asset_type Type);
 RUNEFORGE_API void add_entity(entity* e);
-RUNEFORGE_API size_t get_asset_id_from_path(const char* Path);
+RUNEFORGE_API size_t get_asset_id_from_path(const char* Path,asset_type Type);
 RUNEFORGE_API short get_relative_mouse_x(void);
 RUNEFORGE_API short get_relative_mouse_y(void);
 RUNEFORGE_API entity* create_entity_in_registery(const char* Type_Name,const char* Entity_Name);
